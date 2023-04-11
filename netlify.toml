@@ -1,0 +1,10 @@
+[context.stage]
+  command = "yarn build --mode stage"
+
+[context.master]
+  command = "yarn build --mode master"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
