@@ -7,7 +7,7 @@
           class=" h-16 mr-3"
           alt="Flowbite Logo"
         />
-        <span class="self-center text-3xl font-semibold whitespace-nowrap text-primaryBlue"
+        <span class="self-center text-xl font-semibold whitespace-nowrap text-primaryBlue"
           >Dreamtrip.io v0.1a</span
         >
       </a>
