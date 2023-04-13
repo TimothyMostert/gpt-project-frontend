@@ -1,21 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{vue,js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
-        // primary: "rgb(228,109,48)",
-        primary: "#FFC44F",
-        secondary: "white",
-        dark: "#354b66",
-        
+        primaryBlue: "#0D518C",
+        secondaryBlue: "#04BFAD",
+        primaryOrange: "#F2A341",
+        secondaryOrange: "#F27830",
+        primaryWhite: "#F2F2F2",
+      },
     },
   },
-  },
-  plugins: [
-    require('@tailwindcss/forms'),
-  ],
-}
+  plugins: [require("@tailwindcss/forms")],
+};

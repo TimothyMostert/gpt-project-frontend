@@ -1,9 +1,13 @@
 <script setup>
-import PromptInput from '../components/PromptInput.vue'
+import PromptCreator from "@/components/layout/PromptCreator.vue";
+import ItineraryFlow from "@/components/layout/ItineraryFlow.vue";
 </script>
 
 <template>
-  <main class="p-4 max-w-5xl flex flex-col h-full justify-center">
-    <PromptInput class="" />
+  <main class="bg-white">
+    <div class="p-4 max-w-md flex flex-col h-full justify-center mx-auto">
+      <PromptCreator />
+      <ItineraryFlow />
+    </div>
   </main>
 </template>
