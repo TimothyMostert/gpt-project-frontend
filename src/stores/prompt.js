@@ -17,12 +17,12 @@ export const usePromptsStore = defineStore({
         const errorStore = useErrorStore();
         const loaderStore = useLoaderStore();
         loaderStore.setLoader(true);
-        const result = await Api.prompt({
+        const result = await Api.createItinerary({
           prompt: this.promptText,
           tags: this.promptTags,
         });
-        if (result.data) {
-          itineraryStore.setItinerary(result.data.choices[0].text);
+        if (result.data, result.data.success) {
+          itineraryStore.setItinerary(JSON.parse(result.data.itinerary));
         } else {
           // TODO: Handle error
         }

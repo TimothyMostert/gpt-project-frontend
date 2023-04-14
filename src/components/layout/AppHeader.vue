@@ -8,7 +8,7 @@
           alt="Flowbite Logo"
         />
         <span class="self-center text-xl font-semibold whitespace-nowrap text-primaryBlue"
-          >Dreamtrip.io v0.1a</span
+          >Dreamtrip.io v0.2b</span
         >
       </a>
       <!-- <button

@@ -10,6 +10,11 @@ module.exports = {
         secondaryOrange: "#F27830",
         primaryWhite: "#F2F2F2",
       },
+      backgroundImage: {
+        "palm-tree": "url('/src/assets/images/tiled-palm-trees.png')",
+        'location-1': "url('/src/assets/images/tiled-travel-vibes.png')",
+        'travel-1': "url('/src/assets/images/tiled-travel-lines.png')",
+      }
     },
   },
   plugins: [require("@tailwindcss/forms")],

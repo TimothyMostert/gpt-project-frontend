@@ -32,6 +32,6 @@ export default {
   user_login: (body) => Api.post("api/user/login", body),
   user_logout: () => Api.get("api/user/logout"),
   
-  // openai
-  prompt: (body) => Api.post("api/prompt", body),
+  // itinerary 
+  createItinerary: (body) => Api.post("api/itinerary/create", body),
 };

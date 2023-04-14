@@ -5,7 +5,7 @@ import ItineraryFlow from "@/components/layout/ItineraryFlow.vue";
 
 <template>
   <main class="bg-white">
-    <div class="p-4 max-w-md flex flex-col h-full justify-center mx-auto">
+    <div class="p-4 max-w-md flex flex-col gap-8 h-full justify-center mx-auto">
       <PromptCreator />
       <ItineraryFlow />
     </div>

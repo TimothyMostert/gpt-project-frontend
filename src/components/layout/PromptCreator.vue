@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-2 p-4 rounded border">
+    <div class="flex flex-col gap-4 px-4 py-8 rounded-lg shadow-2xl isolate after:bg-palm-tree after:inset-0 after:absolute after:rounded-lg after:-z-10 after:opacity-40">
         <PromptText />
         <PromptTags />
         <PrimaryButton @click="generateItinerary">Generate Itinerary</PrimaryButton>
@@ -22,6 +22,5 @@ const generateItinerary = () => {
 
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped>
 </style>
