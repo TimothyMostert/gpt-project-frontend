@@ -20,9 +20,11 @@ export const usePromptsStore = defineStore({
         const result = await Api.createItinerary({
           prompt: this.promptText,
           tags: this.promptTags,
+          prompt_context: "itinerary_creation_v01",
+          session_id: "1234",
         });
         if (result.data, result.data.success) {
-          itineraryStore.setItinerary(JSON.parse(result.data.itinerary));
+          itineraryStore.setItinerary(result.data.itinerary);
         } else {
           // TODO: Handle error
         }
