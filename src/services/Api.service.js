@@ -33,5 +33,6 @@ export default {
   user_logout: () => Api.get("api/user/logout"),
   
   // itinerary 
-  createItinerary: (body) => Api.post("api/itinerary/create", body),
+  createItinerary: (body) => Api.post("api/create/itinerary", body),
+  getRandomPrompt: () => Api.get(`api/create/prompt`),
 };

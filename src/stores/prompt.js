@@ -12,7 +12,7 @@ export const usePromptsStore = defineStore({
   }),
   getters: {},
   actions: {
-    async generateItinerary() {
+    async createItinerary() {
         const itineraryStore = useItineraryStore();
         const errorStore = useErrorStore();
         const loaderStore = useLoaderStore();
