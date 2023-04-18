@@ -23,7 +23,7 @@ export const usePromptsStore = defineStore({
         const result = await Api.createItinerary({
           prompt: this.promptText,
           tags: this.promptTags,
-          prompt_context: "itinerary_creation_v01",
+          prompt_context: "itinerary_creation_v02",
           session_id: "1234",
         });
         if (result.data, result.data.success) {
@@ -34,7 +34,7 @@ export const usePromptsStore = defineStore({
         loaderStore.itineraryLoaderIsActive = false
       } catch (error) {
         loaderStore.itineraryLoaderIsActive = false;
-        errorStore.setError('server_error', error);
+        errorStore.addError('server_error', error);
       }
       }
   },
