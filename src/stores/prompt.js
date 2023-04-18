@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import Api from "@/services/Api.service.js";
 import { useItineraryStore } from "./itinerary.js";
-import { useErrorStore } from "./errors.js";
+import { useErrorStore } from "./error.js";
 import  { useLoaderStore } from "./loader.js";
 
 export const usePromptsStore = defineStore({
@@ -9,14 +9,17 @@ export const usePromptsStore = defineStore({
   state: () => ({
     promptText: "",
     promptTags: [],
+    isOpen: true,
   }),
   getters: {},
   actions: {
     async createItinerary() {
-        const itineraryStore = useItineraryStore();
-        const errorStore = useErrorStore();
-        const loaderStore = useLoaderStore();
-        loaderStore.setLoader(true);
+      const itineraryStore = useItineraryStore();
+      const errorStore = useErrorStore();
+      const loaderStore = useLoaderStore();
+      loaderStore.itineraryLoaderIsActive = true;
+      this.isOpen = false;
+      try {
         const result = await Api.createItinerary({
           prompt: this.promptText,
           tags: this.promptTags,
@@ -26,9 +29,13 @@ export const usePromptsStore = defineStore({
         if (result.data, result.data.success) {
           itineraryStore.setItinerary(result.data.itinerary);
         } else {
-          // TODO: Handle error
+          errorStore.addError('create_itinerary', result.data);
         }
-        loaderStore.setLoader(false);
+        loaderStore.itineraryLoaderIsActive = false
+      } catch (error) {
+        loaderStore.itineraryLoaderIsActive = false;
+        errorStore.setError('server_error', error);
+      }
       }
   },
 });

@@ -3,7 +3,8 @@ import { defineStore } from 'pinia'
 export const useLoaderStore = defineStore({
   id: 'loader',
   state: () => ({
-    loaderIsActive: false
+    loaderIsActive: false,
+    itineraryLoaderIsActive: false,
   }),
   getters: {
 

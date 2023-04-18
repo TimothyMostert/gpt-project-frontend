@@ -1,5 +1,7 @@
 <template>
-    <img class="h-4" @click="createRandomPrompt" src="@/assets/images/dice.png">
+    <div class="cursor-pointer w-8 h-8 flex justify-center items-center">
+        <img class="h-4" @click="createRandomPrompt" src="@/assets/images/dice-removebg.png">
+    </div>
 </template>
 
 <script setup>
@@ -12,6 +14,7 @@ const createRandomPrompt = async () => {
     const result = await Api.getRandomPrompt();
     if (result && result.data.success) {
         promptStore.promptText = result.data.prompt;
+        promptStore.promptTags = result.data.tags;
     }
 }
 </script>

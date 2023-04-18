@@ -24,7 +24,7 @@
   </template>
   
   <script setup>
-  import { ref } from "vue";
+  import { ref, watch } from "vue";
   
   const props = defineProps({
     tag: String,
@@ -36,10 +36,12 @@
   const key = ref(props.tag);
   
   const isSelected = ref(false);
+
+  watch(() => props.selectedTags, (newVal) => {
+    isSelected.value = newVal.includes(props.tag);
+  }, { deep: true });
   
   const toggleTag = () => {
-    console.log(isSelected.value)
-    console.log(props.selectedColor)
     if (isSelected.value) {
       props.selectedTags.splice(props.selectedTags.indexOf(props.tag), 1);
     } else {

@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, watchEffect } from "vue";
 import PromptTag from "@/components/prompt/PromptTag.vue";
 import { usePromptsStore } from "@/stores/prompt";
 
@@ -20,8 +20,24 @@ const promptStore = usePromptsStore();
 
 const selectedTags = ref([]);
 
+let ignoreUpdates = false;
+
 watch(selectedTags, (newVal) => {
+  if (ignoreUpdates) return;
+  ignoreUpdates = true;
   promptStore.promptTags = newVal;
+  watchEffect(onCleanup => {
+    ignoreUpdates = false;
+  });
+}, { deep: true });
+
+watch(() => promptStore.promptTags, (newVal) => {
+  if (ignoreUpdates) return;
+  ignoreUpdates = true;
+  selectedTags.value = newVal;
+  watchEffect(onCleanup => {
+    ignoreUpdates = false;
+  });
 }, { deep: true });
 
 const tags = [
