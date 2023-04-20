@@ -20,7 +20,7 @@
               @blur="promptTextArea.handleBlur"
               class="mb-4"
             />
-            <PromptTagList v-model="promptStore.promptTags" />
+            <PromptInterestList v-model="promptStore.interests" />
           </div>
         </Transition>
         <div
@@ -52,7 +52,7 @@
 <script setup>
 import PromptHeader from "@/components/prompt/PromptHeader.vue";
 import BaseTextArea from "@/components/base/BaseTextArea.vue";
-import PromptTagList from "@/components/prompt/PromptTagList.vue";
+import PromptInterestList from "@/components/prompt/PromptInterestList.vue";
 import PromptRandomizer from "@/components/prompt/PromptRandomizer.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 

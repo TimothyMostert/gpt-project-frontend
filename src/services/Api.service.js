@@ -34,5 +34,7 @@ export default {
   
   // itinerary 
   createItinerary: (body) => Api.post("api/create/itinerary", body),
+  createEventsItinerary: (body) => Api.post("api/create/events", body),
+  createLocationDetails: (body) => Api.post("api/create/location-details", body),
   getRandomPrompt: () => Api.get(`api/create/prompt`),
 };

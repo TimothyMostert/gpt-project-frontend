@@ -6,7 +6,7 @@
         v-for="(event, index) in itineraryStore.itinerary.events"
         :key="'event-' + index.id"
       >
-        <TravelEvent v-if="event.type === 'travel'" :event="event" />
+        <TravelEvent v-if="event.event_type_id === 1" :event="event" />
         <LocationEvent v-else :event="event" />
         <EventConnection v-if="index !== itineraryStore.itinerary.events.length - 1" />
       </div>

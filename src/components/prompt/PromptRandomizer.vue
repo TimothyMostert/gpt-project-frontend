@@ -14,7 +14,7 @@ const createRandomPrompt = async () => {
     const result = await Api.getRandomPrompt();
     if (result && result.data.success) {
         promptStore.promptText = result.data.prompt;
-        promptStore.promptTags = result.data.tags;
+        promptStore.interests = result.data.tags;
     }
 }
 </script>

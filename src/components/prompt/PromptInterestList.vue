@@ -1,46 +1,46 @@
 <template>
   <div class="p-4 space-x-2 flex overflow-x-scroll md:overflow-auto md:space-x-0 md:grid md:grid-cols-4 md:gap-2">
-    <PromptTag
-      v-for="tag in tags"
-      :key="tag.name"
-      :tag="tag.name"
-      :selectedTags="selectedTags"
-      :selectedColor="tag.selectedColor"
-      :selectedTextColor="tag.selectedTextColor"
+    <PromptInterest
+      v-for="interests in interests"
+      :key="interests.name"
+      :interest="interests.name"
+      :selectedInterests="selectedInterests"
+      :selectedColor="interests.selectedColor"
+      :selectedTextColor="interests.selectedTextColor"
     />
   </div>
 </template>
 
 <script setup>
 import { ref, watch, watchEffect } from "vue";
-import PromptTag from "@/components/prompt/PromptTag.vue";
+import PromptInterest from "@/components/prompt/PromptInterest.vue";
 import { usePromptsStore } from "@/stores/prompt";
 
 const promptStore = usePromptsStore();
 
-const selectedTags = ref([]);
+const selectedInterests = ref([]);
 
 let ignoreUpdates = false;
 
-watch(selectedTags, (newVal) => {
+watch(selectedInterests, (newVal) => {
   if (ignoreUpdates) return;
   ignoreUpdates = true;
-  promptStore.promptTags = newVal;
+  promptStore.interests = newVal;
   watchEffect(onCleanup => {
     ignoreUpdates = false;
   });
 }, { deep: true });
 
-watch(() => promptStore.promptTags, (newVal) => {
+watch(() => promptStore.interests, (newVal) => {
   if (ignoreUpdates) return;
   ignoreUpdates = true;
-  selectedTags.value = newVal;
+  selectedInterests.value = newVal;
   watchEffect(onCleanup => {
     ignoreUpdates = false;
   });
 }, { deep: true });
 
-const tags = [
+const interests = [
   { name: "Adventure", selectedColor: "bg-red-300", selectedTextColor: "text-red-900" },
   { name: "Beach", selectedColor: "bg-blue-300", selectedTextColor: "text-blue-900" },
   { name: "City", selectedColor: "bg-gray-300", selectedTextColor: "text-gray-900" },

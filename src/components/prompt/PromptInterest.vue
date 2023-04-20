@@ -1,6 +1,6 @@
 <template>
     <div
-      @click="toggleTag"
+      @click="toggleInterest"
       :class="[
         'relative',
         'flex',
@@ -17,9 +17,9 @@
         isSelected ? props.selectedTextColor : 'text-gray-500',
         isSelected ? props.selectedColor : 'bg-gray-100'
       ]"
-      :key="tag"
+      :key="interest"
     >
-      {{ tag }}
+      {{ interest }}
     </div>
   </template>
   
@@ -27,27 +27,27 @@
   import { ref, watch } from "vue";
   
   const props = defineProps({
-    tag: String,
-    selectedTags: Array,
+    interest: String,
+    selectedInterests: Array,
     selectedColor: String,
     selectedTextColor: String
   });
 
-  const key = ref(props.tag);
+  const key = ref(props.interest);
   
   const isSelected = ref(false);
 
-  watch(() => props.selectedTags, (newVal) => {
-    isSelected.value = newVal.includes(props.tag);
+  watch(() => props.selectedInterests, (newVal) => {
+    isSelected.value = newVal.includes(props.interest);
   }, { deep: true });
   
-  const toggleTag = () => {
+  const toggleInterest = () => {
     if (isSelected.value) {
-      props.selectedTags.splice(props.selectedTags.indexOf(props.tag), 1);
+      props.selectedInterests.splice(props.selectedInterests.indexOf(props.interest), 1);
     } else {
-      props.selectedTags.push(props.tag);
+      props.selectedInterests.push(props.interest);
     }
     isSelected.value = !isSelected.value;
-    key.value = props.tag + 1;
+    key.value = props.interest + 1;
   };
   </script>
