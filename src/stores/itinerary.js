@@ -4,6 +4,7 @@ export const useItineraryStore = defineStore({
   id: "Itinerary",
   state: () => ({
     itinerary: "",
+    title: "",
   }),
   getters: {},
   actions: {

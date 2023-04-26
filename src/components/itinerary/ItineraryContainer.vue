@@ -1,6 +1,6 @@
 <template>
   <div v-if="itineraryStore.itinerary" class="px-4 py-2">
-    <ItineraryHeader :title="itineraryStore.itinerary.title" />
+    <ItineraryHeader :title="itineraryStore.title" />
     <div class="flex flex-col">
       <div
         v-for="(event, index) in itineraryStore.itinerary.events"

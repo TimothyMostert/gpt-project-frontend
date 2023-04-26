@@ -34,7 +34,7 @@ export const usePromptsStore = defineStore({
           const locationDetails = await Api.createLocationDetails({
             uuid: uuid, 
             itinerary_id: itineraryId,
-            prompt_context: "location_details_v01",
+            prompt_context: "location_details_v02",
             session_id: "1234"});
           return locationDetails;
         } catch (error) {
@@ -43,6 +43,14 @@ export const usePromptsStore = defineStore({
       }
 
       try {
+        const title = await Api.createTitle({
+          prompt: this.promptText,
+        });
+
+        if (title.data) {
+          itineraryStore.title = title.data.title;
+        }
+
         const result = await Api.createEventsItinerary({
           prompt: this.promptText,
           interests: this.interests,

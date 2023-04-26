@@ -33,6 +33,7 @@ export default {
   user_logout: () => Api.get("api/user/logout"),
   
   // itinerary 
+  createTitle: (body) => Api.post("api/create/title", body),
   createItinerary: (body) => Api.post("api/create/itinerary", body),
   createEventsItinerary: (body) => Api.post("api/create/events", body),
   createLocationDetails: (body) => Api.post("api/create/location-details", body),
