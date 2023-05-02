@@ -14,7 +14,7 @@
             <BaseTextArea
               v-model="promptStore.promptText"
               id="main-prompt-textarea"
-              placeholder="Let your dreams run wild! where do you want to go?"
+              placeholder="eg: Design a yoga and wellness retreat itinerary in Bali, highlighting spiritual experiences and rejuvenating activities."
               @input="promptTextArea.handleInput"
               @focus="promptTextArea.handleFocus"
               @blur="promptTextArea.handleBlur"

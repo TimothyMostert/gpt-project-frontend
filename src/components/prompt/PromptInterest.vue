@@ -39,7 +39,7 @@
 
   watch(() => props.selectedInterests, (newVal) => {
     isSelected.value = newVal.includes(props.interest);
-  }, { deep: true });
+  }, { deep: true, immediate: true });
   
   const toggleInterest = () => {
     if (isSelected.value) {

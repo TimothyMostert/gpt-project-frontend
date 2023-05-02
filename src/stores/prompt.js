@@ -26,9 +26,20 @@ export const usePromptsStore = defineStore({
       const itineraryStore = useItineraryStore();
       const errorStore = useErrorStore();
       const loaderStore = useLoaderStore();
+
       loaderStore.itineraryLoaderIsActive = true;
       this.isOpen = false;
 
+      // Handles calling the event details endpoint for each event in the itinerary and updating the itinerary store with the response as it comes in
+      async function fetchAndProcessLocationDetails(event) {
+        const { uuid, itinerary_id } = event;
+        try {
+          const locationDetails = await fetchLocationDetails(uuid, itinerary_id);
+          processLocationDetails(locationDetails.data.locationDetails);
+        } catch (error) {
+          console.error("Error fetching location details:", error);
+        }
+      }
       async function fetchLocationDetails(uuid, itineraryId) {
         try {
           const locationDetails = await Api.createLocationDetails({
@@ -42,39 +53,25 @@ export const usePromptsStore = defineStore({
         }
       }
 
+      // Handles calling the create itinerary endpoint and updating the itinerary store with the response as it comes in
       try {
-        const title = await Api.createTitle({
-          prompt: this.promptText,
-        });
-
-        if (title.data) {
-          itineraryStore.title = title.data.title;
-        }
-
         const result = await Api.createEventsItinerary({
           prompt: this.promptText,
           interests: this.interests,
           prompt_context: "events_creation_v01",
           session_id: "1234",
         });
-
+        // if successful, update the itinerary store with the response
         if (result.data && result.data.success) {
+
           loaderStore.itineraryLoaderIsActive = false;
           itineraryStore.setItinerary(result.data.itinerary);
-          const promises = result.data.itinerary.events.map(event => {
-            const { uuid, itinerary_id } = event;
-            return fetchLocationDetails(uuid, itinerary_id);
-          });
+          itineraryStore.title = result.data.title;
 
-          Promise.allSettled(promises).then(results => {
-            results.forEach(result => {
-              if (result.status === "fulfilled") {
-                processLocationDetails(result.value.data.locationDetails);
-              } else {
-                console.error("Error fetching location details:", result.reason);
-              }
-            });
-          });
+          // fetch location details for each event in the itinerary and update the itinerary store with the response
+          const promises = result.data.itinerary.events.map(event => fetchAndProcessLocationDetails(event));
+          await Promise.allSettled(promises);
+
         } else {
           errorStore.addError('create_itinerary', result.data);
         }

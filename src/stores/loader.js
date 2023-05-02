@@ -5,6 +5,7 @@ export const useLoaderStore = defineStore({
   state: () => ({
     loaderIsActive: false,
     itineraryLoaderIsActive: false,
+    mainPromptIsActive: true,
   }),
   getters: {
 

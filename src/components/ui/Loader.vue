@@ -1,5 +1,5 @@
 <script setup>
-    import BounceLoader from "vue-spinner/src/BounceLoader.vue";
+    import { BounceLoader } from "vue3-spinner";
 
     const loader = {
     stepCount: 2500,
@@ -26,11 +26,11 @@
       bg-gray-700 bg-opacity-50
     "
   >
-    <bounce-loader
+    <BounceLoader
       :loading="true"
       :color="loader.spinnerColor"
       :size="loader.spinnerSize"
-    ></bounce-loader>
+    />
   </div>
 </template>
   

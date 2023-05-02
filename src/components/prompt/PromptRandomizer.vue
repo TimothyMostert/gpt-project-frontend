@@ -1,6 +1,7 @@
 <template>
-    <div class="cursor-pointer w-8 h-8 flex justify-center items-center">
-        <img class="h-4" @click="createRandomPrompt" src="@/assets/images/dice-removebg.png">
+    <div v-if="promptStore.isOpen" @click="createRandomPrompt" class="cursor-pointer h-8 flex justify-center items-center">
+        <img class="h-4" src="@/assets/images/dice-removebg.png">
+        <span class="ml-2 text-xs whitespace-nowrap">Surprise Me!</span>
     </div>
 </template>
 

@@ -1,12 +1,6 @@
 <template>
-  <div
-    class="rounded-lg h-80 shadow-2xl bg-white py-12 p-4 bg-opacity-80 flex flex-col items-center justify-center"
-  >
-    <bounce-loader
-      :loading="true"
-      :color="loader.spinnerColor"
-      :size="loader.spinnerSize"
-    ></bounce-loader>
+  <div class="h-80 py-12 p-4 flex flex-col items-center justify-center">
+    <GridLoader class="opacity-30" :loading="true" :color="loader.spinnerColor" :size="loader.spinnerSize" />
     <div class="mt-8 text-lg font-semibold text-center">
       {{ currentStep }}
     </div>
@@ -18,14 +12,12 @@
 
 <script setup>
 import { ref, computed, watchEffect } from "vue";
-import BounceLoader from "vue-spinner/src/BounceLoader.vue";
+import { GridLoader } from "vue3-spinner";
 
 const loader = {
-  stepCount: 2500,
-  backgroundColor: "linear-gradient(to right, lightgray, gray)",
-  opacity: 0.8,
-  spinnerSize: "100px",
-  spinnerColor: "white",
+  spinnerSize: "50px",
+  // linear gradient on spinner color
+  spinnerColor: "#0D518C",
 };
 
 const step = ref(1);
