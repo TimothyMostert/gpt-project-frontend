@@ -1,7 +1,5 @@
 <template>
-  <div class="rounded-lg shadow-2xl">
-    <EditEvent :event="event" />
-    <div
+        <div
       class="p-4 isolate after:bg-location-1 after:inset-0 after:absolute after:rounded-t-lg after:-z-10 after:opacity-20"
     >
       <h2 class="font-bold text-gray-700">{{ event.location_event.title }}</h2>
@@ -32,13 +30,11 @@
           </p>
         </div>
     </div>
-  </div>
 </template>
 
 <script setup>
-import ActivitiesPlaceholder from "@/components/itinerary/event/ActivitiesPlaceholder.vue";
-import DescriptionPlaceholder from "@/components/itinerary/event/DescriptionPlaceholder.vue";
-import EditEvent from "@/components/itinerary/event/EditEvent.vue";
+import ActivitiesPlaceholder from "@/components/event/placeholders/ActivitiesPlaceholder.vue";
+import DescriptionPlaceholder from "@/components/event/placeholders/DescriptionPlaceholder.vue";
 
 defineProps({
   event: Object,

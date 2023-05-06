@@ -5,11 +5,12 @@ export const useItineraryStore = defineStore({
   state: () => ({
     itinerary: "",
     title: "",
+    isOpen: false,
+    isLoading: false,
   }),
   getters: {},
   actions: {
     setItinerary(itinerary) {
-        console.log(itinerary);
       this.itinerary = itinerary;
     },
   },

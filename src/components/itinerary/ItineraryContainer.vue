@@ -1,14 +1,14 @@
 <template>
+  <ItineraryLoader v-if="itineraryStore.isLoading" class="mt-8" />
   <div v-if="itineraryStore.itinerary" class="px-4 py-2">
-    <ItineraryHeader :title="itineraryStore.title" />
+    <ItineraryHeader :title="itineraryStore.title" class="mb-8" />
     <div class="flex flex-col">
       <div
         v-for="(event, index) in itineraryStore.itinerary.events"
         :key="'event-' + index.id"
       >
-        <TravelEvent v-if="event.event_type_id === 1" :event="event" />
-        <LocationEvent v-else :event="event" />
-        <EventConnection v-if="index !== itineraryStore.itinerary.events.length - 1" />
+        <Event :event="event" />
+        <StandardConnection v-if="index !== itineraryStore.itinerary.events.length - 1" />
       </div>
     </div>
   </div>
@@ -16,9 +16,9 @@
 
 <script setup>
 import ItineraryHeader from "@/components/itinerary/ItineraryHeader.vue";
-import TravelEvent from "@/components/itinerary/event/TravelEvent.vue";
-import LocationEvent from "@/components/itinerary/event/LocationEvent.vue";
-import EventConnection from "@/components/itinerary/event/EventConnection.vue";
+import Event from "@/components/event/Event.vue";
+import StandardConnection from "@/components/event/connections/StandardConnection.vue";
+import ItineraryLoader from "@/components/itinerary/ItineraryLoader.vue";
 
 import { useItineraryStore } from "@/stores/itinerary";
 

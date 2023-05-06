@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import Api from "@/services/Api.service.js";
 import { useItineraryStore } from "./itinerary.js";
 import { useErrorStore } from "./error.js";
-import { useLoaderStore } from "./loader.js";
 
 const processLocationDetails = (locationDetails) => {
   const itineraryStore = useItineraryStore();
@@ -25,9 +24,9 @@ export const usePromptsStore = defineStore({
     async createItinerary() {
       const itineraryStore = useItineraryStore();
       const errorStore = useErrorStore();
-      const loaderStore = useLoaderStore();
 
-      loaderStore.itineraryLoaderIsActive = true;
+      itineraryStore.isOpen = true;
+      itineraryStore.isLoading = true;
       this.isOpen = false;
 
       // Handles calling the event details endpoint for each event in the itinerary and updating the itinerary store with the response as it comes in
@@ -58,13 +57,15 @@ export const usePromptsStore = defineStore({
         const result = await Api.createEventsItinerary({
           prompt: this.promptText,
           interests: this.interests,
-          prompt_context: "events_creation_v01",
+          prompt_context: "events_creation_v02",
           session_id: "1234",
         });
         // if successful, update the itinerary store with the response
         if (result.data && result.data.success) {
 
-          loaderStore.itineraryLoaderIsActive = false;
+          // testData = {"title":"Fall foliage photography tour of New England","itinerary":{"user_id":1,"prompt_id":149,"title":"Untitled Itinerary","id":18,"events":[{"id":130,"event_type_id":2,"itinerary_id":18,"uuid":"e4","start_time":null,"end_time":null,"order":0,"location_event":{"id":130,"description":null,"title":"Acadia National Park","event_id":130,"location_id":63,"location":{"id":63,"name":"Bar Harbor, Maine","description":null,"latitude":null,"longitude":null,"address":null,"city":null,"state":null,"country":null,"type":null}}},{"id":131,"event_type_id":2,"itinerary_id":18,"uuid":"e5","start_time":null,"end_time":null,"order":1,"location_event":{"id":131,"description":null,"title":"Franconia Notch State Park","event_id":131,"location_id":64,"location":{"id":64,"name":"Franconia, New Hampshire","description":null,"latitude":null,"longitude":null,"address":null,"city":null,"state":null,"country":null,"type":null}}},{"id":132,"event_type_id":2,"itinerary_id":18,"uuid":"e6","start_time":null,"end_time":null,"order":2,"location_event":{"id":132,"description":null,"title":"Stowe Village Historic District","event_id":132,"location_id":65,"location":{"id":65,"name":"Stowe, Vermont","description":null,"latitude":null,"longitude":null,"address":null,"city":null,"state":null,"country":null,"type":null}}},{"id":133,"event_type_id":2,"itinerary_id":18,"uuid":"e7","start_time":null,"end_time":null,"order":3,"location_event":{"id":133,"description":null,"title":"The Berkshires","event_id":133,"location_id":66,"location":{"id":66,"name":"Western Massachusetts, Massachusetts","description":null,"latitude":null,"longitude":null,"address":null,"city":null,"state":null,"country":null,"type":null}}}]},"success":true}
+
+          itineraryStore.isLoading = false;
           itineraryStore.setItinerary(result.data.itinerary);
           itineraryStore.title = result.data.title;
 
@@ -76,7 +77,7 @@ export const usePromptsStore = defineStore({
           errorStore.addError('create_itinerary', result.data);
         }
       } catch (error) {
-        loaderStore.itineraryLoaderIsActive = false;
+        itineraryStore.isLoading = false;
         errorStore.addError('server_error', error);
       }
     },

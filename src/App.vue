@@ -3,10 +3,11 @@ import { storeToRefs } from "pinia";
 import { useLoaderStore } from "./stores/loader";
 import Loader from "@/components/ui/Loader.vue";
 
-const { loaderIsActive } = storeToRefs(useLoaderStore());
+const { isOpen } = storeToRefs(useLoaderStore());
+
 </script>
 
 <template>
-  <Loader v-if="loaderIsActive"> </Loader>
+  <Loader v-if="isOpen"> </Loader>
   <RouterView />
 </template>

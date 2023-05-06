@@ -1,0 +1,42 @@
+<template>
+  <div
+    class="controls flex justify-around bg-gray-100 border-primaryBlue rounded-t-2xl w-1/2 text-xs"
+  >
+    <button
+      v-for="control in controls"
+      :key="control.name"
+      :class="[
+        'h-full w-full px-2 py-1 text-xs text-gray-600 rounded-t-2xl',
+        { 'font-semibold isolate after:bg-primaryBlue/50 text-primaryBlue after:inset-0 after:absolute after:rounded-t-lg after:-z-10 after:opacity-20': control.name === currentView },
+      ]"
+      @click="changeView(control.name)"
+    >
+      {{ control.label }}
+    </button>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const props = defineProps({
+  currentView: {
+    type: String,
+    required: true,
+  },
+});
+
+const controls = [
+  { name: "overview", label: "Overview" },
+//   { name: "images", label: "Images" },
+//   { name: "booking", label: "Booking" },
+//   { name: "socialMedia", label: "Social Media" },
+  { name: "edit", label: "Edit" },
+];
+
+const emit = defineEmits(["update"]);
+
+const changeView = (view) => {
+  emit("update", view);
+};
+</script>
