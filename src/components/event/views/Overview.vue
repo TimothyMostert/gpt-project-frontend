@@ -2,21 +2,21 @@
         <div
       class="p-4 isolate after:bg-location-1 after:inset-0 after:absolute after:rounded-t-lg after:-z-10 after:opacity-20"
     >
-      <h2 class="font-bold text-gray-700">{{ event.location_event.title }}</h2>
-      <p class="text-xs text-gray-600">{{ event.location_event.location.name }}</p>
+      <h2 class="font-bold text-gray-700">{{ event.title }}</h2>
+      <p class="text-xs text-gray-600">{{ event.location.name }}</p>
       <div class="py-4 px-2 flex items-center">
-        <DescriptionPlaceholder v-if="!event.location_event.description" />
+        <DescriptionPlaceholder v-if="!event.description" />
         <p class="text-sm text-gray-600 italic font-serif" v-else>
-          "{{ event.location_event.description }}"
+          "{{ event.description }}"
         </p>
       </div>
     </div>
     <div class="p-4 flex flex-col gap-4">
-        <ActivitiesPlaceholder v-if="!event.location_event.activities" />
+        <ActivitiesPlaceholder v-if="!event.activities" />
         <div
           v-else
           class="text-gray-700 flex flex-col gap-2"
-          v-for="(activity, index) in event.location_event.activities"
+          v-for="(activity, index) in event.activities"
           :key="index.id"
         >
           <div class="flex w-full justify-between items-center gap-4 ">

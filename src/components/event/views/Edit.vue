@@ -5,24 +5,44 @@
       <h2 class="font-bold text-gray-700">Edit</h2>
       <p class="text-xs text-gray-600">Dont like this event, lets update it!</p>
     </div>
-    <div class="p-4">
+    <div class="p-4 flex flex-col gap-4 h-[calc(100%-70px)]">
         <BaseTextArea 
         v-model="editEventPrompt"
         label="Describe your changes"
-        custom-class="ring-2"
+        custom-class="border-2 py-2 h-32"
+        placeholder="eg: I want to relax at the beach"
         ></BaseTextArea>
+        <BaseInput
+        v-model="editEventLocation"
+        label="Custom location (optional)"
+        custom-class="border-2 py-2"
+        placeholder="eg: Cape Town, South Africa"
+        ></BaseInput>
+        <BaseButton @click="editEvent" class="bg-primaryOrange text-white rounded-lg px-4 py-2 mt-auto">Update</BaseButton>
     </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import BaseTextArea from "@/components/base/BaseTextArea.vue";
+import BaseInput from "@/components/base/BaseInput.vue";
+import BaseButton from "@/components/base/BaseButton.vue";
+
+import { useEventStore } from "@/stores/event";
+
+const eventStore = useEventStore();
 
 const props = defineProps({
   event: Object,
 });
 
 const editEventPrompt = ref("");
+
+const editEventLocation = ref("");
+
+const editEvent = () => {
+    eventStore.editEvent(props.event.id, editEventPrompt.value, editEventLocation.value);
+}
 
 </script>
 

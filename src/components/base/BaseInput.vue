@@ -4,8 +4,9 @@
     <label v-if="label" :for="id" class="block text-sm font-medium text-gray-700">{{
       label
     }}</label>
-    <textarea
+    <input
       :id="id"
+      type="text"
       v-bind="$attrs"
       v-model="localValue"
       :placeholder="placeholder"
@@ -13,10 +14,10 @@
       @blur="onBlur"
       @focus="onFocus"
       :class="[
-        'mt-1 h-24 block w-full resize-none border-0 py-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6',
+        'mt-1 block w-full resize-none border-0 py-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6',
         customClass,
       ]"
-    ></textarea>
+    >
   </div>
 </template>
 
