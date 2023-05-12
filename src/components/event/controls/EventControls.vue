@@ -17,13 +17,13 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 
 const props = defineProps({
   currentView: {
     type: String,
     required: true,
   },
+  event: Object,
 });
 
 const controls = [
@@ -34,9 +34,8 @@ const controls = [
   { name: "edit", label: "Edit" },
 ];
 
-const emit = defineEmits(["update"]);
-
 const changeView = (view) => {
-  emit("update", view);
+  // update event prop current view
+  props.event.currentView = view;
 };
 </script>

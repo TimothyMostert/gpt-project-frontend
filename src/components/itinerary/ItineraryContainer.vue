@@ -8,7 +8,7 @@
         :key="'event-' + index.id"
       >
         <Event :event="event" />
-        <StandardConnection v-if="index !== itineraryStore.itinerary.events.length - 1" />
+        <StandardConnection v-if="index !== itineraryStore.itinerary.events.length - 1"  :order="index + 1"/>
       </div>
     </div>
   </div>

@@ -5,16 +5,13 @@
       <h2 class="font-bold text-gray-700">{{ event.title }}</h2>
       <p class="text-xs text-gray-600">{{ event.location.name }}</p>
       <div class="py-4 px-2 flex items-center">
-        <DescriptionPlaceholder v-if="!event.description" />
-        <p class="text-sm text-gray-600 italic font-serif" v-else>
+        <p class="text-sm text-gray-600 italic font-serif">
           "{{ event.description }}"
         </p>
       </div>
     </div>
     <div class="p-4 flex flex-col gap-4">
-        <ActivitiesPlaceholder v-if="!event.activities" />
         <div
-          v-else
           class="text-gray-700 flex flex-col gap-2"
           v-for="(activity, index) in event.activities"
           :key="index.id"
@@ -33,8 +30,6 @@
 </template>
 
 <script setup>
-import ActivitiesPlaceholder from "@/components/event/placeholders/ActivitiesPlaceholder.vue";
-import DescriptionPlaceholder from "@/components/event/placeholders/DescriptionPlaceholder.vue";
 
 defineProps({
   event: Object,

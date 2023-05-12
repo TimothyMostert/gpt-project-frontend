@@ -6,12 +6,19 @@
         class="rounded-[100%] font-bold text-primaryOrange w-fit flex gap-2 items-center"
       >
         <i class="fa-solid fa-plus"></i>
-        <span class="text-xs whitespace-nowrap"> Add Event </span>
+        <span class="text-xs whitespace-nowrap" @click="itineraryStore.addEvent(order)"> Add Event </span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { useItineraryStore } from '@/stores/itinerary';
+
+defineProps({
+  order: Number,
+});
+
+const itineraryStore = useItineraryStore();
 
 </script>

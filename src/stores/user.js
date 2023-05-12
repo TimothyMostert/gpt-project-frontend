@@ -9,7 +9,7 @@ export const useUserStore = defineStore({
   state: () => ({
     user: {},
     token: undefined,
-    agencies: [],
+    selectedModel: 'gpt-3.5-turbo',
   }),
   getters: {},
   actions: {

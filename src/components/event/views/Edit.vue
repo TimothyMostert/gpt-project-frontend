@@ -7,13 +7,13 @@
     </div>
     <div class="p-4 flex flex-col gap-4 h-[calc(100%-70px)]">
         <BaseTextArea 
-        v-model="editEventPrompt"
+        v-model="event.editPrompt"
         label="Describe your changes"
         custom-class="border-2 py-2 h-32"
         placeholder="eg: I want to relax at the beach"
         ></BaseTextArea>
         <BaseInput
-        v-model="editEventLocation"
+        v-model="event.editLocation"
         label="Custom location (optional)"
         custom-class="border-2 py-2"
         placeholder="eg: Cape Town, South Africa"
@@ -23,25 +23,20 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import BaseTextArea from "@/components/base/BaseTextArea.vue";
 import BaseInput from "@/components/base/BaseInput.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 
-import { useEventStore } from "@/stores/event";
+import { useItineraryStore } from "@/stores/itinerary";
 
-const eventStore = useEventStore();
+const itineraryStore = useItineraryStore();
 
 const props = defineProps({
   event: Object,
 });
 
-const editEventPrompt = ref("");
-
-const editEventLocation = ref("");
-
 const editEvent = () => {
-    eventStore.editEvent(props.event.id, editEventPrompt.value, editEventLocation.value);
+  itineraryStore.editEvent(props.event.id);
 }
 
 </script>

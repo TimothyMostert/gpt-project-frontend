@@ -36,5 +36,6 @@ export default {
   createEventsItinerary: (body) => Api.post("api/events/create", body),
   createEventDetails: (body) => Api.post("api/event/details", body),
   editEvent: (body) => Api.post("api/event/edit", body),
+  fillEvent: (body) => Api.post("api/event/add", body),
   getRandomPrompt: () => Api.get(`api/prompt/create`),
 };
