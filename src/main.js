@@ -1,6 +1,8 @@
 import { createApp, markRaw } from "vue";
 import { createPinia } from 'pinia'
 
+import { createGtm } from '@gtm-support/vue-gtm';
+
 import App from './App.vue'
 import router from './router'
 import vue3Spinner from 'vue3-spinner'
@@ -20,5 +22,12 @@ app.use(vue3Spinner);
 app.use(pinia);
 
 app.use(router);
+
+app.use(
+  createGtm({
+    id: "GTM-MX9KP6H",
+    vueRouter: router
+  })
+)
 
 app.mount("#app");
