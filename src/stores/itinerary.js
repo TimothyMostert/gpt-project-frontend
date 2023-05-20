@@ -26,6 +26,9 @@ export const useItineraryStore = defineStore({
       // Get the current event
       const currentEvent = this.itinerary.events[eventIndex];
       // Update the event with the new details, keeping the custom settings
+      if (currentView === "ignore") {
+        currentView = currentEvent.currentView;
+      }
       this.itinerary.events[eventIndex] = {
         ...currentEvent,
         ...eventDetails,
@@ -53,6 +56,13 @@ export const useItineraryStore = defineStore({
         });
         // if successful, update the itinerary store with the response
         if (result.data && result.data.success) {
+          // if the location has changed, update the photos
+          if (result.data.event.location.name !== currentEvent.location.name) {
+            const photos = await fetchLocationPhotos(
+              result.data.event.location.name
+            );
+            this.updateEvent(eventIndex, {photos: photos});
+          }
           if (eventIndex > -1) {
             this.updateEvent(eventIndex, result.data.event);
           }

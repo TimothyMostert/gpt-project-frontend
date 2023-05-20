@@ -1,17 +1,16 @@
 <script setup>
 import MainLayout from "@/components/layouts/MainLayout.vue";
-import PromptContainer from "@/components/prompt/PromptContainer.vue";
-import ItineraryContainer from "@/components/itinerary/ItineraryContainer.vue";
-import ErrorDisplay from "@/components/ui/Error.vue";
+import BaseButton from "@/components/base/BaseButton.vue";
 
-import { useErrorStore } from "@/stores/error";
-import { useItineraryStore } from "@/stores/itinerary";
+import router from "@/router";
+
 import { useUserStore } from "@/stores/user";
 
 const userStore = useUserStore();
-const errorStore = useErrorStore();
-const itineraryStore = useItineraryStore();
 
+const goRoute = (route) => {
+  router.push(route);
+};
 </script>
 
 <template>
@@ -22,9 +21,12 @@ const itineraryStore = useItineraryStore();
           <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
           <option value="gpt-4">gpt-4</option>
         </select>
-        <PromptContainer />
-        <ErrorDisplay v-if="errorStore.isError" class="mt-8" />
-        <ItineraryContainer v-if="itineraryStore.isOpen && !errorStore.isError" />
+        <BaseButton
+          @click="goRoute('/prompt')"
+          class="bg-primaryOrange text-white rounded-lg px-4 py-2 mt-auto"
+        >
+          Create New Itinerary
+        </BaseButton>
       </div>
     </main>
   </MainLayout>

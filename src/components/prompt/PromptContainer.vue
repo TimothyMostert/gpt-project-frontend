@@ -1,7 +1,7 @@
 <template>
   <section>
     <div
-      class="rounded-lg shadow-2xl bg-white focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+      class="rounded-lg shadow-2xl bg-white"
     >
       <div class="p-4">
         <Transition name="slide">
@@ -14,21 +14,25 @@
             <BaseTextArea
               v-model="promptStore.promptText"
               id="main-prompt-textarea"
-              placeholder="eg: Design a yoga and wellness retreat itinerary in Bali, highlighting spiritual experiences and rejuvenating activities."
+              :placeholder="'eg: ' + promptStore.placeholder"
               @input="promptTextArea.handleInput"
               @focus="promptTextArea.handleFocus"
               @blur="promptTextArea.handleBlur"
               class="mb-4"
+              type="main-prommpt"
             />
+            <div @click="usePlaceholder" class="text-xs border-1 border-gray-700 text-gray-900 rounded font-semibold cursor-pointer whitespace-nowrap text-right -mt-10 mr-2">
+            Use
+        </div>
             <PromptInterestList v-model="promptStore.interests" />
           </div>
         </Transition>
         <div
           :class="[
-          'w-full p-4 pb-0 flex justify-end items-center',
-          promptStore.isOpen ? 'border-t border-gray-200' : 'pt-0',]"
+            'w-full p-4 pb-0 flex justify-end items-center',
+            promptStore.isOpen ? 'border-t border-gray-200' : 'pt-0',
+          ]"
         >
-          <PromptRandomizer :disabled="!promptStore.isOpen" />
           <BaseButton
             v-if="promptStore.isOpen"
             @click="createItinerary"
@@ -53,10 +57,10 @@
 import PromptHeader from "@/components/prompt/PromptHeader.vue";
 import BaseTextArea from "@/components/base/BaseTextArea.vue";
 import PromptInterestList from "@/components/prompt/PromptInterestList.vue";
-import PromptRandomizer from "@/components/prompt/PromptRandomizer.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 
 import { usePromptsStore } from "@/stores/prompt";
+import Api from "@/services/Api.service.js";
 
 const promptStore = usePromptsStore();
 
@@ -73,8 +77,23 @@ const promptTextArea = {
   },
 };
 
+// every few seconds, generate a new random prompt
+setInterval(async () => {
+  const result = await Api.getRandomPrompt();
+  console.log(result);
+  if (result && result.data.success) {
+        promptStore.placeholder = result.data.prompt;
+        promptStore.placeholderTags = result.data.tags;
+    }
+}, 5000);
+
 const createItinerary = () => {
   promptStore.createItinerary();
+};
+
+const usePlaceholder = () => {
+    promptStore.promptText = promptStore.placeholder;
+    promptStore.interests = promptStore.placeholderTags;  
 };
 </script>
 

@@ -3,6 +3,7 @@
   <div v-if="itineraryStore.itinerary" class="px-4 py-2">
     <ItineraryHeader :title="itineraryStore.title" class="mb-8" />
     <div class="flex flex-col">
+      <transition-group name="list" tag="div">
       <div
         v-for="(event, index) in itineraryStore.itinerary.events"
         :key="'event-' + index.id"
@@ -10,6 +11,7 @@
         <Event :event="event" />
         <StandardConnection v-if="index !== itineraryStore.itinerary.events.length - 1"  :order="index + 1"/>
       </div>
+      </transition-group>
     </div>
   </div>
 </template>
@@ -25,4 +27,11 @@ import { useItineraryStore } from "@/stores/itinerary";
 const itineraryStore = useItineraryStore();
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.list-enter-active, .list-leave-active {
+  transition: transform 0.5s;
+}
+.list-enter, .list-leave-to {
+  transform: translateY(-100%);
+}
+</style>

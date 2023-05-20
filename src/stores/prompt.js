@@ -18,7 +18,7 @@ const updateEventWithPhotos = (uuid, photos) => {
   const eventIndex = itineraryStore.itinerary.events.findIndex(event => event.uuid === uuid);
 
   if (eventIndex > -1) {
-    itineraryStore.updateEvent(eventIndex, { photos: photos.photoReferences });
+    itineraryStore.updateEvent(eventIndex, { photos: photos.photoReferences}, 'ignore');
   }
 };
 
@@ -90,6 +90,8 @@ export const usePromptsStore = defineStore({
     promptText: "",
     interests: [],
     isOpen: true,
+    placeholder: "Design a yoga and wellness retreat itinerary in Bali, highlighting spiritual experiences and rejuvenating activities.",
+    placeholderTags: ['relaxing', 'sightseeing', 'culture'],
   }),
   getters: {},
   actions: {

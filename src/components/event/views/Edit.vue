@@ -14,7 +14,7 @@
         ></BaseTextArea>
         <BaseInput
         v-model="event.editLocation"
-        label="Custom location (optional)"
+        label="New location (optional)"
         custom-class="border-2 py-2"
         placeholder="eg: Cape Town, South Africa"
         ></BaseInput>
@@ -34,6 +34,9 @@ const itineraryStore = useItineraryStore();
 const props = defineProps({
   event: Object,
 });
+
+// set the default editLocation to the current location
+props.event.editLocation =  props.event.location.name;
 
 const editEvent = () => {
   itineraryStore.editEvent(props.event.id);

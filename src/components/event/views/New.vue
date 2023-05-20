@@ -35,6 +35,9 @@ event: Object,
 
 const itineraryStore = useItineraryStore();
 
+// set the default editLocation to the event with the previous order
+props.event.editLocation =  itineraryStore.itinerary.events[props.event.order - 1].location.name;
+
 const fillEvent = () => {
 itineraryStore.fillEvent(props.event.order);
 }

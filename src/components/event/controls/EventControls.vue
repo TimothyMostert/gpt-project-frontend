@@ -1,6 +1,6 @@
 <template>
   <div
-    class="controls flex justify-around bg-gray-100 border-primaryBlue rounded-t-2xl w-1/2 text-xs"
+    class="controls flex justify-around bg-gray-100 border-primaryBlue rounded-t-2xl w-4/5 text-xs"
   >
     <button
       v-for="control in controls"

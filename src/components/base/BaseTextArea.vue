@@ -13,8 +13,7 @@
       @blur="onBlur"
       @focus="onFocus"
       :class="[
-        'mt-1 h-24 block w-full resize-none border-0 py-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6',
-        customClass,
+        'block w-full h-28 resize-none rounded-md border-0 p-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6',
       ]"
     ></textarea>
   </div>
@@ -43,6 +42,10 @@ const props = defineProps({
   customClass: {
     type: String,
     default: "",
+  },
+  type: {
+    type: String,
+    default: "text",
   },
 });
 
