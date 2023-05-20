@@ -9,10 +9,80 @@ const processEventDetails = (eventDetails) => {
   const eventIndex = itineraryStore.itinerary.events.findIndex(event => event.id === eventDetails.id);
 
   if (eventIndex > -1) {
-    // itineraryStore.itinerary.events[eventIndex] = eventDetails;
     itineraryStore.updateEvent(eventIndex, eventDetails);
   }
 };
+
+const updateEventWithPhotos = (uuid, photos) => {
+  const itineraryStore = useItineraryStore();
+  const eventIndex = itineraryStore.itinerary.events.findIndex(event => event.uuid === uuid);
+
+  if (eventIndex > -1) {
+    itineraryStore.updateEvent(eventIndex, { photos: photos.photoReferences });
+  }
+};
+
+// Handles calling the event details endpoint for each event in the itinerary and updating the itinerary store with the response as it comes in
+async function createAndProcessEventDetails(event) {
+  const { uuid, itinerary_id, location } = event;
+  try {
+    let detailsResponse, photosResponse;
+
+    const detailsPromise = createEventDetails(uuid, itinerary_id).then(response => ({ type: 'details', response }));;
+    const photosPromise = fetchLocationPhotos(location.name).then(response => ({ type: 'photos', response }));;
+
+    let promises = [detailsPromise, photosPromise];
+
+    while (promises.length) {
+      console.log("promises", promises);
+      // Use Promise.race to get the promise that resolves first
+      const result = await Promise.race(promises);
+
+      if (result.type === 'details') {
+        detailsResponse = result.response;
+        processEventDetails(detailsResponse.data.eventDetails);
+        // Remove the promise from the array
+        promises = promises.filter(promise => promise !== detailsPromise);
+      } else if (result.type === 'photos') {
+        photosResponse = result.response;
+        updateEventWithPhotos(uuid, photosResponse);
+        // Remove the promise from the array
+        promises = promises.filter(promise => promise !== photosPromise);
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching location details and photos:", error);
+  }
+}
+
+async function createEventDetails(uuid, itineraryId) {
+  const errorStore = useErrorStore();
+  const userStore = useUserStore();
+  try {
+    const result = await Api.createEventDetails({
+      uuid: uuid, 
+      itinerary_id: itineraryId,
+      prompt_context: "details_1",
+      session_id: "1234",
+      model: userStore.selectedModel,
+    });
+    return result;
+  } catch (error) {
+    errorStore.addError('location_details_error', error);
+  }
+}
+
+async function fetchLocationPhotos(location) {
+  try {
+    const response = await Api.fetchLocationPhotos({
+      location: location
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching location photos:", error);
+    return [];
+  }
+}
 
 export const usePromptsStore = defineStore({
   id: "Prompt",
@@ -31,31 +101,6 @@ export const usePromptsStore = defineStore({
       itineraryStore.isOpen = true;
       itineraryStore.isLoading = true;
       this.isOpen = false;
-
-      // Handles calling the event details endpoint for each event in the itinerary and updating the itinerary store with the response as it comes in
-      async function createAndProcessEventDetails(event) {
-        const { uuid, itinerary_id } = event;
-        try {
-          const response = await createEventDetails(uuid, itinerary_id);
-          processEventDetails(response.data.eventDetails);
-        } catch (error) {
-          console.error("Error fetching location details:", error);
-        }
-      }
-      async function createEventDetails(uuid, itineraryId) {
-        try {
-          const result = await Api.createEventDetails({
-            uuid: uuid, 
-            itinerary_id: itineraryId,
-            prompt_context: "details_1",
-            session_id: "1234",
-            model: userStore.selectedModel,
-          });
-          return result;
-        } catch (error) {
-          errorStore.addError('location_details_error', error);
-        }
-      }
 
       // Handles calling the create itinerary endpoint and updating the itinerary store with the response as it comes in
       try {

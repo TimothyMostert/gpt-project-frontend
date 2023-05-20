@@ -6,6 +6,7 @@
       <Overview v-if="event.currentView == 'overview'" :event="props.event" />
       <Edit v-if="event.currentView == 'edit'" :event="props.event" />
       <New v-if="event.currentView == 'new'" :event="props.event" />
+      <Images v-if="event.currentView == 'images'" :event="props.event" />
     </div>
   </article>
 </template>
@@ -16,6 +17,7 @@ import Loading from "./views/Loading.vue";
 import Overview from "./views/Overview.vue";
 import Edit from "./views/Edit.vue";
 import New from "./views/New.vue";
+import Images from "./views/Images.vue";
 
 const props = defineProps({
   event: Object,

@@ -37,5 +37,8 @@ export default {
   createEventDetails: (body) => Api.post("api/event/details", body),
   editEvent: (body) => Api.post("api/event/edit", body),
   fillEvent: (body) => Api.post("api/event/add", body),
+
   getRandomPrompt: () => Api.get(`api/prompt/create`),
+
+  fetchLocationPhotos: (body) => Api.post(`api/google/places/photos`, body),
 };

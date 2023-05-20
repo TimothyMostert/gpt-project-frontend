@@ -28,7 +28,7 @@ const props = defineProps({
 
 const controls = [
   { name: "overview", label: "Overview" },
-//   { name: "images", label: "Images" },
+   { name: "images", label: "Images" },
 //   { name: "booking", label: "Booking" },
 //   { name: "socialMedia", label: "Social Media" },
   { name: "edit", label: "Edit" },
