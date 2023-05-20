@@ -77,14 +77,20 @@ const promptTextArea = {
   },
 };
 
-// every few seconds, generate a new random prompt
+count = 0;
 setInterval(async () => {
+  if (promptStore.promptText !== '' || count >= 5) {
+    clearInterval(intervalId);
+    return;
+  }
+
   const result = await Api.getRandomPrompt();
-  console.log(result);
+  
   if (result && result.data.success) {
         promptStore.placeholder = result.data.prompt;
         promptStore.placeholderTags = result.data.tags;
     }
+    count++;
 }, 5000);
 
 const createItinerary = () => {
