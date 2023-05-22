@@ -21,7 +21,7 @@
               class="mb-4"
               type="main-prommpt"
             />
-            <div @click="usePlaceholder" class="text-xs border-1 border-gray-700 text-gray-900 rounded font-semibold cursor-pointer whitespace-nowrap text-right -mt-10 mr-2">
+            <div v-if="!used" @click="usePlaceholder" class="text-xs border-1 border-gray-700 text-gray-900 rounded font-semibold cursor-pointer whitespace-nowrap text-right -mt-10 mr-2">
             Use
         </div>
             <PromptInterestList v-model="promptStore.interests" />
@@ -61,8 +61,11 @@ import BaseButton from "@/components/base/BaseButton.vue";
 
 import { usePromptsStore } from "@/stores/prompt";
 import Api from "@/services/Api.service.js";
+import { ref } from "vue";
 
 const promptStore = usePromptsStore();
+
+const used = ref(false);
 
 const promptTextArea = {
   Label: "Let your dreams run wild!",
@@ -77,10 +80,10 @@ const promptTextArea = {
   },
 };
 
-count = 0;
+let count = 0;
 setInterval(async () => {
   if (promptStore.promptText !== '' || count >= 5) {
-    clearInterval(intervalId);
+    clearInterval();
     return;
   }
 
@@ -99,7 +102,8 @@ const createItinerary = () => {
 
 const usePlaceholder = () => {
     promptStore.promptText = promptStore.placeholder;
-    promptStore.interests = promptStore.placeholderTags;  
+    promptStore.interests = promptStore.placeholderTags;
+    used.value = true;
 };
 </script>
 

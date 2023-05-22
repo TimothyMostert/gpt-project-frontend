@@ -91,7 +91,7 @@ export const usePromptsStore = defineStore({
     interests: [],
     isOpen: true,
     placeholder: "Design a yoga and wellness retreat itinerary in Bali, highlighting spiritual experiences and rejuvenating activities.",
-    placeholderTags: ['relaxing', 'sightseeing', 'culture'],
+    placeholderTags: ['Relaxation', 'Sightseeing', 'Culture'],
   }),
   getters: {},
   actions: {
