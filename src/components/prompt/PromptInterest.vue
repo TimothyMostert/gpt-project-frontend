@@ -5,7 +5,7 @@
         'relative',
         'flex',
         'items-center justify-center',
-        'w-fit md:w-full',
+        'w-full',
         'whitespace-nowrap',
         'rounded-full',
         'px-2',

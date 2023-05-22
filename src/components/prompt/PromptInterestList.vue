@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 space-x-2 flex overflow-x-scroll md:overflow-auto md:space-x-0 md:grid md:grid-cols-4 md:gap-2">
+  <div class="py-4 grid grid-cols-3 md:grid-cols-4 gap-2">
     <PromptInterest
       v-for="interests in interests"
       :key="interests.name"

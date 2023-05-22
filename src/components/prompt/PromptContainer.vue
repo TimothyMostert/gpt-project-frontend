@@ -8,7 +8,7 @@
           <div
             v-if="promptStore.isOpen"
             :key="promptStore.isOpen"
-            :class="['overflow-hidden', promptStore.isOpen ? 'max-h-96' : 'max-h-0']"
+            class="mb-4"
           >
             <PromptHeader />
             <BaseTextArea
@@ -18,7 +18,7 @@
               @input="promptTextArea.handleInput"
               @focus="promptTextArea.handleFocus"
               @blur="promptTextArea.handleBlur"
-              class="mb-4"
+              class="mb-6"
               type="main-prommpt"
             />
             <div v-if="!used" @click="usePlaceholder" class="text-xs border-1 border-gray-700 text-gray-900 rounded font-semibold cursor-pointer whitespace-nowrap text-right -mt-10 mr-2">
