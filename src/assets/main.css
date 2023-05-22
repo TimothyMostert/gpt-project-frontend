@@ -1,5 +1,12 @@
-@import './base.css';
+@import "./base.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* custom css variables */
+
+root {
+    --color-primary-blue: #0d518c;
+    --color-primary-orange: #04BFAD;
+}

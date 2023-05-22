@@ -1,5 +1,5 @@
 <template>
-  <ItineraryLoader v-if="itineraryStore.isLoading" class="mt-8" />
+  
   <div v-if="itineraryStore.itinerary" class="px-4 py-2">
     <ItineraryHeader :title="itineraryStore.title" class="mb-8" />
     <div class="flex flex-col">
@@ -20,7 +20,6 @@
 import ItineraryHeader from "@/components/itinerary/ItineraryHeader.vue";
 import Event from "@/components/event/Event.vue";
 import StandardConnection from "@/components/event/connections/StandardConnection.vue";
-import ItineraryLoader from "@/components/itinerary/ItineraryLoader.vue";
 
 import { useItineraryStore } from "@/stores/itinerary";
 

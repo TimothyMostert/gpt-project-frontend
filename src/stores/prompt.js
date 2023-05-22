@@ -3,10 +3,14 @@ import Api from "@/services/Api.service.js";
 import { useItineraryStore } from "./itinerary.js";
 import { useErrorStore } from "./error.js";
 import { useUserStore } from "./user.js";
+import { useVisitedRoutesStore } from './routes.js'
+import router from "../router/index.js";
 
 const processEventDetails = (eventDetails) => {
   const itineraryStore = useItineraryStore();
-  const eventIndex = itineraryStore.itinerary.events.findIndex(event => event.id === eventDetails.id);
+  const eventIndex = itineraryStore.itinerary.events.findIndex(
+    (event) => event.id === eventDetails.id
+  );
 
   if (eventIndex > -1) {
     itineraryStore.updateEvent(eventIndex, eventDetails);
@@ -15,10 +19,16 @@ const processEventDetails = (eventDetails) => {
 
 const updateEventWithPhotos = (uuid, photos) => {
   const itineraryStore = useItineraryStore();
-  const eventIndex = itineraryStore.itinerary.events.findIndex(event => event.uuid === uuid);
+  const eventIndex = itineraryStore.itinerary.events.findIndex(
+    (event) => event.uuid === uuid
+  );
 
   if (eventIndex > -1) {
-    itineraryStore.updateEvent(eventIndex, { photos: photos.photoReferences}, 'ignore');
+    itineraryStore.updateEvent(
+      eventIndex,
+      { photos: photos.photoReferences },
+      "ignore"
+    );
   }
 };
 
@@ -28,8 +38,12 @@ async function createAndProcessEventDetails(event) {
   try {
     let detailsResponse, photosResponse;
 
-    const detailsPromise = createEventDetails(uuid, itinerary_id).then(response => ({ type: 'details', response }));;
-    const photosPromise = fetchLocationPhotos(location.name).then(response => ({ type: 'photos', response }));;
+    const detailsPromise = createEventDetails(uuid, itinerary_id).then(
+      (response) => ({ type: "details", response })
+    );
+    const photosPromise = fetchLocationPhotos(location.name).then(
+      (response) => ({ type: "photos", response })
+    );
 
     let promises = [detailsPromise, photosPromise];
 
@@ -38,16 +52,16 @@ async function createAndProcessEventDetails(event) {
       // Use Promise.race to get the promise that resolves first
       const result = await Promise.race(promises);
 
-      if (result.type === 'details') {
+      if (result.type === "details") {
         detailsResponse = result.response;
         processEventDetails(detailsResponse.data.eventDetails);
         // Remove the promise from the array
-        promises = promises.filter(promise => promise !== detailsPromise);
-      } else if (result.type === 'photos') {
+        promises = promises.filter((promise) => promise !== detailsPromise);
+      } else if (result.type === "photos") {
         photosResponse = result.response;
         updateEventWithPhotos(uuid, photosResponse);
         // Remove the promise from the array
-        promises = promises.filter(promise => promise !== photosPromise);
+        promises = promises.filter((promise) => promise !== photosPromise);
       }
     }
   } catch (error) {
@@ -60,7 +74,7 @@ async function createEventDetails(uuid, itineraryId) {
   const userStore = useUserStore();
   try {
     const result = await Api.createEventDetails({
-      uuid: uuid, 
+      uuid: uuid,
       itinerary_id: itineraryId,
       prompt_context: "details_1",
       session_id: "1234",
@@ -68,14 +82,14 @@ async function createEventDetails(uuid, itineraryId) {
     });
     return result;
   } catch (error) {
-    errorStore.addError('location_details_error', error);
+    errorStore.addError("location_details_error", error);
   }
 }
 
 async function fetchLocationPhotos(location) {
   try {
     const response = await Api.fetchLocationPhotos({
-      location: location
+      location: location,
     });
     return response.data;
   } catch (error) {
@@ -90,8 +104,9 @@ export const usePromptsStore = defineStore({
     promptText: "",
     interests: [],
     isOpen: true,
-    placeholder: "Design a yoga and wellness retreat itinerary in Bali, highlighting spiritual experiences and rejuvenating activities.",
-    placeholderTags: ['Relaxation', 'Sightseeing', 'Culture'],
+    placeholder:
+      "Design a yoga and wellness retreat itinerary in Bali, highlighting spiritual experiences and rejuvenating activities.",
+    placeholderTags: ["Relaxation", "Sightseeing", "Culture"],
   }),
   getters: {},
   actions: {
@@ -115,21 +130,23 @@ export const usePromptsStore = defineStore({
         });
         // if successful, update the itinerary store with the response
         if (result.data && result.data.success) {
-
           itineraryStore.isLoading = false;
           itineraryStore.setItinerary(result.data.itinerary);
           itineraryStore.title = result.data.title;
+          router.push({ name: "trip-view", params: { id: result.data.itinerary.id } });
 
           // fetch location details for each event in the itinerary and update the itinerary store with the response
-          const promises = result.data.itinerary.events.map(event => createAndProcessEventDetails(event));
+          const promises = result.data.itinerary.events.map((event) =>
+            createAndProcessEventDetails(event)
+          );
           await Promise.allSettled(promises);
-
         } else {
-          errorStore.addError('create_itinerary', result.data);
+          tineraryStore.isLoading = false;
+          errorStore.addError("create_itinerary", result.data);
         }
       } catch (error) {
         itineraryStore.isLoading = false;
-        errorStore.addError('server_error', error);
+        errorStore.addError("server_error", error);
       }
     },
   },

@@ -58,9 +58,9 @@ export const useItineraryStore = defineStore({
         if (result.data && result.data.success) {
           // if the location has changed, update the photos
           if (result.data.event.location.name !== currentEvent.location.name) {
-            const photos = await fetchLocationPhotos(
-              result.data.event.location.name
-            );
+            const photos = await Api.fetchLocationPhotos({
+              location: result.data.event.location.name
+            });
             this.updateEvent(eventIndex, {photos: photos});
           }
           if (eventIndex > -1) {

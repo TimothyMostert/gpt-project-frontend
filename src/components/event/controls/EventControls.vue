@@ -1,22 +1,27 @@
 <template>
   <div
-    class="controls flex justify-around bg-gray-100 border-primaryBlue rounded-t-2xl w-4/5 text-xs"
+    class="controls flex justify-around bg-gray-100 border-primaryBlue rounded-t-2xl text-xs w-fit"
   >
-    <button
-      v-for="control in controls"
-      :key="control.name"
-      :class="[
-        'h-full w-full px-2 py-1 text-xs text-gray-600 rounded-t-2xl',
-        { 'font-semibold isolate after:bg-primaryBlue/50 text-primaryBlue after:inset-0 after:absolute after:rounded-t-lg after:-z-10 after:opacity-20': control.name === currentView },
-      ]"
-      @click="changeView(control.name)"
-    >
-      {{ control.label }}
-    </button>
+    <div class="w-full" v-for="control in controls" :key="control.name">
+      <button
+        v-if="control.isAvailable"
+        :class="[
+          'h-full w-full px-6 py-1 text-xs text-gray-600 rounded-t-2xl',
+          {
+            'font-semibold isolate after:bg-primaryBlue/50 text-primaryBlue after:inset-0 after:absolute after:rounded-t-lg after:-z-10 after:opacity-20':
+              control.name === currentView,
+          },
+        ]"
+        @click="changeView(control.name)"
+      >
+        {{ control.label }}
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup>
+import { computed } from "vue";
 
 const props = defineProps({
   currentView: {
@@ -26,13 +31,14 @@ const props = defineProps({
   event: Object,
 });
 
-const controls = [
-  { name: "overview", label: "Overview" },
-   { name: "images", label: "Images" },
-//   { name: "booking", label: "Booking" },
-//   { name: "socialMedia", label: "Social Media" },
-  { name: "edit", label: "Edit" },
-];
+// controls with computed props
+const controls = computed(() => {
+  return [
+    { name: "overview", label: "Overview", isAvailable: true },
+    { name: "images", label: "Images", isAvailable: props.event.photos },
+    { name: "edit", label: "Edit", isAvailable: true },
+  ];
+});
 
 const changeView = (view) => {
   // update event prop current view
