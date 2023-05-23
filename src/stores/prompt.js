@@ -3,7 +3,6 @@ import Api from "@/services/Api.service.js";
 import { useItineraryStore } from "./itinerary.js";
 import { useErrorStore } from "./error.js";
 import { useUserStore } from "./user.js";
-import { useVisitedRoutesStore } from './routes.js'
 import router from "../router/index.js";
 
 const processEventDetails = (eventDetails) => {

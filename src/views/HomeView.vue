@@ -63,7 +63,7 @@ const subscribe = () => {
                 <p class="relative mt-4 text-base leading-8 text-gray-800 sm:max-w-md lg:max-w-none">Describe any trip you can dream of and specify with tags, we'll turn it into your next adventure.</p>
                 <div class="mt-10 flex items-center gap-x-6">
                   <BaseButton @click="goRoute('trip-create')" class="bg-primaryOrange text-white rounded-lg px-4 py-2 cursor-pointer">Create new trip</BaseButton>
-                  <a @click="subscribe()" class="text-sm font-semibold leading-6 text-gray-900 cursor-pointer">Subscribe <span aria-hidden="true">→</span></a>
+                  <a @click="goRoute('login')" class="text-sm font-semibold leading-6 text-gray-900 cursor-pointer">Sign up <span aria-hidden="true">→</span></a>
                 </div>
               </div>
               <div class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
