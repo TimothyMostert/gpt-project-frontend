@@ -121,9 +121,11 @@ export const usePromptsStore = defineStore({
 
       // Handles calling the create itinerary endpoint and updating the itinerary store with the response as it comes in
       try {
+        const prompt = this.promptText && this.promptText != '' ? this.promptText : "Surprise me";
+        const interests = this.interests && this.interests.length > 0 ? this.interests : ['Surprise me'];
         const result = await Api.createEventsItinerary({
-          prompt: this.promptText,
-          interests: this.interests,
+          prompt: prompt,
+          interests: interests,
           prompt_context: "events_1",
           session_id: "1234",
           model: userStore.selectedModel,
