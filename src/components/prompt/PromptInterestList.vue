@@ -1,13 +1,34 @@
 <template>
-  <div class="py-4 grid grid-cols-3 md:grid-cols-4 gap-2">
-    <PromptInterest
-      v-for="interests in interests"
-      :key="interests.name"
-      :interest="interests.name"
-      :selectedInterests="selectedInterests"
-      :selectedColor="interests.selectedColor"
-      :selectedTextColor="interests.selectedTextColor"
-    />
+  <div>
+    <div v-for="category in Object.keys(tags)" :key="category" class="my-4">
+      <h1 class="w-100 flex justify-between items-center">
+        <span class="" :class="showDetails[category] ? 'text-[#ac6411]' : 'text-gray-700'">
+          {{ category }}
+        </span>
+        <img
+          v-if="!showDetails[category]"
+          @click="showDetails[category] = !showDetails[category]"
+          src="@/assets/images/icons/Circle.png"
+          alt="circle icon"
+        />
+        <img
+          v-else
+          @click="showDetails[category] = !showDetails[category]"
+          src="@/assets/images/icons/Close.png"
+          alt="circle icon"
+        />
+      </h1>
+      <div v-show="showDetails[category]" class="py-4 grid grid-cols-3 md:grid-cols-4 gap-2">
+        <PromptInterest
+          v-for="interest in tags[category]"
+          :key="interest.name"
+          :interest="interest.name"
+          :selectedInterests="selectedInterests"
+          :selectedColor="interest.selectedColor"
+          :selectedTextColor="interest.selectedTextColor"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -15,6 +36,7 @@
 import { ref, watch, watchEffect } from "vue";
 import PromptInterest from "@/components/prompt/PromptInterest.vue";
 import { usePromptsStore } from "@/stores/prompt";
+import travelTags from "@/assets/json/travelTags.json";
 
 const promptStore = usePromptsStore();
 
@@ -40,25 +62,20 @@ watch(() => promptStore.interests, (newVal) => {
   });
 }, { deep: true });
 
-const interests = [
-  { name: "Adventure", selectedColor: "bg-red-300", selectedTextColor: "text-red-900" },
-  { name: "Beach", selectedColor: "bg-blue-300", selectedTextColor: "text-blue-900" },
-  { name: "City", selectedColor: "bg-gray-300", selectedTextColor: "text-gray-900" },
-  { name: "Culture", selectedColor: "bg-yellow-300", selectedTextColor: "text-yellow-900" },
-  { name: "Family", selectedColor: "bg-green-300", selectedTextColor: "text-green-900" },
-  { name: "Food", selectedColor: "bg-orange-300", selectedTextColor: "text-orange-900" },
-  { name: "Hiking", selectedColor: "bg-green-400", selectedTextColor: "text-green-900" },
-  { name: "History", selectedColor: "bg-indigo-300", selectedTextColor: "text-indigo-900" },
-  { name: "Nature", selectedColor: "bg-teal-300", selectedTextColor: "text-teal-900" },
-  { name: "Nightlife", selectedColor: "bg-purple-300", selectedTextColor: "text-purple-900" },
-  { name: "Relaxation", selectedColor: "bg-pink-300", selectedTextColor: "text-pink-900" },
-  { name: "Romance", selectedColor: "bg-rose-300", selectedTextColor: "text-rose-900" },
-  { name: "Shopping", selectedColor: "bg-fuchsia-300", selectedTextColor: "text-fuchsia-900" },
-  { name: "Sightseeing", selectedColor: "bg-amber-300", selectedTextColor: "text-amber-900" },
-  { name: "Spa", selectedColor: "bg-lime-300", selectedTextColor: "text-lime-900" },
-  { name: "Sports", selectedColor: "bg-emerald-300", selectedTextColor: "text-emerald-900" },
-  { name: "Theme Park", selectedColor: "bg-cyan-300", selectedTextColor: "text-cyan-900" },
-  { name: "Wildlife", selectedColor: "bg-blue-400", selectedTextColor: "text-blue-900" },
-];
+const tags = travelTags;
+
+const showDetails = ref({});
+for (let category of Object.keys(tags)) {
+  showDetails[category] = false;
+}
+
+    // "AccommodationType": [
+    //   { "name": "Hotel", "selectedColor": "bg-indigo-500", "selectedTextColor": "text-indigo-900" },
+    //   { "name": "Hostel", "selectedColor": "bg-green-500", "selectedTextColor": "text-green-900" },
+    //   { "name": "B&B", "selectedColor": "bg-orange-500", "selectedTextColor": "text-orange-900" },
+    //   { "name": "Camping", "selectedColor": "bg-blue-500", "selectedTextColor": "text-blue-900" },
+    //   { "name": "Luxury Resort", "selectedColor": "bg-amber-500", "selectedTextColor": "text-amber-900" },
+    //   { "name": "Vacation Rental", "selectedColor": "bg-cyan-500", "selectedTextColor": "text-cyan-900" }
+    // ],
 
 </script>

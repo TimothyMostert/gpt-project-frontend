@@ -1,16 +1,10 @@
 <template>
   <section>
-    <div
-      class="rounded-lg shadow-2xl bg-white"
-    >
+    <div class="rounded-lg shadow-2xl bg-white">
       <div class="p-4">
         <Transition name="slide">
-          <div
-            v-if="promptStore.isOpen"
-            :key="promptStore.isOpen"
-            class="mb-4"
-          >
-            <PromptHeader />
+          <div v-if="promptStore.isOpen" :key="promptStore.isOpen" class="mb-4">
+            <PromptHeader :heading="promptHeading" :subheading="promptSubHeading" />
             <BaseTextArea
               v-model="promptStore.promptText"
               id="main-prompt-textarea"
@@ -18,18 +12,17 @@
               @input="promptTextArea.handleInput"
               @focus="promptTextArea.handleFocus"
               @blur="promptTextArea.handleBlur"
-              class="mb-6"
+              class="my-4"
               type="main-prommpt"
             />
-            <div v-if="!used" @click="usePlaceholder" class="text-xs border-1 border-gray-700 text-gray-900 rounded font-semibold cursor-pointer whitespace-nowrap text-right -mt-10 mr-2">
-            Use
-        </div>
+            <PromptTools class="-mt-12 mr-2" />
+            <PromptHeader class="my-4" :heading="tagHeading" :subheading="tagSubHeading" />
             <PromptInterestList v-model="promptStore.interests" />
           </div>
         </Transition>
         <div
           :class="[
-            'w-full p-4 pb-0 flex justify-end items-center',
+            'w-full mt-4 pt-4 pb-0 flex justify-end items-center',
             promptStore.isOpen ? 'border-t border-gray-200' : 'pt-0',
           ]"
         >
@@ -58,14 +51,22 @@ import PromptHeader from "@/components/prompt/PromptHeader.vue";
 import BaseTextArea from "@/components/base/BaseTextArea.vue";
 import PromptInterestList from "@/components/prompt/PromptInterestList.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
+import PromptTools from "@/components/prompt/PromptTools.vue";
 
 import { usePromptsStore } from "@/stores/prompt";
 import Api from "@/services/Api.service.js";
 import { ref } from "vue";
 
+import examplePrompts from "@/assets/json/examplePrompts.json";
+
 const promptStore = usePromptsStore();
 
 const used = ref(false);
+
+const promptHeading = "Create Your Dream Journey";
+const promptSubHeading = "Locations, activities, themes. Write as much or as little as you want, or try our example prompts";
+const tagHeading = "Tag your trip";
+const tagSubHeading = "Select as many as you like from the categories below";
 
 const promptTextArea = {
   Label: "Let your dreams run wild!",
@@ -80,30 +81,22 @@ const promptTextArea = {
   },
 };
 
-let count = 0;
-setInterval(async () => {
-  if (promptStore.promptText !== '' || count >= 5) {
-    clearInterval();
-    return;
+const getRandomPrompt = async () => {
+  if (used.value) return;
+  // random prompt
+  const result = examplePrompts[Math.floor(Math.random() * examplePrompts.length)];
+  if (result) {
+    promptStore.placeholder = result.prompt;
+    promptStore.placeholderTags = result.tags;
   }
+};
 
-  const result = await Api.getRandomPrompt();
-  
-  if (result && result.data.success) {
-        promptStore.placeholder = result.data.prompt;
-        promptStore.placeholderTags = result.data.tags;
-    }
-    count++;
-}, 5000);
+setInterval(async () => {
+  getRandomPrompt();
+}, 6000);
 
 const createItinerary = () => {
   promptStore.createItinerary();
-};
-
-const usePlaceholder = () => {
-    promptStore.promptText = promptStore.placeholder;
-    promptStore.interests = promptStore.placeholderTags;
-    used.value = true;
 };
 </script>
 
