@@ -42,10 +42,10 @@
                         </div>
                       </div>
                     </div>
-                    <div class="px-4 pb-5 pt-5 sm:px-0 sm:pt-0">
+                    <div class="px-4 pb-5 pt-5">
                         <TokensDisplay />
                     </div>
-                    <div class="px-4 pb-5 pt-5 sm:px-0 sm:pt-0">
+                    <div class="px-4 pb-5 pt-5">
                         <ModelOptions />
                     </div>
                     <div class="mt-auto mb-4 px-4 flex flex-wrap space-y-3 sm:space-x-3 sm:space-y-0">
