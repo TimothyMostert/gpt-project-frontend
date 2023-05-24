@@ -8,7 +8,7 @@
             <span class="flex flex-col text-sm">
               <RadioGroupLabel as="span" class="font-medium text-gray-900">{{ plan.name }}</RadioGroupLabel>
               <RadioGroupDescription as="span" class="text-gray-500">
-                <span class="block sm:inline">{{ plan.model }}</span>
+                <span class="block sm:inline">{{ plan.title }}</span>
                 {{ ' ' }}
                 <span class="hidden sm:mx-1 sm:inline" aria-hidden="true">&middot;</span>
               </RadioGroupDescription>
@@ -32,8 +32,8 @@ import { useUserStore } from '@/stores/user'
 const userStore = useUserStore()
 
 const models = [
-  { name: 'Explorer',model: 'gpt-3.5-turbo',price: 'Free' },
-  { name: 'Adventurer', model: 'gpt-4', price: '$1 / token' },
+  { name: 'Explorer', title: 'Powerful and fast trip creation.', model: 'gpt-3.5-turbo', price: 'Free forever' },
+  { name: 'Adventurer', title: 'Cutting edge, more detailed and accurate, also slower.', model: 'gpt-4', price: '$1 / token' },
 ]
 
 const selected = ref(models[0])
