@@ -17,7 +17,7 @@
         isSelected ? props.selectedTextColor : 'text-gray-500',
         isSelected ? props.selectedColor : 'bg-gray-100'
       ]"
-      :key="interest"
+      :key="isSelected"
     >
       {{ interest }}
     </div>
@@ -47,6 +47,7 @@
     } else {
       props.selectedInterests.push(props.interest);
     }
+    
     isSelected.value = !isSelected.value;
     key.value = props.interest + 1;
   };

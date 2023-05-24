@@ -32,7 +32,7 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: "/trip/view/:id",
+      path: "/trip/view",
       name: "trip-view",
       component: () =>
         import(/* webpackChunkName: "itinerary" */ "../views/TripView.vue"),
