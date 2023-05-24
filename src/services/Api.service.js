@@ -40,7 +40,7 @@ export default {
   sanctum: () => Api.get('/sanctum/csrf-cookie'),
 
   google_login: () => Api.get("login/auth/google"),
-  google_callback: (body) => Api.post("login/auth/google/callback", { params: body }),
+  google_callback: (code) => Api.post("login/auth/google/callback", { code: code }),
 
   user_register: body => Api.post("user/register", body),
   user_login: (body) => Api.post("login/auth/password", body),

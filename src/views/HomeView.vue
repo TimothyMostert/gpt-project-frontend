@@ -1,5 +1,6 @@
 <script setup>
 import MainLayout from "@/components/layouts/MainLayout.vue";
+import BaseButton from "@/components/base/BaseButton.vue";
 import { useVisitedRoutesStore } from "@/stores/routes";
 
 import router from "@/router";

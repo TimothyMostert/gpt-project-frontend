@@ -3,7 +3,7 @@
     <div class="rounded-lg shadow-2xl bg-white">
       <div class="p-4">
         <Transition name="slide">
-          <div v-if="promptStore.isOpen" :key="promptStore.isOpen" class="mb-4">
+          <div :key="promptStore.isOpen" class="mb-4">
             <PromptHeader :heading="promptHeading" :subheading="promptSubHeading" />
             <BaseTextArea
               v-model="promptStore.promptText"
@@ -27,18 +27,10 @@
           ]"
         >
           <BaseButton
-            v-if="promptStore.isOpen"
             @click="createItinerary"
             customClasses="bg-gradient-to-br from-primaryBlue to-secondaryBlue w-fit ml-auto"
           >
             Create Itinerary
-          </BaseButton>
-          <BaseButton
-            v-else
-            @click="promptStore.isOpen = true"
-            customClasses="bg-gradient-to-br from-primaryBlue to-secondaryBlue w-fit ml-auto"
-          >
-            New Prompt
           </BaseButton>
         </div>
       </div>
@@ -54,7 +46,6 @@ import BaseButton from "@/components/base/BaseButton.vue";
 import PromptTools from "@/components/prompt/PromptTools.vue";
 
 import { usePromptsStore } from "@/stores/prompt";
-import Api from "@/services/Api.service.js";
 import { ref } from "vue";
 
 import examplePrompts from "@/assets/json/examplePrompts.json";

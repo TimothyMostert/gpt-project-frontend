@@ -118,6 +118,11 @@ export const usePromptsStore = defineStore({
       itineraryStore.isLoading = true;
       this.isOpen = false;
 
+      if (userStore.selectedModel === "gpt-4") {
+        if (userStore.tokens = 0) return 
+        userStore.tokens = userStore.tokens - 1;
+      }
+
       // Handles calling the create itinerary endpoint and updating the itinerary store with the response as it comes in
       try {
         const prompt = this.promptText && this.promptText != '' ? this.promptText : "Surprise me";
@@ -142,8 +147,8 @@ export const usePromptsStore = defineStore({
           );
           await Promise.allSettled(promises);
         } else {
-          tineraryStore.isLoading = false;
-          errorStore.addError("create_itinerary", result.data);
+          itineraryStore.isLoading = false;
+          errorStore.addError("create_itinerary", result.data.message);
         }
       } catch (error) {
         itineraryStore.isLoading = false;

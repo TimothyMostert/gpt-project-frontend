@@ -9,6 +9,7 @@ export const useUserStore = defineStore({
   id: "user",
   state: () => ({
     user: {},
+    tokens: 2,
     token: undefined,
     isLoggedIn: false,
     selectedModel: "gpt-3.5-turbo",
@@ -16,8 +17,12 @@ export const useUserStore = defineStore({
   getters: {},
   actions: {
     async login(loginData) {
+      console.log("loginData", loginData);
       localStorage.setItem("token", loginData.token);
       this.user = loginData.user;
+      if (loginData.avatar) {
+        this.user.avatar = loginData.avatar;
+      }
       this.isLoggedIn = true;
       router.push("/trip/create");
     },
@@ -30,7 +35,7 @@ export const useUserStore = defineStore({
         router.push("/");
       }
     },
-    async registerWithPassword(registerData) {
+    async user_register(registerData) {
       const result = await Api.user_register(registerData);
       if (result.data.success) {
         router.push("/login");
@@ -42,7 +47,7 @@ export const useUserStore = defineStore({
       if (result.status == 200) {
         this.login({
           token: result.headers["token"],
-          user: result.data,
+          user: result.data.user,
         });
       } else {
         this.logout();
@@ -50,8 +55,7 @@ export const useUserStore = defineStore({
     },
     async google_login() {
       const response = await Api.google_login();
-      console.log("response", response.data.data);
-      window.location.href = response.data.data;
+      window.location.href = response.data;
     },
     async google_callback(urlParams) {
       await Api.sanctum();
@@ -59,7 +63,8 @@ export const useUserStore = defineStore({
       if (response.status == 200) {
         this.login({
           token: response.headers["token"],
-          user: response.data,
+          user: response.data.user,
+          avatar: response.data.avatar,
         });
       } else {
         this.logout();

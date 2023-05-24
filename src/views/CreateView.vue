@@ -18,8 +18,8 @@ const errorStore = useErrorStore();
     <main class="bg-white mb-auto">
       <div class="p-4 pt-0 max-w-md flex flex-col gap-4 h-full mx-auto mt-36">
         <Breadcrumbs />
-        <ItineraryLoader v-if="itineraryStore.isLoading" class="mt-8" />
-        <PromptContainer v-else />
+        <ItineraryLoader v-if="itineraryStore.isLoading && !errorStore.isError" class="mt-8" />
+        <PromptContainer v-if="!itineraryStore.isLoading && !errorStore.isError" />
         <ErrorDisplay v-if="errorStore.isError" class="mt-8" />
       </div>
     </main>
