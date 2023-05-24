@@ -119,8 +119,12 @@ export const usePromptsStore = defineStore({
       this.isOpen = false;
 
       if (userStore.selectedModel === "gpt-4") {
-        if (userStore.tokens = 0) return 
-        userStore.tokens = userStore.tokens - 1;
+        if (userStore.tokens = 0) {
+          return errorStore.addError("no_tokens", "You have no tokens left. Please upgrade your plan to get more tokens.");
+        } else {
+          const currentTokens = userStore.tokens;
+          userStore.tokens = currentTokens - 1;
+        }
       }
 
       // Handles calling the create itinerary endpoint and updating the itinerary store with the response as it comes in
