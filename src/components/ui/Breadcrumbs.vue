@@ -3,7 +3,7 @@
     <ol role="list" class="flex space-x-4 rounded-md bg-white px-6 shadow">
       <li class="flex min-w-fit">
         <div class="flex items-center">
-          <a @click="goRoute('/')" class="text-gray-400 hover:text-gray-500">
+          <a @click="goRoute('home')" class="text-gray-400 hover:text-gray-500">
             <!-- a house svg -->
             <svg
               class="flex-shrink-0 h-5 w-5"
@@ -54,12 +54,12 @@ import { useVisitedRoutesStore } from '@/stores/routes.js'
 const visitedRoutesStore = useVisitedRoutesStore()
 
 const goRoute = (route) => {
-  if (visitedRoutesStore.visited.includes(route) || route == "/") {
-    router.push(route);
-  } else {
-    console.log("not visited");
-  }
-  
+  // if (visitedRoutesStore.visited.includes(route) || route == "/") {
+  //   router.push(route);
+  // } else {
+  //   console.log("not visited");
+  // }
+  router.push({ name: route });
 };
 
 const steps = computed(() => {
@@ -68,13 +68,13 @@ const steps = computed(() => {
   const steps = [
     {
       name: "Create",
-      route: "/trip/create",
+      route: "trip-create",
       current: route === "trip-create",
       visited: visitedRoutesStore.visited.includes("trip-create"),
     },
     {
       name: "View",
-      route: "/trip/view",
+      route: "trip-view",
       current: route === "trip-view",
       visited: visitedRoutesStore.visited.includes("trip-view"),
     },
