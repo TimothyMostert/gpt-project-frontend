@@ -14,7 +14,7 @@
           <button
             v-if="!userStore.isLoggedIn"
             type="button"
-            class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+            class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 cursor-pointer"
             @click="mobileMenuOpen = true"
           >
             <span class="sr-only">Open main menu</span>
