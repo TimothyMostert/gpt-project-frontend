@@ -4,7 +4,7 @@
     <div class="space-y-4">
       <RadioGroupOption as="template" v-for="plan in models" :key="plan.name" :value="plan" v-slot="{ checked, active }">
         <div :class="[checked ? 'border-transparent' : 'border-gray-300', active ? 'border-indigo-600 ring-2 ring-indigo-600' : '', 'relative cursor-pointer rounded-lg border bg-white px-6 py-4 shadow-sm focus:outline-none flex justify-between']">
-          <span class="flex items-center">
+          <span class="flex items-center w-1/2">
             <span class="flex flex-col text-sm">
               <RadioGroupLabel as="span" class="font-medium text-gray-900">{{ plan.name }}</RadioGroupLabel>
               <RadioGroupDescription as="span" class="text-gray-500">
