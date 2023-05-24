@@ -45,7 +45,7 @@ router.beforeEach((to, from, next) => {
   const visitedRoutesStore = useVisitedRoutesStore();
   const store = useUserStore();
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (storeisLoggedIn) {
+    if (store.isLoggedIn) {
       visitedRoutesStore.add(to.name);
       next();
       return;
