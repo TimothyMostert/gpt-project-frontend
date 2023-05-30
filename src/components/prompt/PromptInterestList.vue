@@ -3,7 +3,7 @@
     <div v-for="category in Object.keys(tags)" :key="category" class="my-4">
       <h1 class="w-100 flex justify-between items-center">
         <span class="" :class="showDetails === category ? 'text-[#ac6411]' : 'text-gray-700'">
-          {{ category }}
+          {{ formatTitle(category) }}
         </span>
         <img
           v-if="showDetails !== category"
@@ -23,7 +23,6 @@
           v-for="interest in tags[category]"
           :key="interest.name"
           :interest="interest.name"
-          :selectedInterests="selectedInterests"
           :selectedColor="interest.selectedColor"
           :selectedTextColor="interest.selectedTextColor"
         />
@@ -40,30 +39,17 @@ import travelTags from "@/assets/json/travelTags.json";
 
 const promptStore = usePromptsStore();
 
-const selectedInterests = ref([]);
-
-let ignoreUpdates = false;
-
-watch(selectedInterests, (newVal) => {
-  if (ignoreUpdates) return;
-  ignoreUpdates = true;
-  promptStore.interests = newVal;
-  watchEffect(onCleanup => {
-    ignoreUpdates = false;
-  });
-}, { deep: true });
-
-watch(() => promptStore.interests, (newVal) => {
-  if (ignoreUpdates) return;
-  ignoreUpdates = true;
-  selectedInterests.value = newVal;
-  watchEffect(onCleanup => {
-    ignoreUpdates = false;
-  });
-}, { deep: true });
-
 const tags = travelTags;
 
 const showDetails = ref(null);
+
+if (promptStore.usedExample) {
+  showDetails.value = "ActivityType";
+}
+
+const formatTitle = (title) => {
+  // break camel case and capitalize first letter lowercase rest
+  return title.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+};
 
 </script>

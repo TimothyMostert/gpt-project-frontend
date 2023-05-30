@@ -37,7 +37,7 @@
           <a
             v-if="!userStore.isLoggedIn"
             @click="goRoute('login')"
-            class="text-sm font-semibold leading-6 text-gray-900"
+            class="text-sm font-semibold leading-6 text-gray-900 cursor-pointer hover:text-gray-700"
             >Log in <span aria-hidden="true">&rarr;</span></a
           >
           <a v-else @click="userMenuOpen = true" class="group block flex-shrink-0 cursor-pointer">

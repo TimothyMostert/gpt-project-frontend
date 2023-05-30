@@ -29,6 +29,7 @@ watch(() => promptStore.promptText, (newVal) => {
 const usePlaceholder = () => {
     promptStore.promptText = promptStore.placeholder;
     promptStore.interests = promptStore.placeholderTags;
+    promptStore.usedExample = true;
 };
 
 </script>

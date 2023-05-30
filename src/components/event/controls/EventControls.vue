@@ -35,7 +35,7 @@ const props = defineProps({
 const controls = computed(() => {
   return [
     { name: "overview", label: "Overview", isAvailable: true },
-    { name: "images", label: "Images", isAvailable: props.event.photos },
+    { name: "images", label: "Images", isAvailable: true },
     { name: "edit", label: "Edit", isAvailable: true },
   ];
 });

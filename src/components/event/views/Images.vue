@@ -8,6 +8,10 @@
       <img :src="photo.url" alt="" class="w-full h-auto object-cover mb-1 rounded-md" />
     </div>
   </div>
+  <div class="p-4" v-else>
+    <h3 class="text-lg font-bold font-mono mb-4">No images found for this location!</h3>
+    <p>We are working hard to add more content sources, stay tuned</p>
+  </div>
 </template>
 
 <script setup>

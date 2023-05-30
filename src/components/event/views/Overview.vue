@@ -10,7 +10,7 @@
         </p>
       </div>
     </div>
-    <div class="p-4 flex flex-col gap-4">
+    <div class="p-4 flex flex-col gap-4 text-left">
         <div
           class="text-gray-700 flex flex-col gap-2"
           v-for="(activity, index) in event.activities"
@@ -22,7 +22,7 @@
               {{ activity.activityType }}
             </div>
           </div>
-          <p class="text-xs text-gray-600">
+          <p class="text-xs text-gray-600 text-left">
             {{ activity.description }}
           </p>
         </div>

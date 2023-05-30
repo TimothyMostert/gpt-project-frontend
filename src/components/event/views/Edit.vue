@@ -1,4 +1,5 @@
 <template>
+  <div class="w-full h-full">
      <div
      class="p-4 isolate after:bg-location-1 after:inset-0 after:absolute after:rounded-t-lg after:-z-10 after:opacity-20"
     >
@@ -20,6 +21,7 @@
         ></BaseInput>
         <BaseButton @click="editEvent" class="bg-primaryOrange text-white rounded-lg px-4 py-2 mt-auto">Update</BaseButton>
     </div>
+  </div>
 </template>
 
 <script setup>

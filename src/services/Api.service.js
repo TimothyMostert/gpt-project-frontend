@@ -45,6 +45,7 @@ export default {
   user_register: body => Api.post("user/register", body),
   user_login: (body) => Api.post("login/auth/password", body),
   user_logout: () => Api.get("api/user/logout"),
+  user_auth: () => Api.get("api/user/auth"),
   
   // itinerary 
   createEventsItinerary: (body) => Api.post("api/events/create", body),

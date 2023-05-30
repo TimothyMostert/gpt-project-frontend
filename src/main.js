@@ -7,6 +7,8 @@ import App from './App.vue'
 import router from './router'
 import vue3Spinner from 'vue3-spinner'
 
+import { useUserStore } from "./stores/user.js";
+
 import './assets/main.css'
 
 const app = createApp(App);
@@ -29,5 +31,11 @@ app.use(
     vueRouter: router
   })
 )
+
+// check if user is logged in
+if (localStorage.getItem("token")) {
+  const userStore = useUserStore();
+  userStore.checkAuth();
+}
 
 app.mount("#app");

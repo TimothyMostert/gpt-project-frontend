@@ -25,30 +25,28 @@
   
   <script setup>
   import { ref, watch } from "vue";
+  import { usePromptsStore } from "@/stores/prompt";
+
+  const promptStore = usePromptsStore();
   
   const props = defineProps({
     interest: String,
-    selectedInterests: Array,
     selectedColor: String,
     selectedTextColor: String
   });
-
-  const key = ref(props.interest);
   
   const isSelected = ref(false);
 
-  watch(() => props.selectedInterests, (newVal) => {
+  watch(() => promptStore.interests, (newVal) => {
     isSelected.value = newVal.includes(props.interest);
   }, { deep: true, immediate: true });
-  
+
   const toggleInterest = () => {
     if (isSelected.value) {
-      props.selectedInterests.splice(props.selectedInterests.indexOf(props.interest), 1);
+      promptStore.interests.splice(promptStore.interests.indexOf(props.interest), 1);
     } else {
-      props.selectedInterests.push(props.interest);
+      promptStore.interests.push(props.interest);
     }
-    
     isSelected.value = !isSelected.value;
-    key.value = props.interest + 1;
   };
   </script>

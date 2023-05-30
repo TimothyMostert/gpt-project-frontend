@@ -4,6 +4,7 @@
       <div class="p-4">
         <Transition name="slide">
           <div :key="promptStore.isOpen" class="mb-4">
+          <div v-if="promptStore.state == 'prompt'">
             <PromptHeader :heading="promptHeading" :subheading="promptSubHeading" />
             <BaseTextArea
               v-model="promptStore.promptText"
@@ -16,23 +17,35 @@
               type="main-prommpt"
             />
             <PromptTools class="-mt-12 mr-2" />
-            <PromptHeader class="my-4" :heading="tagHeading" :subheading="tagSubHeading" />
-            <PromptInterestList v-model="promptStore.interests" />
+            <div class="w-full mt-4 pt-4 pb-0 flex justify-end items-center">
+              <BaseButton
+                @click="promptStore.state = 'tag'"
+                customClasses="bg-gradient-to-br from-primaryBlue to-secondaryBlue w-fit ml-auto"
+              >
+                Continue
+              </BaseButton>
+            </div>
+          </div>
+          <div v-if="promptStore.state == 'tag'">
+            <PromptHeader :heading="tagHeading" :subheading="tagSubHeading" />
+            <PromptInterestList v-model="promptStore.interests" class="my-4" />
+            <div class="w-full mt-4 pt-4 pb-0 flex justify-between items-center">
+              <BaseButton
+                @click="promptStore.state = 'prompt'"
+                customClasses="bg-gradient-to-br from-primaryOrange to-secondaryOrange w-fit"
+              >
+                Back
+              </BaseButton>
+              <BaseButton
+                @click="createItinerary"
+                customClasses="bg-gradient-to-br from-primaryBlue to-secondaryBlue w-fit ml-auto"
+              >
+                Create Itinerary
+              </BaseButton>
+            </div>
+          </div>
           </div>
         </Transition>
-        <div
-          :class="[
-            'w-full mt-4 pt-4 pb-0 flex justify-end items-center',
-            promptStore.isOpen ? 'border-t border-gray-200' : 'pt-0',
-          ]"
-        >
-          <BaseButton
-            @click="createItinerary"
-            customClasses="bg-gradient-to-br from-primaryBlue to-secondaryBlue w-fit ml-auto"
-          >
-            Create Itinerary
-          </BaseButton>
-        </div>
       </div>
     </div>
   </section>
