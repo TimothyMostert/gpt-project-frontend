@@ -62,6 +62,7 @@ import New from "./views/New.vue";
 import Images from "./views/Images.vue";
 
 import Api from "@/services/Api.service.js";
+import { useItineraryStore } from "@/stores/itinerary.js";
 
 import "vue3-carousel/dist/carousel.css";
 import { Carousel, Slide, Navigation } from "vue3-carousel";
@@ -92,7 +93,7 @@ watch(
       console.log(carouselOrder.indexOf(newVal.currentView));
       scroll(carouselOrder.indexOf(newVal.currentView));
     }
-    if (newVal.currentView == "images" && (!newVal.photos)) {
+    if (newVal.currentView == "images") {
       fetchImages();
     }
   },
@@ -100,6 +101,10 @@ watch(
 );
 
 const fetchImages = async () => {
+  if (props.event.photos && props.event.photos.length > 0) {
+    console.log("Already have photos");
+    return;
+  }
   const location = props.event.location.name;
   try {
     const response = await Api.fetchLocationPhotos({
