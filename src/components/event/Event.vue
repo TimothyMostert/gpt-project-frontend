@@ -5,7 +5,7 @@
       :current-view="event.currentView"
       :event="props.event"
     />
-    <div class="no-scrollbar relative rounded-lg shadow-2xl h-[500px] overflow-y-scroll">
+    <div class="no-scrollbar relative rounded-lg shadow-2xl h-[500px] ">
       <Loading v-if="event.currentView == 'loading'" :event="props.event" key="loading" />
       <New v-if="event.currentView == 'new'" :event="props.event" key="new" />
       <div
@@ -16,28 +16,29 @@
         "
       >
         <carousel
-          class="story-carousel story-carousel--colors"
+          class="story-carousel story-carousel--colors "
           ref="carouselRef"
           :items-to-show="1"
           @slide-start="slideTransition"
+          :transition="100"
         >
-          <slide class="story-carousel__slide">
+          <slide class="story-carousel__slide ">
             <div
-              class="no-scrollbar relative h-[500px] w-full overflow-y-scroll text-left"
+              class="no-scrollbar relative h-[500px] w-full overflow-auto text-left"
             >
               <Overview :event="props.event" key="overview" />
             </div>
           </slide>
-          <slide class="story-carousel__slide">
+          <slide class="story-carousel__slide ">
             <div
-              class="no-scrollbar relative h-[500px] w-full overflow-y-scroll text-left"
+              class="no-scrollbar relative h-[500px] w-full  text-left"
             >
               <Images :event="props.event" key="images" />
             </div>
           </slide>
-          <slide class="story-carousel__slide">
+          <slide class="story-carousel__slide ">
             <div
-              class="no-scrollbar relative h-[500px] w-full overflow-y-scroll text-left"
+              class="no-scrollbar relative h-[500px] w-full  text-left"
             >
               <Edit :event="props.event" key="edit" />
             </div>
@@ -65,7 +66,7 @@ import Api from "@/services/Api.service.js";
 import { useItineraryStore } from "@/stores/itinerary.js";
 
 import "vue3-carousel/dist/carousel.css";
-import { Carousel, Slide, Navigation } from "vue3-carousel";
+import { Carousel, Slide } from "vue3-carousel";
 
 const props = defineProps({
   event: Object,
@@ -83,16 +84,14 @@ const scroll = async (index) => {
 };
 
 const slideTransition = (data) => {
+  if (data.slidingToIndex == undefined) return;
   props.event.currentView = carouselOrder[data.slidingToIndex];
 };
 
 watch(
   props.event,
   async (newVal, oldVal) => {
-    if (newVal.currentView) {
-      console.log(carouselOrder.indexOf(newVal.currentView));
-      scroll(carouselOrder.indexOf(newVal.currentView));
-    }
+    scroll(carouselOrder.indexOf(newVal.currentView));
     if (newVal.currentView == "images") {
       fetchImages();
     }
@@ -103,6 +102,9 @@ watch(
 const fetchImages = async () => {
   if (props.event.photos && props.event.photos.length > 0) {
     console.log("Already have photos");
+    return;
+  } else if (props.event.photos && props.event.photos.length == 0) {
+    console.log("No photos");
     return;
   }
   const location = props.event.location.name;
