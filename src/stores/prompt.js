@@ -5,6 +5,8 @@ import { useErrorStore } from "./error.js";
 import { useUserStore } from "./user.js";
 import router from "../router/index.js";
 
+import examplePrompts from "@/assets/json/examplePrompts.json";
+
 const processEventDetails = (eventDetails) => {
   const itineraryStore = useItineraryStore();
   const eventIndex = itineraryStore.itinerary.events.findIndex(
@@ -40,11 +42,14 @@ async function createAndProcessEventDetails(event) {
     const detailsPromise = createEventDetails(uuid, itinerary_id).then(
       (response) => ({ type: "details", response })
     );
-    const photosPromise = fetchLocationPhotos(location.name).then(
-      (response) => ({ type: "photos", response })
-    );
 
-    let promises = [detailsPromise, photosPromise];
+    //  can add other promises here eg:
+
+    // const photosPromise = fetchLocationPhotos(location.name).then(
+    //   (response) => ({ type: "photos", response })
+    // );
+
+    let promises = [detailsPromise]; // photosPromise
 
     while (promises.length) {
       console.log("promises", promises);
@@ -85,27 +90,27 @@ async function createEventDetails(uuid, itineraryId) {
   }
 }
 
-async function fetchLocationPhotos(location) {
-  try {
-    const response = await Api.fetchLocationPhotos({
-      location: location,
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching location photos:", error);
-    return [];
-  }
-}
+// async function fetchLocationPhotos(location) {
+//   try {
+//     const response = await Api.fetchLocationPhotos({
+//       location: location,
+//     });
+//     return response.data;
+//   } catch (error) {
+//     console.error("Error fetching location photos:", error);
+//     return [];
+//   }
+// }
 
 export const usePromptsStore = defineStore({
   id: "Prompt",
   state: () => ({
     promptText: "",
     interests: [],
-    isOpen: true,
-    placeholder:
-      "Design a yoga and wellness retreat itinerary in Bali, highlighting spiritual experiences and rejuvenating activities.",
-    placeholderTags: ["Relaxation", "Sightseeing", "Culture"],
+    usedExample: false,
+    placeholder: examplePrompts[Math.floor(Math.random() * examplePrompts.length)].prompt,
+    placeholderTags: examplePrompts[Math.floor(Math.random() * examplePrompts.length)].tags,
+    state: "prompt",
   }),
   getters: {},
   actions: {
@@ -116,7 +121,6 @@ export const usePromptsStore = defineStore({
 
       itineraryStore.isOpen = true;
       itineraryStore.isLoading = true;
-      this.isOpen = false;
 
       if (userStore.selectedModel === "gpt-4") {
         if (userStore.tokens = 0) {
@@ -140,10 +144,10 @@ export const usePromptsStore = defineStore({
         });
         // if successful, update the itinerary store with the response
         if (result.data && result.data.success) {
-          itineraryStore.isLoading = false;
           itineraryStore.setItinerary(result.data.itinerary);
           itineraryStore.title = result.data.title;
           router.push({ name: "trip-view", params: { id: result.data.itinerary.id } });
+          itineraryStore.isLoading = false;
 
           // fetch location details for each event in the itinerary and update the itinerary store with the response
           const promises = result.data.itinerary.events.map((event) =>
