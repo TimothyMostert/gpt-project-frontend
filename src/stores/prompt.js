@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import Api from "@/services/Api.service.js";
-import { useItineraryStore } from "./itinerary.js";
+import { useTripStore } from "./trip.js";
 import { useErrorStore } from "./error.js";
 import { useUserStore } from "./user.js";
 import router from "../router/index.js";
@@ -8,24 +8,24 @@ import router from "../router/index.js";
 import examplePrompts from "@/assets/json/examplePrompts.json";
 
 const processEventDetails = (eventDetails) => {
-  const itineraryStore = useItineraryStore();
-  const eventIndex = itineraryStore.itinerary.events.findIndex(
+  const tripStore = useTripStore();
+  const eventIndex = tripStore.trip.events.findIndex(
     (event) => event.id === eventDetails.id
   );
 
   if (eventIndex > -1) {
-    itineraryStore.updateEvent(eventIndex, eventDetails);
+    tripStore.updateEvent(eventIndex, eventDetails);
   }
 };
 
 const updateEventWithPhotos = (uuid, photos) => {
-  const itineraryStore = useItineraryStore();
-  const eventIndex = itineraryStore.itinerary.events.findIndex(
+  const tripStore = useTripStore();
+  const eventIndex = tripStore.trip.events.findIndex(
     (event) => event.uuid === uuid
   );
 
   if (eventIndex > -1) {
-    itineraryStore.updateEvent(
+    tripStore.updateEvent(
       eventIndex,
       { photos: photos.photoReferences },
       "ignore"
@@ -33,13 +33,13 @@ const updateEventWithPhotos = (uuid, photos) => {
   }
 };
 
-// Handles calling the event details endpoint for each event in the itinerary and updating the itinerary store with the response as it comes in
+// Handles calling the event details endpoint for each event in the trip and updating the trip store with the response as it comes in
 async function createAndProcessEventDetails(event) {
-  const { uuid, itinerary_id, location } = event;
+  const { uuid, trip_id, location } = event;
   try {
     let detailsResponse, photosResponse;
 
-    const detailsPromise = createEventDetails(uuid, itinerary_id).then(
+    const detailsPromise = createEventDetails(uuid, trip_id).then(
       (response) => ({ type: "details", response })
     );
 
@@ -73,13 +73,13 @@ async function createAndProcessEventDetails(event) {
   }
 }
 
-async function createEventDetails(uuid, itineraryId) {
+async function createEventDetails(uuid, tripId) {
   const errorStore = useErrorStore();
   const userStore = useUserStore();
   try {
     const result = await Api.createEventDetails({
       uuid: uuid,
-      itinerary_id: itineraryId,
+      trip_id: tripId,
       prompt_context: "details_1",
       session_id: "1234",
       model: userStore.selectedModel,
@@ -114,13 +114,13 @@ export const usePromptsStore = defineStore({
   }),
   getters: {},
   actions: {
-    async createItinerary() {
-      const itineraryStore = useItineraryStore();
+    async createTrip() {
+      const tripStore = useTripStore();
       const errorStore = useErrorStore();
       const userStore = useUserStore();
 
-      itineraryStore.isOpen = true;
-      itineraryStore.isLoading = true;
+      tripStore.isOpen = true;
+      tripStore.isLoading = true;
 
       if (userStore.selectedModel === "gpt-4") {
         if (userStore.tokens = 0) {
@@ -131,35 +131,35 @@ export const usePromptsStore = defineStore({
         }
       }
 
-      // Handles calling the create itinerary endpoint and updating the itinerary store with the response as it comes in
+      // Handles calling the create trip endpoint and updating the trip store with the response as it comes in
       try {
         const prompt = this.promptText && this.promptText != '' ? this.promptText : "Surprise me";
         const interests = this.interests && this.interests.length > 0 ? this.interests : ['Surprise me'];
-        const result = await Api.createEventsItinerary({
+        const result = await Api.createEventsTrip({
           prompt: prompt,
           interests: interests,
           prompt_context: "events_1",
           session_id: "1234",
           model: userStore.selectedModel,
         });
-        // if successful, update the itinerary store with the response
+        // if successful, update the trip store with the response
         if (result.data && result.data.success) {
-          itineraryStore.setItinerary(result.data.itinerary);
-          itineraryStore.title = result.data.title;
-          router.push({ name: "trip-view", params: { id: result.data.itinerary.id } });
-          itineraryStore.isLoading = false;
+          tripStore.setTrip(result.data.trip);
+          tripStore.title = result.data.title;
+          router.push({ name: "trip-view", params: { id: result.data.trip.id } });
+          tripStore.isLoading = false;
 
-          // fetch location details for each event in the itinerary and update the itinerary store with the response
-          const promises = result.data.itinerary.events.map((event) =>
+          // fetch location details for each event in the trip and update the trip store with the response
+          const promises = result.data.trip.events.map((event) =>
             createAndProcessEventDetails(event)
           );
           await Promise.allSettled(promises);
         } else {
-          itineraryStore.isLoading = false;
-          errorStore.addError("create_itinerary", result.data.message);
+          tripStore.isLoading = false;
+          errorStore.addError("create_trip", result.data.message);
         }
       } catch (error) {
-        itineraryStore.isLoading = false;
+        tripStore.isLoading = false;
         errorStore.addError("server_error", error);
       }
     },

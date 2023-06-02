@@ -1,5 +1,5 @@
 <template>
-  <div class="h-80 py-12 p-4 flex flex-col items-center justify-center">
+  <div class="rounded-lg shadow-2xl bg-white h-80 py-12 p-4 flex flex-col items-center justify-center">
     <GridLoader class="opacity-30" :loading="true" :color="loader.spinnerColor" :size="loader.spinnerSize" />
     <div class="mt-8 text-lg font-semibold text-center">
       {{ currentStep }}
@@ -28,11 +28,11 @@ const currentStep = computed(() => {
     case 2:
       return "Researching and selecting activities...";
     case 3:
-      return "Optimizing the itinerary schedule...";
+      return "Optimizing the trip schedule...";
     case 4:
       return "Cross-checking availability and restrictions...";
     case 5:
-      return "Finalizing your tailored itinerary...";
+      return "Finalizing your tailored trip...";
   }
 });
 

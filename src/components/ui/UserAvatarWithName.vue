@@ -2,11 +2,11 @@
     <div class="flex items-center">
               <UserAvatar :user="props.user" class="h-9 w-9 rounded-full cursor-pointer" />
               <div class="ml-3">
-                <p class="text-sm font-medium text-gray-700 group-hover:text-gray-900">
+                <p class="text-sm font-medium text-white group-hover:text-gray-900">
                   {{ props.user.name }}
                 </p>
-                <p class="text-xs font-medium text-gray-500 group-hover:text-gray-700">
-                  View profile
+                <p class="text-xs font-medium text-white group-hover:text-gray-700">
+                  {{ props.user.email }}
                 </p>
               </div>
             </div>

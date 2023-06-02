@@ -27,19 +27,19 @@ import BaseTextArea from "@/components/base/BaseTextArea.vue";
 import BaseInput from "@/components/base/BaseInput.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 
-import { useItineraryStore } from "@/stores/itinerary";
+import { useTripStore } from "@/stores/trip";
 
 const props = defineProps({
 event: Object,
 });
 
-const itineraryStore = useItineraryStore();
+const tripStore = useTripStore();
 
 // set the default editLocation to the event with the previous order
-props.event.editLocation =  itineraryStore.itinerary.events[props.event.order - 1].location.name;
+props.event.editLocation =  tripStore.trip.events[props.event.order - 1].location.name;
 
 const fillEvent = () => {
-itineraryStore.fillEvent(props.event.order);
+tripStore.fillEvent(props.event.order);
 }
 
 </script>

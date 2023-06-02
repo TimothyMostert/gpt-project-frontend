@@ -44,18 +44,22 @@ export const useUserStore = defineStore({
       router.push("/trip/create");
     },
     async logout() {
-      const result = await Api.user_logout();
-      if (result.data.success) {
+      try {
+        Api.user_logout();
         localStorage.removeItem("token");
         this.user = {};
         this.isLoggedIn = false;
         router.push("/");
+      } catch (error) {
+        localStorage.removeItem("token");
+        router.push("/");
       }
+      
     },
     async user_register(registerData) {
       const result = await Api.user_register(registerData);
       if (result.data.success) {
-        router.push("/login");
+        this.user_login(registerData);
       }
     },
     async user_login(loginData) {
@@ -87,5 +91,9 @@ export const useUserStore = defineStore({
         this.logout();
       }
     },
+    async user_trips() {
+      const result = await Api.user_trips();
+      return result.data.trips;
+    }
   },
 });

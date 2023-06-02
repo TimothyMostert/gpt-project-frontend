@@ -43,9 +43,9 @@ const tags = travelTags;
 
 const showDetails = ref(null);
 
-if (promptStore.usedExample) {
-  showDetails.value = "ActivityType";
-}
+// if (promptStore.usedExample) {
+//   showDetails.value = "ActivityType";
+// }
 
 const formatTitle = (title) => {
   // break camel case and capitalize first letter lowercase rest

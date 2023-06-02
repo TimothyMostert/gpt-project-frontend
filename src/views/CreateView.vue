@@ -1,27 +1,26 @@
 <script setup>
-import MainLayout from "@/components/layouts/MainLayout.vue";
+import DashboardLayout from "@/components/layouts/DashboardLayout.vue";
 import PromptContainer from "@/components/prompt/PromptContainer.vue";
-import ItineraryLoader from "@/components/itinerary/ItineraryLoader.vue";
-import Breadcrumbs from "@/components/ui/Breadcrumbs.vue";
+import TripLoader from "@/components/trip/TripLoader.vue";
 import ErrorDisplay from "@/components/ui/Error.vue";
 
 import { useErrorStore } from "@/stores/error";
-import { useItineraryStore } from "@/stores/itinerary";
+import { useTripStore } from "@/stores/trip";
 
-const itineraryStore = useItineraryStore();
+const tripStore = useTripStore();
 const errorStore = useErrorStore();
-
 </script>
 
 <template>
-  <MainLayout>
-    <main class="bg-white mb-auto">
-      <div class="p-4 pt-0 max-w-md flex flex-col gap-4 h-full mx-auto mt-36">
-        <Breadcrumbs />
-        <ItineraryLoader v-if="itineraryStore.isLoading && !errorStore.isError" class="mt-8" />
-        <PromptContainer v-if="!itineraryStore.isLoading && !errorStore.isError" />
-        <ErrorDisplay v-if="errorStore.isError" class="mt-8" />
+  <DashboardLayout>
+    <main class="-mt-20 md:-mt-24 pb-8">
+      <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div class="max-w-md">
+          <TripLoader v-if="tripStore.isLoading && !errorStore.isError" />
+          <PromptContainer v-if="!tripStore.isLoading && !errorStore.isError" />
+          <ErrorDisplay v-if="errorStore.isError" />
+        </div>
       </div>
     </main>
-  </MainLayout>
+  </DashboardLayout>
 </template>

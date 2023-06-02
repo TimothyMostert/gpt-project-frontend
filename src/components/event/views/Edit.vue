@@ -29,9 +29,9 @@ import BaseTextArea from "@/components/base/BaseTextArea.vue";
 import BaseInput from "@/components/base/BaseInput.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 
-import { useItineraryStore } from "@/stores/itinerary";
+import { useTripStore } from "@/stores/trip";
 
-const itineraryStore = useItineraryStore();
+const tripStore = useTripStore();
 
 const props = defineProps({
   event: Object,
@@ -41,7 +41,7 @@ const props = defineProps({
 props.event.editLocation =  props.event.location.name;
 
 const editEvent = () => {
-  itineraryStore.editEvent(props.event.id);
+  tripStore.editEvent(props.event.id);
 }
 
 </script>

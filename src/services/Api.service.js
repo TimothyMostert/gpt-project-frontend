@@ -36,19 +36,22 @@ Api.interceptors.response.use(
 
 export default {
 
-  // login
+  // login and auth
   sanctum: () => Api.get('/sanctum/csrf-cookie'),
-
   google_login: () => Api.get("login/auth/google"),
   google_callback: (code) => Api.post("login/auth/google/callback", { code: code }),
-
   user_register: body => Api.post("user/register", body),
   user_login: (body) => Api.post("login/auth/password", body),
   user_logout: () => Api.get("api/user/logout"),
   user_auth: () => Api.get("api/user/auth"),
+
+  // user
+  user_trips: () => Api.get("api/user/trips"),
   
-  // itinerary 
-  createEventsItinerary: (body) => Api.post("api/events/create", body),
+  // trips
+  createEventsTrip: (body) => Api.post("api/trip/create", body),
+
+  // events
   createEventDetails: (body) => Api.post("api/event/details", body),
   editEvent: (body) => Api.post("api/event/edit", body),
   fillEvent: (body) => Api.post("api/event/add", body),

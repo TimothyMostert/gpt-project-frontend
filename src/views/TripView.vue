@@ -1,25 +1,27 @@
 <script setup>
-import MainLayout from "@/components/layouts/MainLayout.vue";
-import ItineraryContainer from "@/components/itinerary/ItineraryContainer.vue";
-import Breadcrumbs from "@/components/ui/Breadcrumbs.vue";
+import DashboardLayout from "@/components/layouts/DashboardLayout.vue";
+import TripContainer from "@/components/trip/TripContainer.vue";
+// import Breadcrumbs from "@/components/ui/Breadcrumbs.vue";
 import ErrorDisplay from "@/components/ui/Error.vue";
 
 import { useErrorStore } from "@/stores/error";
-import { useItineraryStore } from "@/stores/itinerary";
+import { useTripStore } from "@/stores/trip";
 
 const errorStore = useErrorStore();
-const itineraryStore = useItineraryStore();
+const tripStore = useTripStore();
 
 </script>
 
 <template>
-  <MainLayout>
-    <main class="bg-white mb-auto">
-      <div class="p-4 pt-0 max-w-md flex flex-col gap-4 h-full mx-auto mt-36">
-        <Breadcrumbs />
+  <DashboardLayout>
+    <main class="-mt-20 md:-mt-24 pb-8">
+      <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div class="max-w-md">
+        <!-- <Breadcrumbs /> -->
         <ErrorDisplay v-if="errorStore.isError" class="mt-8" />
-        <ItineraryContainer v-if="itineraryStore.isOpen && !errorStore.isError" />
+        <TripContainer v-if="tripStore.isOpen && !errorStore.isError" />
+        </div>
       </div>
     </main>
-  </MainLayout>
+  </DashboardLayout>
 </template>

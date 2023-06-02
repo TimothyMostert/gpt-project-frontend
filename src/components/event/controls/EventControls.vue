@@ -22,6 +22,9 @@
 
 <script setup>
 import { computed } from "vue";
+import { useTripStore } from "@/stores/trip";
+
+const tripStore = useTripStore();
 
 const props = defineProps({
   currentView: {
@@ -41,7 +44,11 @@ const controls = computed(() => {
 });
 
 const changeView = (view) => {
-  // update event prop current view
-  props.event.currentView = view;
+  const event = tripStore.findEventById(props.event.id);
+
+  // update the current view of the event
+  if (event) {
+    event.currentView = view;
+  }
 };
 </script>

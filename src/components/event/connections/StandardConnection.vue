@@ -6,19 +6,19 @@
         class="rounded font-bold text-primaryOrange w-fit flex gap-2 items-center border-2 border-primaryOrange p-2 bg-primaryOrange/10 hover:bg-primaryOrange/20 transition-all"
       >
         <i class="fa-solid fa-plus"></i>
-        <span class="text-xs whitespace-nowrap" @click="itineraryStore.addEvent(order)"> Add Event </span>
+        <span class="text-xs whitespace-nowrap" @click="tripStore.addEvent(order)"> Add Event </span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { useItineraryStore } from '@/stores/itinerary';
+import { useTripStore } from '@/stores/trip';
 
 defineProps({
   order: Number,
 });
 
-const itineraryStore = useItineraryStore();
+const tripStore = useTripStore();
 
 </script>

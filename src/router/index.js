@@ -9,7 +9,22 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
+      beforeEnter: (to, from, next) => {
+        const store = useUserStore();
+        if(store.isLoggedIn) {
+          next({name: 'user-dashboard'});
+        } else {
+          next();
+        }
+      },
       component: HomeView,
+    },
+    {
+      path: "/dashboard",
+      name: "user-dashboard",
+      component: () =>
+        import(/* webpackChunkName: "prompt" */ "../views/DashboardView.vue"),
+      meta: { requiresAuth: true },
     },
     {
       path: "/login",
@@ -35,7 +50,7 @@ const router = createRouter({
       path: "/trip/view",
       name: "trip-view",
       component: () =>
-        import(/* webpackChunkName: "itinerary" */ "../views/TripView.vue"),
+        import(/* webpackChunkName: "trip" */ "../views/TripView.vue"),
       meta: { requiresAuth: true },
     },
   ],

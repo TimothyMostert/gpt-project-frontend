@@ -1,15 +1,15 @@
 <template>
   
-  <div v-if="itineraryStore.itinerary" class="px-4 py-2">
-    <ItineraryHeader :title="itineraryStore.title" class="mb-8" />
+  <div v-if="tripStore.trip" class="px-4 py-2">
+    <TripHeader :title="tripStore.title" class="mb-8" />
     <div class="flex flex-col">
       <transition-group name="list" tag="div">
       <div
-        v-for="(event, index) in itineraryStore.itinerary.events"
+        v-for="(event, index) in tripStore.trip.events"
         :key="'event-' + index.id"
       >
         <Event :event="event" />
-        <StandardConnection v-if="index !== itineraryStore.itinerary.events.length - 1"  :order="index + 1"/>
+        <StandardConnection v-if="index !== tripStore.trip.events.length - 1"  :order="index + 1"/>
       </div>
       </transition-group>
     </div>
@@ -17,13 +17,13 @@
 </template>
 
 <script setup>
-import ItineraryHeader from "@/components/itinerary/ItineraryHeader.vue";
+import TripHeader from "@/components/trip/TripHeader.vue";
 import Event from "@/components/event/Event.vue";
 import StandardConnection from "@/components/event/connections/StandardConnection.vue";
 
-import { useItineraryStore } from "@/stores/itinerary";
+import { useTripStore } from "@/stores/trip";
 
-const itineraryStore = useItineraryStore();
+const tripStore = useTripStore();
 </script>
 
 <style scoped>

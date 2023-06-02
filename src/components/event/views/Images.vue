@@ -1,5 +1,6 @@
 <template>
-  <div class="p-4 col-count-2 col-gap-4 rtl" v-if="photoUrls.length > 0">
+  <div class="overflow-y-hidden h-[500px] flex flex-col">
+  <div class="p-4 col-count-2 col-gap-4 rtl overflow-y-auto flex-grow" v-if="photoUrls.length > 0">
     <div
       v-for="(photo, index) in photoUrls"
       :key="index.id"
@@ -11,6 +12,7 @@
   <div class="p-4" v-else>
     <h3 class="text-lg font-bold font-mono mb-4">No images found for this location!</h3>
     <p>We are working hard to add more content sources, stay tuned</p>
+  </div>
   </div>
 </template>
 

@@ -9,6 +9,7 @@
             />
             <div
               class="font-extrabold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-primaryOrange to-secondaryOrange"
+              v-if="hasText"
             >
               Dream trip
             </div>
@@ -18,6 +19,13 @@
 
 <script setup>
 import { useRouter } from "vue-router";
+
+const props = defineProps({
+  hasText: {
+    type: Boolean,
+    default: true,
+  }
+});
 
 const router = useRouter();
 

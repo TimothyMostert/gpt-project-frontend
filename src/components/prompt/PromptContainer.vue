@@ -1,6 +1,7 @@
 <template>
   <section>
     <div class="rounded-lg shadow-2xl bg-white">
+      <!-- <Breadcrumbs /> -->
       <div class="p-4">
         <Transition name="slide">
           <div :key="promptStore.isOpen" class="mb-4">
@@ -37,10 +38,10 @@
                 Back
               </BaseButton>
               <BaseButton
-                @click="createItinerary"
+                @click="createTrip"
                 customClasses="bg-gradient-to-br from-primaryBlue to-secondaryBlue w-fit ml-auto"
               >
-                Create Itinerary
+                Create Trip
               </BaseButton>
             </div>
           </div>
@@ -57,6 +58,7 @@ import BaseTextArea from "@/components/base/BaseTextArea.vue";
 import PromptInterestList from "@/components/prompt/PromptInterestList.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import PromptTools from "@/components/prompt/PromptTools.vue";
+// import Breadcrumbs from "@/components/ui/Breadcrumbs.vue";
 
 import { usePromptsStore } from "@/stores/prompt";
 import { ref } from "vue";
@@ -70,7 +72,7 @@ const used = ref(false);
 const promptHeading = "Create Your Dream Journey";
 const promptSubHeading = "Locations, activities, themes. Write as much or as little as you want, or try our example prompts";
 const tagHeading = "Tag your trip";
-const tagSubHeading = "Select as many as you like from the categories below";
+const tagSubHeading = "Select up to 6 from the categories below";
 
 const promptTextArea = {
   Label: "Let your dreams run wild!",
@@ -99,8 +101,8 @@ setInterval(async () => {
   getRandomPrompt();
 }, 6000);
 
-const createItinerary = () => {
-  promptStore.createItinerary();
+const createTrip = () => {
+  promptStore.createTrip();
 };
 </script>
 
