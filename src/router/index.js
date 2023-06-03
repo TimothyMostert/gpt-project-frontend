@@ -12,7 +12,7 @@ const router = createRouter({
       beforeEnter: (to, from, next) => {
         const store = useUserStore();
         if(store.isLoggedIn) {
-          next({name: 'user-dashboard'});
+          next({name: 'dashboard'});
         } else {
           next();
         }
@@ -21,10 +21,16 @@ const router = createRouter({
     },
     {
       path: "/dashboard",
-      name: "user-dashboard",
+      name: "dashboard",
       component: () =>
         import(/* webpackChunkName: "prompt" */ "../views/DashboardView.vue"),
       meta: { requiresAuth: true },
+    },
+    {
+      path: "/explore",
+      name: "explore",
+      component: () =>
+        import(/* webpackChunkName: "prompt" */ "../views/ExploreView.vue"),
     },
     {
       path: "/login",

@@ -15,6 +15,7 @@ export const useUserStore = defineStore({
       token: token,
       isLoggedIn: token ? true : false,
       selectedModel: "gpt-3.5-turbo",
+      trips: [],
     }
   },
   getters: {},
@@ -41,7 +42,7 @@ export const useUserStore = defineStore({
         this.user.avatar = loginData.avatar;
       }
       this.isLoggedIn = true;
-      router.push("/trip/create");
+      router.push({ name: 'dashboard'   });
     },
     async logout() {
       try {
@@ -93,7 +94,11 @@ export const useUserStore = defineStore({
     },
     async user_trips() {
       const result = await Api.user_trips();
-      return result.data.trips;
-    }
+      this.trips = result.data.trips;
+    },
+    async delete_trip(tripId) {
+      await Api.delete_trip(tripId);
+      this.user_trips();
+    },
   },
 });

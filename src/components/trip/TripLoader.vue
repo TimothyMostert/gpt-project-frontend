@@ -1,7 +1,8 @@
 <template>
-  <div class="rounded-lg shadow-2xl bg-white h-80 py-12 p-4 flex flex-col items-center justify-center">
-    <GridLoader class="opacity-30" :loading="true" :color="loader.spinnerColor" :size="loader.spinnerSize" />
-    <div class="mt-8 text-lg font-semibold text-center">
+  <div class="rounded-lg shadow-2xl bg-white py-12 p-4 flex flex-col items-center justify-center">
+    <!-- <GridLoader class="opacity-30" :loading="true" :color="loader.spinnerColor" :size="loader.spinnerSize" /> -->
+    <img src="@/assets/images/logo_gif.gif" alt="animated dream trip logo sleek" class="">
+    <div class=" text-base font-semibold text-gray-700 text-center">
       {{ currentStep }}
     </div>
     <div class="text-xs text-gray-400 mt-2">

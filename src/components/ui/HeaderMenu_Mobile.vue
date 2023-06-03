@@ -60,9 +60,9 @@ const stateStore = useStateStore();
 const userStore = useUserStore();
 
 const navigation = [
-  { name: 'Dashboard', action: 'user-dashboard', current: true },
+  { name: 'Dashboard', action: 'dashboard', current: true },
   { name: 'Create Trip', action: 'trip-create', current: false },
-  { name: 'Browse Trips', action: 'trip-browse', current: false },
+  { name: 'Explore Trips', action: 'explore', current: false },
 ];
 
 const goRoute = (route) => {

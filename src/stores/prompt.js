@@ -18,21 +18,6 @@ const processEventDetails = (eventDetails) => {
   }
 };
 
-const updateEventWithPhotos = (uuid, photos) => {
-  const tripStore = useTripStore();
-  const eventIndex = tripStore.trip.events.findIndex(
-    (event) => event.uuid === uuid
-  );
-
-  if (eventIndex > -1) {
-    tripStore.updateEvent(
-      eventIndex,
-      { photos: photos.photoReferences },
-      "ignore"
-    );
-  }
-};
-
 // Handles calling the event details endpoint for each event in the trip and updating the trip store with the response as it comes in
 async function createAndProcessEventDetails(event) {
   const { uuid, trip_id, location } = event;
@@ -61,11 +46,6 @@ async function createAndProcessEventDetails(event) {
         processEventDetails(detailsResponse.data.eventDetails);
         // Remove the promise from the array
         promises = promises.filter((promise) => promise !== detailsPromise);
-      } else if (result.type === "photos") {
-        photosResponse = result.response;
-        updateEventWithPhotos(uuid, photosResponse);
-        // Remove the promise from the array
-        promises = promises.filter((promise) => promise !== photosPromise);
       }
     }
   } catch (error) {

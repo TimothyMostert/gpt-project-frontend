@@ -14,7 +14,7 @@
           <p class="truncate">Created by {{ trip.user_id }}</p>
         </div>
       <div class="mt-2 flex flex-none items-center gap-x-4">
-        <a href="" class="rounded-md bg-gradient-to-r from-primaryOrange to-secondaryOrange px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+        <a @click="setTrip" class="rounded-md bg-gradient-to-r from-primaryOrange to-secondaryOrange px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
           >View trip<span class="sr-only">, {{ trip.title }}</span></a
         >
         <Menu as="div" class="relative flex-none">
@@ -25,7 +25,7 @@
           <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
             <MenuItems class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
               <MenuItem v-slot="{ active }">
-                <a href="#" :class="[active ? 'bg-gray-50' : '', 'block px-3 py-1 text-sm leading-6 text-gray-900']"
+                <a @click="deleteTrip" :class="[active ? 'bg-gray-50' : '', 'block px-3 py-1 text-sm leading-6 text-gray-900']"
                   >Delete<span class="sr-only">, {{ trip.title }}</span></a
                 >
               </MenuItem>
@@ -40,19 +40,29 @@
 <script setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { EllipsisVerticalIcon } from '@heroicons/vue/20/solid'
+import { useUserStore } from '@/stores/user';
+import { useTripStore } from '@/stores/trip';
+import router from "@/router";
 
-const statuses = {
-  Complete: 'text-green-700 bg-green-50 ring-green-600/20',
-  'In progress': 'text-gray-600 bg-gray-50 ring-gray-500/10',
-  Archived: 'text-yellow-800 bg-yellow-50 ring-yellow-600/20',
-}
+const userStore = useUserStore();
+const tripStore = useTripStore();
 
 const props = defineProps({
   trip: {
-    type: Array,
+    type: Object,
     required: true,
   },
 });
+
+const deleteTrip = () => {
+  userStore.delete_trip(props.trip.id);
+}
+
+const setTrip = () => {
+  tripStore.setTrip(props.trip, 'overview');  
+  tripStore.isOpen = true;
+  router.push({ name: 'trip-view' });
+}
 
 </script>
 

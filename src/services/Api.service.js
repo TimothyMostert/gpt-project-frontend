@@ -47,6 +47,7 @@ export default {
 
   // user
   user_trips: () => Api.get("api/user/trips"),
+  delete_trip: (tripId) => Api.get(`api/trip/delete/${tripId}`),
   
   // trips
   createEventsTrip: (body) => Api.post("api/trip/create", body),

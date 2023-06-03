@@ -14,12 +14,12 @@ export const useTripStore = defineStore({
   }),
   getters: {},
   actions: {
-    setTrip(trip) {
+    setTrip(trip, currentView = "loading") {
       this.trip = trip;
       // Add state settings to each event
       this.trip.events = this.trip.events.map((event) => ({
         ...event,
-        currentView: "loading", // Add your custom setting here
+        currentView: currentView,
       }));
     },
     updateEvent(eventIndex, eventDetails, currentView = "overview") {

@@ -5,7 +5,7 @@
       :current-view="event.currentView"
       :event="props.event"
     />
-    <div class="no-scrollbar relative rounded-lg shadow-2xl h-[500px] bg-white">
+    <div class="no-scrollbar relative rounded-lg rounded-tl-none shadow-2xl h-[500px] bg-white">
       <Loading v-if="event.currentView == 'loading'" :event="props.event" key="loading" />
       <New v-if="event.currentView == 'new'" :event="props.event" key="new" />
       <div
@@ -82,25 +82,11 @@ const slideTransition = (data) => {
   props.event.currentView = carouselOrder[data.slidingToIndex];
 };
 
-// watch(
-//   props.event,
-//   async (newVal, oldVal) => {
-//     console.log("event changed");
-//     scroll(carouselOrder.indexOf(newVal.currentView));
-//     // if (newVal.currentView == "images") {
-//     //   fetchImages();
-//     // }
-//   },
-//   { deep: true }
-// );
-
-
-
 const fetchImages = async () => {
-  if (props.event.photos && props.event.photos.length > 0) {
+  if (props.event.location.photo_references && props.event.location.photo_references.length > 0) {
     console.log("Already have photos");
     return;
-  } else if (props.event.photos && props.event.photos.length == 0) {
+  } else if (props.event.location.photo_references && props.event.location.photo_references.length == 0) {
     console.log("No photos");
     return;
   }
@@ -110,7 +96,7 @@ const fetchImages = async () => {
       location: location,
     });
 
-    if (!response.data.photoReferences) {
+    if (!response.data.location.photo_references) {
       console.log("No photos");
       return;
     }
@@ -123,7 +109,7 @@ const fetchImages = async () => {
     if (eventIndex > -1) {
       tripStore.updateEvent(
         eventIndex,
-        { photos: response.data.photoReferences },
+        { location: response.data.location },
         "ignore"
       );
     }
@@ -134,7 +120,6 @@ const fetchImages = async () => {
 };
 
 watchEffect(async () => {
-  console.log(props.event.currentView);
   scroll(carouselOrder.indexOf(props.event.currentView));
   if (props.event.currentView == "images") {
     fetchImages();

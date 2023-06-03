@@ -24,8 +24,8 @@ const props = defineProps({
 });
 
 const photoUrls = computed(() => {
-  if (!props.event.photos) return [];
-  return props.event.photos.map((photo, index) => {
+  if (!props.event.location.photo_references) return [];
+  return props.event.location.photo_references.map((photo, index) => {
     return {
       url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=${import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY}`,
     };

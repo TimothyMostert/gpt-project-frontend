@@ -6,19 +6,10 @@ import { ref, onMounted } from "vue";
 import { useTripStore } from "@/stores/trip";
 import { useUserStore } from "@/stores/user";
 
-const tripStore = useTripStore();
 const userStore = useUserStore();
 
-const getTrips = async () => {
-  const result = userStore.user_trips();
-  return result;
-};
-
-const previousTrips = ref([]);
-
 onMounted(async () => {
-  let result = await getTrips();
-  previousTrips.value = result.trips;
+  userStore.user_trips();
 });
 
 </script>
@@ -36,9 +27,18 @@ onMounted(async () => {
             <section aria-labelledby="section-1-title">
               <h2 class="sr-only" id="section-1-title">Section title</h2>
               <div class="overflow-hidden rounded-lg bg-white shadow">
-                <div class="p-6 flex flex-wrap md:flex-nowrap w-full gap-8">
+                <div class="p-6 flex flex-wrap md:flex-nowrap w-full gap-6">
                   <NewContentButton class="w-full" text="Create a new trip" route="trip-create" image="rocket" />
-                  <NewContentButton class="w-full" text="Browse trips" route="trips-browse" image="search" />
+                  <NewContentButton class="w-full" text="Explore trips" route="explore" image="search" />
+                </div>
+                <div class="hidden md:block p-6">
+                  <h1 class="text-base font-semibold leading-6 text-gray-900 mb-6">Popular trips</h1>
+                  <div class="grid grid-cols-2 gap-6">
+                    <div class="col-span-1 rounded-lg bg-gray-200 h-80"></div>
+                    <div class="col-span-1 rounded-lg bg-gray-200 h-80"></div>
+                    <div class="col-span-1 rounded-lg bg-gray-200 h-80"></div>
+                    <div class="col-span-1 rounded-lg bg-gray-200 h-80"></div>
+                  </div>
                 </div>
               </div>
             </section>
@@ -54,7 +54,7 @@ onMounted(async () => {
                   <!-- <p class="mt-2 text-sm text-gray-700">A list of all the trips in your account.</p> -->
                 </div>
                 <ul role="list" class="divide-y divide-gray-200">
-                  <li v-for="trip in previousTrips" :key="trip.title" class="px-4 py-4 sm:px-0">
+                  <li v-for="trip in userStore.trips" :key="trip.title" class="px-4 py-4 sm:px-0">
                     <TripCard :trip="trip" />
                   </li>
                 </ul>
