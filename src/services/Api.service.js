@@ -51,13 +51,13 @@ export default {
   
   // trips
   createEventsTrip: (body) => Api.post("api/trip/create", body),
+  getTripFromId: (tripId) => Api.get(`api/trip/${tripId}`),
+  searchTrips: (body) => Api.post("api/trip/search", body),
 
   // events
   createEventDetails: (body) => Api.post("api/event/details", body),
   editEvent: (body) => Api.post("api/event/edit", body),
   fillEvent: (body) => Api.post("api/event/add", body),
-
-  getRandomPrompt: () => Api.get(`api/prompt/create`),
 
   fetchLocationPhotos: (body) => Api.post(`api/google/places/photos`, body),
 };

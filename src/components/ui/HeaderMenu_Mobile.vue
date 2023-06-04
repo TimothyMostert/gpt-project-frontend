@@ -29,7 +29,7 @@
                     <UserAvatarWithName :user="userStore.user" />
                   </div>
                   <div class="mt-3 space-y-1 px-2">
-                    <div @click="stateStore.userProfileSettingsIsOpen = true" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Profile Settings</div>
+                    <div @click="stateStore.ui.userProfileSettingsIsOpen = true" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Profile Settings</div>
                     <div @click="userStore.logout()" class="block rounded-md px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 hover:text-gray-800">Logout</div>
                   </div>
                 </div>
@@ -61,7 +61,7 @@ const userStore = useUserStore();
 
 const navigation = [
   { name: 'Dashboard', action: 'dashboard', current: true },
-  { name: 'Create Trip', action: 'trip-create', current: false },
+  { name: 'Create Trip', action: 'create', current: false },
   { name: 'Explore Trips', action: 'explore', current: false },
 ];
 

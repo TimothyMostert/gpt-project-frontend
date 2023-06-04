@@ -49,16 +49,8 @@
 <script setup>
 import router from "@/router";
 import { computed } from "vue";
-import { useVisitedRoutesStore } from '@/stores/routes.js'
-
-const visitedRoutesStore = useVisitedRoutesStore()
 
 const goRoute = (route) => {
-  // if (visitedRoutesStore.visited.includes(route) || route == "/") {
-  //   router.push(route);
-  // } else {
-  //   console.log("not visited");
-  // }
   router.push({ name: route });
 };
 
@@ -68,15 +60,15 @@ const steps = computed(() => {
   const steps = [
     {
       name: "Create",
-      route: "trip-create",
-      current: route === "trip-create",
-      visited: visitedRoutesStore.visited.includes("trip-create"),
+      route: "create",
+      current: route === "create",
+      visited: true,
     },
     {
       name: "View",
-      route: "trip-view",
-      current: route === "trip-view",
-      visited: visitedRoutesStore.visited.includes("trip-view"),
+      route: "trip",
+      current: route === "trip",
+      visited: true,
     },
   ];
   return steps;

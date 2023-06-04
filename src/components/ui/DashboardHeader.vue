@@ -33,7 +33,7 @@
 
       
       <HeaderMenuMobile />
-      <UserSettings :open="stateStore.userProfileSettingsIsOpen" />
+      <UserSettings :open="stateStore.ui.userProfileSettingsIsOpen" />
     </Popover>
 </template>
 
@@ -44,7 +44,6 @@ import {
 } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 import BaseLogo from '@/components/base/BaseLogo.vue';
-
 import { useStateStore } from "@/stores/state";
 import UserSettings from "@/components/ui/UserSettings.vue";
 import HeaderMenu from '@/components/ui/HeaderMenu.vue';

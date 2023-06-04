@@ -5,7 +5,6 @@ import { createGtm } from '@gtm-support/vue-gtm';
 
 import App from './App.vue'
 import router from './router'
-import vue3Spinner from 'vue3-spinner'
 
 import { useUserStore } from "./stores/user.js";
 
@@ -19,7 +18,6 @@ pinia.use(({ store }) => {
   store.$router = markRaw(router);
 });
 
-app.use(vue3Spinner);
 
 app.use(pinia);
 

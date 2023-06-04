@@ -20,7 +20,7 @@ body {
 }
 
 html, body {
-  overscroll-behavior: none;
+  overscroll-behavior-y: contain !important;
 }
 
 .no-scrollbar::-webkit-scrollbar {

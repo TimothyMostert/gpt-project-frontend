@@ -33,17 +33,17 @@
 
 <script setup>
 import { ref, watch, watchEffect } from "vue";
-import PromptInterest from "@/components/prompt/PromptInterest.vue";
-import { usePromptsStore } from "@/stores/prompt";
+import PromptInterest from "@/components/create/PromptInterest.vue";
+import { useCreateStore } from "@/stores/create";
 import travelTags from "@/assets/json/travelTags.json";
 
-const promptStore = usePromptsStore();
+const createStore = useCreateStore();
 
 const tags = travelTags;
 
 const showDetails = ref(null);
 
-// if (promptStore.usedExample) {
+// if (createStore.usedExample) {
 //   showDetails.value = "ActivityType";
 // }
 

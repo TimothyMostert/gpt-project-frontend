@@ -109,7 +109,7 @@ const props = defineProps({
 });
 
 const closeMenu = () => {
-  stateStore.userProfileSettingsIsOpen = false;
+  stateStore.ui.userProfileSettingsIsOpen = false;
 };
   
 </script>

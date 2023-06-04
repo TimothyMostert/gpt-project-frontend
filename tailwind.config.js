@@ -15,6 +15,7 @@ module.exports = {
         "palm-tree": "url('/src/assets/images/tiled-palm-trees.png')",
         'location-1': "url('/src/assets/images/tiled-travel-vibes.png')",
         'travel-1': "url('/src/assets/images/tiled-travel-lines.png')",
+        'create-trip': "url('/src/assets/images/tiled-create-trip.png')",
       }
     },
   },

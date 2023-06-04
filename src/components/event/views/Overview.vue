@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-y-hidden h-[500px] flex flex-col">
+  <div class="overflow-y-hidden flex flex-col">
     <div
       class="p-4 isolate after:bg-location-1 after:inset-0 after:absolute after:rounded-t-lg after:-z-10 after:opacity-20"
     >
@@ -13,7 +13,7 @@
       <div
         class="text-gray-700 flex flex-col gap-2"
         v-for="(activity, index) in event.activities"
-        :key="index.id"
+        :key="'activity-' + event.id + '-' + index"
       >
         <div class="flex w-full justify-between items-center gap-4">
           <div class="font-bold text-sm text-gray-600">{{ activity.title }}</div>

@@ -1041,14 +1041,7 @@ vue3-carousel@^0.3.1:
   resolved "https://registry.yarnpkg.com/vue3-carousel/-/vue3-carousel-0.3.1.tgz#d001be7dea416dc2f4e66afc4d56af66696dc117"
   integrity sha512-86vUkNPBzL2PVuR9w6hUsI90ccFjLp+K8cSFpRTISf+SjUQY3fMHc5CFF5MUL62v1xYYm27zEBmQupO9VQx9Kw==
 
-vue3-spinner@^0.0.16:
-  version "0.0.16"
-  resolved "https://registry.yarnpkg.com/vue3-spinner/-/vue3-spinner-0.0.16.tgz#55931569461c6ec2d412fd4665beecfd219c008b"
-  integrity sha512-7U0+Hra1D+fOGDlQVvXPSpZYABvv7pfLevbddQMK2wZFmsQXwtLnfZ2kijrxcue5HyiRXiv4y7wgEEvqood/Xg==
-  dependencies:
-    vue "^3.2.41"
-
-vue@^3.2.41, vue@^3.2.47:
+vue@^3.2.47:
   version "3.2.47"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.47.tgz#3eb736cbc606fc87038dbba6a154707c8a34cff0"
   integrity sha512-60188y/9Dc9WVrAZeUVSDxRQOZ+z+y5nO2ts9jWXSTkMvayiWxCWOWtBQoYjLeccfXkiiPZWAHcV+WTPhkqJHQ==

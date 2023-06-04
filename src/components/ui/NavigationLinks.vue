@@ -17,7 +17,7 @@ const router = useRouter();
 
 const navigation = [
   { name: 'Dashboard', action: 'dashboard', current: true },
-  { name: 'Create Trip', action: 'trip-create', current: false },
+  { name: 'Create Trip', action: 'create', current: false },
   { name: 'Explore Trips', action: 'explore', current: false },
 ];
 

@@ -4,13 +4,13 @@
       <!-- <Breadcrumbs /> -->
       <div class="p-4">
         <Transition name="slide">
-          <div :key="promptStore.isOpen" class="mb-4">
-          <div v-if="promptStore.state == 'prompt'">
+          <div :key="'prompt-'+stateStore.prompt.isOpen" class="mb-4">
+          <div v-if="stateStore.prompt.step == 'prompt'">
             <PromptHeader :heading="promptHeading" :subheading="promptSubHeading" />
             <BaseTextArea
-              v-model="promptStore.promptText"
+              v-model="createStore.promptText"
               id="main-prompt-textarea"
-              :placeholder="'eg: ' + promptStore.placeholder"
+              :placeholder="'eg: ' + createStore.placeholder"
               @input="promptTextArea.handleInput"
               @focus="promptTextArea.handleFocus"
               @blur="promptTextArea.handleBlur"
@@ -20,19 +20,19 @@
             <PromptTools class="-mt-12 mr-2" />
             <div class="w-full mt-4 pt-4 pb-0 flex justify-end items-center">
               <BaseButton
-                @click="promptStore.state = 'tag'"
+                @click="stateStore.prompt.step = 'tag'"
                 customClasses="bg-gradient-to-br from-primaryBlue to-secondaryBlue w-fit ml-auto"
               >
                 Continue
               </BaseButton>
             </div>
           </div>
-          <div v-if="promptStore.state == 'tag'">
+          <div v-if="stateStore.prompt.step == 'tag'">
             <PromptHeader :heading="tagHeading" :subheading="tagSubHeading" />
-            <PromptInterestList v-model="promptStore.interests" class="my-4" />
+            <PromptInterestList v-model="createStore.interests" class="my-4" />
             <div class="w-full mt-4 pt-4 pb-0 flex justify-between items-center">
               <BaseButton
-                @click="promptStore.state = 'prompt'"
+                @click="stateStore.prompt.step = 'prompt'"
                 customClasses="bg-gradient-to-br from-primaryOrange to-secondaryOrange w-fit"
               >
                 Back
@@ -53,19 +53,21 @@
 </template>
 
 <script setup>
-import PromptHeader from "@/components/prompt/PromptHeader.vue";
+import PromptHeader from "@/components/create/PromptHeader.vue";
 import BaseTextArea from "@/components/base/BaseTextArea.vue";
-import PromptInterestList from "@/components/prompt/PromptInterestList.vue";
+import PromptInterestList from "@/components/create/PromptInterestList.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
-import PromptTools from "@/components/prompt/PromptTools.vue";
+import PromptTools from "@/components/create/PromptTools.vue";
 // import Breadcrumbs from "@/components/ui/Breadcrumbs.vue";
 
-import { usePromptsStore } from "@/stores/prompt";
+import { useCreateStore } from "@/stores/create";
+import { useStateStore } from "@/stores/state";
 import { ref } from "vue";
 
 import examplePrompts from "@/assets/json/examplePrompts.json";
 
-const promptStore = usePromptsStore();
+const createStore = useCreateStore();
+const stateStore = useStateStore();
 
 const used = ref(false);
 
@@ -92,8 +94,8 @@ const getRandomPrompt = async () => {
   // random prompt
   const result = examplePrompts[Math.floor(Math.random() * examplePrompts.length)];
   if (result) {
-    promptStore.placeholder = result.prompt;
-    promptStore.placeholderTags = result.tags;
+    createStore.placeholder = result.prompt;
+    createStore.placeholderTags = result.tags;
   }
 };
 
@@ -102,7 +104,7 @@ setInterval(async () => {
 }, 6000);
 
 const createTrip = () => {
-  promptStore.createTrip();
+  createStore.createTrip();
 };
 </script>
 

@@ -60,7 +60,7 @@
               >
                 <MenuItem key="profile" v-slot="{ active }">
                   <div
-                    @click="stateStore.userProfileSettingsIsOpen = true"
+                    @click="stateStore.ui.userProfileSettingsIsOpen = true"
                     :class="[
                       active ? 'bg-gray-100' : '',
                       'block px-4 py-2 text-sm text-gray-700',
@@ -103,7 +103,7 @@
       <!-- end desktop -->
 
       <MobileMenu :open="mobileMenuOpen" @update:open="mobileMenuOpen = false" />
-      <UserSettings :open="stateStore.userProfileSettingsIsOpen" />
+      <UserSettings :open="stateStore.ui.userProfileSettingsIsOpen" />
     </header>
   </nav>
 </template>

@@ -2,7 +2,8 @@
   <button
     @click="goRoute(props.route)"
     type="button"
-    class="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-8 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-primaryBlue focus:ring-offset-2"
+    class="relative block w-full rounded-lg p-8 text-center text-white focus:outline-none focus:ring-2 focus:ring-primaryBlue focus:ring-offset-2"
+    :class="props.image == 'rocket' ? ' border-2 border-dashed border-primaryBlue hover:bg-primaryBlue/10' : 'border-2 border-dashed border-secondaryOrange hover:bg-secondaryOrange/10'"
   >
   <div class="flex justify-center">
   
@@ -12,7 +13,7 @@
       fill="none"
       viewBox="0 0 24 24"
       stroke-width="1.5"
-      stroke="gray"
+      stroke="black"
       class="w-6 h-6"
     >
       <path
@@ -27,7 +28,7 @@
       fill="none"
       viewBox="0 0 24 24"
       stroke-width="1.5"
-      stroke="gray"
+      stroke="black"
       class="w-6 h-6"
     >
       <path
@@ -38,7 +39,7 @@
     </svg>
   </div>
 
-    <span class="mt-2 block text-sm font-semibold text-gray-900">{{ props.text }}</span>
+    <span class="mt-2 block text-sm font-semibold text-black">{{ props.text }}</span>
   </button>
 </template>
 

@@ -3,24 +3,59 @@ import { defineStore } from "pinia";
 import Api from "@/services/Api.service.js";
 import { useErrorStore } from "./error.js";
 import { useUserStore } from "./user.js";
+import { useStateStore } from "./state.js";
 
 export const useTripStore = defineStore({
   id: "Trip",
   state: () => ({
-    trip: "",
+    trip: undefined,
     title: "",
-    isOpen: false,
-    isLoading: false,
   }),
   getters: {},
   actions: {
+    setTripFromId(tripId) {
+      const errorStore = useErrorStore();
+      const userStore = useUserStore();
+      const stateStore = useStateStore();
+
+      stateStore.isLoading = true;
+      // check if trip is already in the user store trips
+      const trip = userStore.trips.data ? userStore.trips.data.find((trip) => trip.id === tripId) : undefined;
+      if (trip) {
+        // if it is, set the trip in the trip store
+        this.setTrip(trip, "overview");
+        stateStore.isLoading = false;
+      } else {
+        // if it isn't, fetch the trip from the API
+        this.fetchTrip(tripId);
+      }
+    },
     setTrip(trip, currentView = "loading") {
+      const stateStore = useStateStore();
       this.trip = trip;
+      stateStore.trip.isOpen = true;
       // Add state settings to each event
       this.trip.events = this.trip.events.map((event) => ({
         ...event,
         currentView: currentView,
       }));
+    },
+    async fetchTrip(tripId) {
+      const errorStore = useErrorStore();
+      const stateStore = useStateStore();
+
+      try {
+        const result = await Api.getTripFromId(tripId);
+        // if successful, update the trip store with the response
+        if (result.data && result.data.success) {
+          this.setTrip(result.data.trip, "overview");
+          stateStore.isLoading = false;
+        } else {
+          errorStore.addError("fetch_trip", "Something went wrong while fetching the trip.");
+        }
+      } catch (error) {
+        errorStore.addError("fetch_trip", "Something went wrong while fetching the trip.");
+      }
     },
     updateEvent(eventIndex, eventDetails, currentView = "overview") {
       // Get the current event
@@ -45,6 +80,7 @@ export const useTripStore = defineStore({
     async editEvent(event_id) {
       const errorStore = useErrorStore();
       const userStore = useUserStore();
+      const stateStore = useStateStore();
 
       try {
         const eventIndex = this.trip.events.findIndex(
@@ -74,11 +110,11 @@ export const useTripStore = defineStore({
             this.updateEvent(eventIndex, result.data.event);
           }
         } else {
-          this.isLoading = false;
+          stateStore.isLoading = false;
           errorStore.addError("edit_event", result.data);
         }
       } catch (error) {
-        this.isLoading = false;
+        stateStore.isLoading = false;
         errorStore.addError("server_error", error);
       }
     },
