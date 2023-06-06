@@ -2,7 +2,11 @@
   <article class="flex items-center flex-wrap justify-between gap-x-6 py-5">
   <div class="grid grid-cols-5 gap-4 h-24 w-full ">
     <div class="col-span-2 bg-gray-300 rounded-lg">
-      <img class="object-cover h-24 w-full rounded-lg" :src="image" alt=""></div>
+    <UnsplashImage
+      :image="props.trip.main_photo"
+      size="w-full h-28"
+    ></UnsplashImage>
+    </div>
     <div class="col-span-3 flex flex-col gap-2">
       <div class="flex items-start gap-x-3">
         <p class="text-sm font-semibold leading-6 text-gray-900 line-clamp-2">{{ trip.title }}</p>
@@ -37,6 +41,7 @@ import { useUserStore } from "@/stores/user";
 import { useStateStore } from "@/stores/state";
 import router from "@/router";
 import { computed } from "vue";
+import UnsplashImage from "@/components/ui/UnsplashImage.vue";
 
 const props = defineProps({
   trip: {

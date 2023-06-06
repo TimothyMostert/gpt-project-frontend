@@ -1,15 +1,19 @@
 <template>
-  <div class="overflow-y-hidden flex flex-col">
+  <div class="overflow-y-hidden flex flex-col rounded-lg bg-black">
     <div
-      class="p-4 overflow-y-auto no-scrollbar flex-grow max-h-[500px] my-2 rounded-lg"
-      v-if="photoUrls.length > 0"
+      class="overflow-y-auto no-scrollbar flex-grow max-h-[500px] rounded-lg m-1"
+      v-if="images.length > 0"
     >
       <div
-        v-for="(photo, index) in photoUrls"
+        v-for="(image, index) in images"
         :key="'image-' + event.id + '-' + index"
-        class="rounded-lg"
+        class="rounded-lg mt-1"
       >
-        <img :src="photo.url" alt="" class="w-full h-auto object-cover mb-1 rounded-lg" />
+        <UnsplashImage
+          :image="image"
+          size="w-full h-auto"
+          quality="regular"
+        ></UnsplashImage>
       </div>
     </div>
     <div class="p-4" v-else>
@@ -21,34 +25,24 @@
 
 <script setup>
 import { computed } from "vue";
+import UnsplashImage from "@/components/ui/UnsplashImage.vue";
 
 const props = defineProps({
   event: Object,
 });
 
-const photoUrls = computed(() => {
+const images = computed(() => {
   if (!props.event.location.photo_references) return [];
-  return props.event.location.photo_references.map((photo, index) => {
-    return {
-      url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=${
-        import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY
-      }`,
-    };
-  });
+  return props.event.location.photo_references;
+  // return props.event.location.photo_references.map((photo, index) => {
+  //   return {
+  //     url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=${
+  //       import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY
+  //     }`,
+  //   };
+  // }); for google places images
 });
 </script>
 
 <style scoped>
-.col-count-2 {
-  column-count: 2;
-}
-.col-gap-4 {
-  column-gap: 4px;
-}
-.rtl {
-  direction: rtl;
-}
-.ltr {
-  direction: ltr;
-}
 </style>

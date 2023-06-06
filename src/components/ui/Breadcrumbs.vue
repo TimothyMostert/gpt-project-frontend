@@ -56,7 +56,6 @@ const goRoute = (route) => {
 
 const steps = computed(() => {
   const route = router.currentRoute.value.name;
-  console.log(route);
   const steps = [
     {
       name: "Create",

@@ -5,6 +5,7 @@ export const useStateStore = defineStore({
   state: () => ({
     ui : {
       userProfileSettingsIsOpen: false,
+      showShareMenu: false,
     },
     prompt: {
       step: "prompt",

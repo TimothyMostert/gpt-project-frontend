@@ -34,9 +34,9 @@ export const useUserStore = defineStore({
       }
     },
     async login(loginData) {
-      console.log("loginData", loginData);
       localStorage.setItem("token", loginData.token);
       this.user = loginData.user;
+      this.user.premium = false;
       if (loginData.avatar) {
         this.user.avatar = loginData.avatar;
       }

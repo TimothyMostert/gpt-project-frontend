@@ -10,6 +10,9 @@ module.exports = {
         primaryOrange: "#F2A341",
         secondaryOrange: "#F27830",
         primaryWhite: "#F2F2F2",
+        secondaryWhite: "#E5E5E5",
+        primaryBlack: "#333333",
+        secondaryBlack: "#4F4F4F",
       },
       backgroundImage: {
         "palm-tree": "url('/src/assets/images/tiled-palm-trees.png')",

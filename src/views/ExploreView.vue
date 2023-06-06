@@ -16,7 +16,7 @@
                 </h1>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <ExploreTripCard
-                    v-for="trip in exploreStore.trips"
+                    v-for="trip in exploreStore.displayedTrips"
                     :key="'popular-trip-' + trip.id"
                     :trip="trip"
                     class="col-span-1 rounded-lg h-60"
@@ -47,31 +47,22 @@
 <script setup>
 import DashboardLayout from "@/components/layouts/DashboardLayout.vue";
 import ExploreTripCard from "@/components/ui/ExploreTripCard.vue";
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 
 import { useExploreStore } from "@/stores/explore";
 
 const exploreStore = useExploreStore();
 
+// On component mount, search for the trips with the defined parameters
 onMounted(async () => {
   await exploreStore.searchTrips({
     page: 1,
-    perPage: 6,
+    perPage: 112,
   });
 });
 
-const backPage = async () => {
-  const result = await exploreStore.searchTrips({
-    page: exploreStore.currentPage - 1,
-    perPage: 6,
-  });
-};
-
-const nextPage = async () => {
-  const result = await exploreStore.searchTrips({
-    page: exploreStore.currentPage + 1,
-    perPage: 6,
-  });
-};
+// Use the actions from the store directly in your component
+const backPage = exploreStore.backPage;
+const nextPage = exploreStore.nextPage;
 
 </script>

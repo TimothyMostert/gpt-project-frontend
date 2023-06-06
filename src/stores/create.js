@@ -104,7 +104,6 @@ async function createAndProcessEventDetails(event) {
     let promises = [detailsPromise]; // photosPromise
 
     while (promises.length) {
-      console.log("promises", promises);
       // Use Promise.race to get the promise that resolves first
       const result = await Promise.race(promises);
 

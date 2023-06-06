@@ -28,8 +28,7 @@ if (!tripStore.trip || tripStore.trip.id !== route.params.id) {
   <DashboardLayout>
     <main class="-mt-20 md:-mt-24 pb-8">
       <div class="mx-auto max-w-3xl px-2 md:px-6 lg:max-w-7xl lg:px-8">
-        <div class="max-w-md">
-        <!-- <Breadcrumbs /> -->
+        <div class="max-w-md md:max-w-7xl mx-auto md:mx-0">
         <TripContainer v-if="stateStore.trip.isOpen && !errorStore.isError" />
         <Loader class="md:hidden" v-if="stateStore.isLoading && !errorStore.isError" />
         <ModalLoader class="hidden md:block" v-if="stateStore.isLoading && !errorStore.isError" />

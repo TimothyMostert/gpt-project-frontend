@@ -10,7 +10,9 @@
         leave-from="opacity-100"
         leave-to="opacity-0"
       >
-        <div class="fixed inset-0 backdrop-blur bg-primaryBlue bg-opacity-20 transition-opacity" />
+        <div
+          class="fixed inset-0 backdrop-blur bg-primaryBlue bg-opacity-20 transition-opacity"
+        />
       </TransitionChild>
 
       <div class="fixed inset-0 z-10 overflow-y-auto">
@@ -50,12 +52,7 @@
 
 <script setup>
 import { ref, computed, watchEffect } from "vue";
-import {
-  Dialog,
-  DialogPanel,
-  TransitionChild,
-  TransitionRoot,
-} from "@headlessui/vue";
+import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from "@headlessui/vue";
 
 const open = ref(true);
 

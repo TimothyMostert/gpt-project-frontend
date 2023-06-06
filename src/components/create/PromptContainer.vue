@@ -79,13 +79,10 @@ const tagSubHeading = "Select up to 6 from the categories below";
 const promptTextArea = {
   Label: "Let your dreams run wild!",
   handleInput: (event) => {
-    console.log(event);
   },
   handleFocus: (event) => {
-    console.log(event);
   },
   handleBlur: (event) => {
-    console.log(event);
   },
 };
 

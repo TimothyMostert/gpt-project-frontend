@@ -1,218 +1,145 @@
-<!--
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
--->
 <template>
-  <div class="flex justify-center items-start space-x-4 w-full">
-    <div class="min-w-0 flex-1">
-      <div class="flex justify-end items-center pt-2">
-        <div class="flex items-center justify-center rounded-full text-gray-400 hover:text-gray-500">
-          <button
-            type="button"
-            class="inline-flex h-6 w-6 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
-          >
-            <ShareIcon class="h-6 w-6" aria-hidden="true" />
-            <span class="sr-only">Share trip</span>
-          </button>
-        </div>
-        <div class="flex items-center justify-center rounded-full text-gray-400 hover:text-gray-500 ml-2">
-          <button
-            type="button"
-            class="inline-flex h-6 w-6 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
-          >
+  <div>
+    <Menu as="div" class="relative inline-block text-left">
+      <div>
+        <MenuButton class="inline-flex w-full justify-center">
+          <div class="border py-1 px-2 bg-primaryBlue/20 text-sm rounded flex gap-2 text-gray-900">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
+              stroke="gray"
+              class="w-5 h-5"
             >
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+                d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z"
               />
             </svg>
-
-            <span class="sr-only">Save trip to google</span>
-          </button>
-        </div>
-        <div class="mt-1.5 ml-2">
-          <Listbox as="div" v-model="selected">
-            <ListboxLabel class="sr-only">Your mood</ListboxLabel>
-            <div class="relative items-center justify-center rounded-full text-gray-400 hover:text-gray-500">
-              <ListboxButton
-                class="relative inline-flex h-6 w-6 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
-              >
-                <span class="flex items-center justify-center">
-                  <span v-if="selected.value === null">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="w-6 h-6"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"
-                      />
-                    </svg>
-
-                    <span class="sr-only">Add your mood</span>
-                  </span>
-                  <span v-if="!(selected.value === null)">
-                    <span
-                      :class="[
-                        selected.bgColor,
-                        'flex h-8 w-8 items-center justify-center rounded-full',
-                      ]"
-                    >
-                      <component
-                        :is="selected.icon"
-                        class="h-5 w-5 flex-shrink-0 text-white"
-                        aria-hidden="true"
-                      />
-                    </span>
-                    <span class="sr-only">{{ selected.name }}</span>
-                  </span>
-                </span>
-              </ListboxButton>
-
-              <transition
-                leave-active-class="transition ease-in duration-100"
-                leave-from-class="opacity-100"
-                leave-to-class="opacity-0"
-              >
-                <ListboxOptions
-                  class="absolute z-10 -ml-6 w-60 rounded-lg bg-white py-3 text-base shadow ring-1 ring-black ring-opacity-5 focus:outline-none sm:ml-auto sm:w-64 sm:text-sm"
-                >
-                  <ListboxOption
-                    as="template"
-                    v-for="mood in moods"
-                    :key="mood.value"
-                    :value="mood"
-                    v-slot="{ active }"
-                  >
-                    <li
-                      :class="[
-                        active ? 'bg-gray-100' : 'bg-white',
-                        'relative cursor-default select-none px-3 py-2',
-                      ]"
-                    >
-                      <div class="flex items-center">
-                        <div
-                          :class="[
-                            mood.bgColor,
-                            'flex h-8 w-8 items-center justify-center rounded-full',
-                          ]"
-                        >
-                          <component
-                            :is="mood.icon"
-                            :class="[mood.iconColor, 'h-5 w-5 flex-shrink-0']"
-                            aria-hidden="true"
-                          />
-                        </div>
-                        <span class="ml-3 block truncate font-medium">{{
-                          mood.name
-                        }}</span>
-                      </div>
-                    </li>
-                  </ListboxOption>
-                </ListboxOptions>
-              </transition>
-            </div>
-          </Listbox>
-        </div>
+            Tools
+          </div>
+        </MenuButton>
       </div>
-    </div>
+
+      <transition
+        enter-active-class="transition ease-out duration-100"
+        enter-from-class="transform opacity-0 scale-95"
+        enter-to-class="transform opacity-100 scale-100"
+        leave-active-class="transition ease-in duration-75"
+        leave-from-class="transform opacity-100 scale-100"
+        leave-to-class="transform opacity-0 scale-95"
+      >
+        <MenuItems
+          class="absolute left-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+        >
+          <div class="py-1">
+            <MenuItem v-slot="{ active }">
+              <a
+                href="#"
+                :class="[
+                  active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                  'group flex items-center px-4 py-2 text-sm',
+                ]"
+              >
+                <PencilSquareIcon
+                  class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                  aria-hidden="true"
+                />
+                Edit
+              </a>
+            </MenuItem>
+          </div>
+          <div class="py-1">
+            <MenuItem v-slot="{ active }">
+              <a
+                href="#"
+                :class="[
+                  active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                  'group flex items-center px-4 py-2 text-sm',
+                ]"
+              >
+                <ArrowRightCircleIcon
+                  class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                  aria-hidden="true"
+                />
+                Open in maps
+              </a>
+            </MenuItem>
+          </div>
+          <div class="py-1">
+            <MenuItem v-slot="{ active }">
+              <a
+                @click="stateStore.ui.showShareMenu = true"
+                :class="[
+                  active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                  'group flex items-center px-4 py-2 text-sm',
+                ]"
+              >
+                <UserPlusIcon
+                  class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                  aria-hidden="true"
+                />
+                Share
+              </a>
+            </MenuItem>
+            <MenuItem v-slot="{ active }">
+              <a
+                href="#"
+                :class="[
+                  active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                  'group flex items-center px-4 py-2 text-sm',
+                ]"
+              >
+                <HeartIcon
+                  class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                  aria-hidden="true"
+                />
+                Add to favorites
+              </a>
+            </MenuItem>
+          </div>
+          <div class="py-1">
+            <MenuItem v-slot="{ active }">
+              <a
+                href="#"
+                :class="[
+                  active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                  'group flex items-center px-4 py-2 text-sm',
+                ]"
+              >
+                <TrashIcon
+                  class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                  aria-hidden="true"
+                />
+                Delete
+              </a>
+            </MenuItem>
+          </div>
+        </MenuItems>
+      </transition>
+    </Menu>
+    <ShareMenu v-if="stateStore.ui.showShareMenu" />
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import {
-  FaceSmileIcon as FaceSmileIconOutline,
-  ShareIcon,
-} from "@heroicons/vue/24/outline";
-import {
-  Listbox,
-  ListboxButton,
-  ListboxLabel,
-  ListboxOption,
-  ListboxOptions,
-} from "@headlessui/vue";
-import {
-  FaceFrownIcon,
-  FaceSmileIcon as FaceSmileIconMini,
-  FireIcon,
-  HandThumbUpIcon,
+  ArchiveBoxIcon,
+  ArrowRightCircleIcon,
+  DocumentDuplicateIcon,
   HeartIcon,
-  XMarkIcon,
+  PencilSquareIcon,
+  TrashIcon,
+  UserPlusIcon,
 } from "@heroicons/vue/20/solid";
+import { computed } from "vue";
+import { useTripStore } from "@/stores/trip";
+import { useStateStore } from "@/stores/state";
+import ShareMenu from "@/components/ui/ShareMenu.vue";
 
-const moods = [
-  {
-    name: "Excited",
-    value: "excited",
-    icon: FireIcon,
-    iconColor: "text-white",
-    bgColor: "bg-red-500",
-  },
-  {
-    name: "Loved",
-    value: "loved",
-    icon: HeartIcon,
-    iconColor: "text-white",
-    bgColor: "bg-pink-400",
-  },
-  {
-    name: "Happy",
-    value: "happy",
-    icon: FaceSmileIconMini,
-    iconColor: "text-white",
-    bgColor: "bg-green-400",
-  },
-  {
-    name: "Sad",
-    value: "sad",
-    icon: FaceFrownIcon,
-    iconColor: "text-white",
-    bgColor: "bg-yellow-400",
-  },
-  {
-    name: "Thumbsy",
-    value: "thumbsy",
-    icon: HandThumbUpIcon,
-    iconColor: "text-white",
-    bgColor: "bg-blue-500",
-  },
-  {
-    name: "I feel nothing",
-    value: null,
-    icon: XMarkIcon,
-    iconColor: "text-gray-400",
-    bgColor: "bg-transparent",
-  },
-];
-
-const selected = ref(moods[5]);
+const tripStore = useTripStore();
+const stateStore = useStateStore();
 </script>

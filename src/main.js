@@ -2,6 +2,7 @@ import { createApp, markRaw } from "vue";
 import { createPinia } from 'pinia'
 
 import { createGtm } from '@gtm-support/vue-gtm';
+import SocialSharing from 'vue-social-sharing'
 
 import App from './App.vue'
 import router from './router'
@@ -22,6 +23,8 @@ pinia.use(({ store }) => {
 app.use(pinia);
 
 app.use(router);
+
+app.use(SocialSharing)
 
 app.use(
   createGtm({

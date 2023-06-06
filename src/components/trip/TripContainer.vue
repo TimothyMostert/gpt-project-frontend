@@ -1,7 +1,7 @@
 <template>
   
   <div v-if="tripStore.trip" class="px-4 py-2">
-    <TripHeader class="mb-8" />
+    <TripHeader class="mb-12" />
     <div class="flex flex-col">
       <transition-group name="list" tag="div">
       <div
