@@ -14,22 +14,23 @@
         ></UnsplashImage>
       </div>
     </div>
-    <div class="flex flex-col" :style="gridStyleSecond">
-      <div class="p-4">
+    <div class="flex flex-col min-h-[550px] p-6" :style="gridStyleSecond">
         <div class="pr-6">
           <h2 class="font-bold text-lg text-gray-700">{{ props.event.title }}</h2>
           <p class="text-sm text-gray-600">{{ props.event.location.name }}</p>
-          <div class="py-4 px-2 flex items-center">
+          <DescriptionPlaceholderDesktop v-if="isLoading" class="mt-6 mb-4 flex"/>
+          <div class="py-4 px-2 flex items-center" v-else>
             <p class="text-base text-gray-600 italic font-serif">
               "{{ props.event.description }}"
             </p>
           </div>
         </div>
-      </div>
       <div
-        class="p-4 flex flex-col gap-4 text-left no-scrollbars overflow-y-auto flex-grow"
+        class="flex flex-col gap-4 text-left no-scrollbars overflow-y-auto flex-grow"
       >
+        <ActivitiesPlaceholderDesktop v-if="isLoading" />
         <div
+          v-else
           class="text-gray-700 flex flex-col gap-2"
           v-for="(activity, index) in props.event.activities"
           :key="'activity-' + props.event.id + '-' + index"
@@ -52,6 +53,8 @@
 <script setup>
 import { computed } from "vue";
 import UnsplashImage from "@/components/ui/UnsplashImage.vue";
+import ActivitiesPlaceholderDesktop from "@/components/event/placeholders/ActivitiesPlaceholderDesktop.vue";
+import DescriptionPlaceholderDesktop from "@/components/event/placeholders/DescriptionPlaceholderDesktop.vue";
 
 const props = defineProps({
   event: Object,
@@ -63,6 +66,10 @@ const gridStyleFirst = computed(() => {
 
 const gridStyleSecond = computed(() => {
   return props.event.order % 2 === 0 ? "grid-area: b;" : "grid-area: a;";
+});
+
+const isLoading = computed(() => {
+  return props.event.currentView === "loading";
 });
 
 const images = computed(() => {
@@ -82,8 +89,7 @@ const images = computed(() => {
 .outer-grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    "a b";
+  grid-template-areas: "a b";
   grid-gap: 4px;
 }
 

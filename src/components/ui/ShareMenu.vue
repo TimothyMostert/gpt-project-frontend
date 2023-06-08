@@ -44,7 +44,7 @@
 
               <div class="text-xs font-semibold leading-6 text-gray-400">Share</div>
               <ul role="list" class="-mx-2 mt-2 space-y-1">
-                  <network
+                  <ShareNetwork
                     :class="[
                       item.current
                         ? 'bg-gray-50 text-indigo-600'
@@ -55,10 +55,13 @@
                     :key="item.name"
                     :network="item.network"
                     :url="currentUrl"
-                    :title="tripStore.trip.title"
+                    :title="'Check out this trip I made on dreamtrip.io! -' + tripStore.trip.title"
                   >
                     Share on {{ item.name }}
-                  </network>
+                  </ShareNetwork>
+                  <div @click="copyToClipboard" class="text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                    Copy to clipboard
+                  </div>
               </ul>
             </DialogPanel>
           </TransitionChild>
@@ -83,7 +86,16 @@ const currentUrl = computed(() => {
 });
 
 const networks = [
-  { name: "Facebook", network: "dashboard" },
-  { name: "Whatsapp", action: "create" },
+  { name: "Facebook", network: "facebook" },
+  { name: "Whatsapp", network: "whatsapp" },
 ];
+
+const copyToClipboard = () => {
+    navigator.clipboard.writeText(currentUrl.value).then(() => {
+      console.log("Copying to clipboard was successful!");
+    }, (err) => {
+      console.error('Could not copy text: ', err);
+    });
+    stateStore.ui.showShareMenu = false
+}
 </script>

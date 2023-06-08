@@ -4,6 +4,7 @@ import Api from "@/services/Api.service.js";
 import { useErrorStore } from "./error.js";
 import { useUserStore } from "./user.js";
 import { useStateStore } from "./state.js";
+import router from "../router/index.js";
 
 export const useTripStore = defineStore({
   id: "Trip",
@@ -150,6 +151,15 @@ export const useTripStore = defineStore({
           this.updateEvent(eventIndex, result.data.event);
         }
       }
-    }
+    },
+    async delete_trip(tripId, navigateToRoute = null) {
+      const result = await Api.delete_trip(tripId);
+      if (result.data && result.data.success) {
+        if (navigateToRoute) {
+          router.push({ name: navigateToRoute });
+        }
+        return true;
+      }
+    },
   },
 });

@@ -1,6 +1,7 @@
 <template>
   <div
-    class="controls flex flex-col justify-around bg-white shadow-xl border rounded-lg text-xs w-fit"
+    ref="rootElement"
+    class="controls flex justify-around bg-white shadow-xl border rounded-lg rounded-b-none text-xs w-fit"
   >
     <div
       class="w-full"
@@ -10,7 +11,7 @@
       <button
         v-if="control.isAvailable"
         :class="[
-          'h-full w-full p-3 text-xs text-gray-600',
+          'h-full w-full px-4 py-2 text-xs text-gray-600',
           {
             'font-semibold isolate after:bg-primaryBlue/50 text-primaryBlue after:inset-0 after:absolute after:rounded-t-lg after:-z-10 after:opacity-20':
               control.name === currentView,
@@ -70,12 +71,14 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useTripStore } from "@/stores/trip";
 import { useUserStore } from "@/stores/user";
 
 const userStore = useUserStore();
 const tripStore = useTripStore();
+
+const rootElement = ref(null);
 
 const props = defineProps({
   currentView: {

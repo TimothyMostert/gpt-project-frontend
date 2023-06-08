@@ -2,12 +2,11 @@ import { createApp, markRaw } from "vue";
 import { createPinia } from 'pinia'
 
 import { createGtm } from '@gtm-support/vue-gtm';
-import SocialSharing from 'vue-social-sharing'
+import VueSocialSharing from 'vue-social-sharing';
 
 import App from './App.vue'
 import router from './router'
 
-import { useUserStore } from "./stores/user.js";
 
 import './assets/main.css'
 
@@ -24,7 +23,7 @@ app.use(pinia);
 
 app.use(router);
 
-app.use(SocialSharing)
+app.use(VueSocialSharing);
 
 app.use(
   createGtm({
@@ -32,11 +31,5 @@ app.use(
     vueRouter: router
   })
 )
-
-// check if user is logged in
-if (localStorage.getItem("token")) {
-  const userStore = useUserStore();
-  userStore.checkAuth();
-}
 
 app.mount("#app");

@@ -11,7 +11,7 @@
       'px-2',
       'py-2',
       'cursor-pointer',
-      'text-sm md:text-xs',
+      'text-sm',
       'font-medium',
       'sm:px-3',
       isSelected ? props.selectedTextColor : 'text-gray-500',
@@ -26,6 +26,7 @@
 <script setup>
 import { ref, watch } from "vue";
 import { useCreateStore } from "@/stores/create";
+import { useValidationStore } from "@/stores/validation";
 
 const createStore = useCreateStore();
 
@@ -46,11 +47,13 @@ watch(
 );
 
 const toggleInterest = () => {
+  const validationStore = useValidationStore();
   if (isSelected.value) {
     createStore.interests.splice(createStore.interests.indexOf(props.interest), 1);
   } else {
     createStore.interests.push(props.interest);
   }
   isSelected.value = !isSelected.value;
+  validationStore.clearPromptTagError();
 };
 </script>

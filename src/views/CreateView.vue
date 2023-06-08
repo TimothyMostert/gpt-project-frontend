@@ -22,7 +22,7 @@ createStore.promptText = '';
   <DashboardLayout>
     <main class="-mt-20 md:-mt-24 pb-8">
       <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-        <div class="max-w-md">
+        <div class="max-w-md md:max-w-none">
           <PromptContainer v-if="!errorStore.isError && !stateStore.isLoading" />
           <Loader class="md:hidden" v-if="stateStore.isLoading && !errorStore.isError" />
           <ModalLoader class="hidden md:block" v-if="stateStore.isLoading && !errorStore.isError" />

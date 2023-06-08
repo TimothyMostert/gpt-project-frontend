@@ -1,14 +1,19 @@
 <template>
   <article>
-  <!-- mobile -->
+    <!-- mobile -->
     <EventContols
-      v-if="event.currentView != 'loading' && event.currentView != 'new'"
-      :current-view="event.currentView"
-      :event="props.event"
-      class="absolute -top-4 -right-4 z-10 md:hidden"
-    />
-    <div class="no-scrollbar relative rounded-lg shadow-xl bg-white md:hidden">
-      <Overview v-if="event.currentView == 'overview'" :event="props.event" key="overview" />
+        v-if="event.currentView != 'loading' && event.currentView != 'new'"
+        :current-view="event.currentView"
+        :event="props.event"
+        ref="stickyElement"
+        class=" md:hidden "
+      />
+    <div class="no-scrollbar relative rounded-lg rounded-tl-none shadow-xl bg-white md:hidden">
+      <Overview
+        v-if="event.currentView == 'overview'"
+        :event="props.event"
+        key="overview"
+      />
       <Images v-if="event.currentView == 'images'" :event="props.event" key="images" />
       <Edit v-if="event.currentView == 'edit'" :event="props.event" key="edit" />
       <Loading v-if="event.currentView == 'loading'" :event="props.event" key="loading" />
@@ -18,15 +23,18 @@
 
     <!-- desktop -->
     <div class="hidden md:block rounded-lg shadow-xl bg-white">
-      <Loading v-if="event.currentView == 'loading'" :event="props.event" key="loading" />
-      <DesktopOverview v-else-if="event.currentView == 'overview'" :event="props.event" key="overview" />
+      <DesktopOverview
+        v-if="event.currentView == 'overview' || event.currentView == 'loading'"
+        :event="props.event"
+        key="desktop-overview"
+      />
     </div>
     <!-- end desktop -->
   </article>
 </template>
 
 <script setup>
-import { ref, nextTick, watchEffect } from "vue";
+import { onMounted, onBeforeUnmount, ref, reactive } from "vue";
 import EventContols from "./controls/EventControls.vue";
 import Loading from "./views/Loading.vue";
 import Overview from "./views/Overview.vue";
@@ -44,6 +52,27 @@ const userStore = useUserStore();
 const props = defineProps({
   event: Object,
 });
+
+const stickyElement = ref(null);
+// const stickyClass = ref("absolute right-0 z-10 md:hidden");
+
+// const handleScroll = () => {
+//   console.log(stickyElement)
+//   let rect = stickyElement.value.getRootRect();
+//   if (rect.top <= 0) {
+//     stickyClass.value = "sticky top-0 right-0 z-10 md:hidden";
+//   } else {
+//     stickyClass.value = "absolute right-0 z-10 md:hidden";
+//   }
+// };
+
+// onMounted(() => {
+//   window.addEventListener("scroll", handleScroll);
+// });
+
+// onBeforeUnmount(() => {
+//   window.removeEventListener("scroll", handleScroll);
+// });
 
 // IF USING GOOGLE PLACES API
 // const fetchImages = async () => {
@@ -88,8 +117,6 @@ const props = defineProps({
 //     return [];
 //   }
 // };
-
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

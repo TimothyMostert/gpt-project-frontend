@@ -95,9 +95,5 @@ export const useUserStore = defineStore({
       const result = await Api.user_trips();
       this.trips = result.data.trips;
     },
-    async delete_trip(tripId) {
-      await Api.delete_trip(tripId);
-      this.user_trips();
-    },
   },
 });

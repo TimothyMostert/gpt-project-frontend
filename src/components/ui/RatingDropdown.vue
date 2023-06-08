@@ -21,6 +21,9 @@
                         d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"
                       />
                     </svg>
+                    <span class="whitespace-nowrap text-primaryBlue">
+          Rate trip
+            </span>
                     <span class="sr-only">Add your rating</span>
                   </span>
                   <span v-if="!(tripRating.value === null)">
@@ -107,40 +110,40 @@ import {
 
 const ratings = [
   {
-    name: "Excited",
+    name: "Can't wait",
     value: "excited",
     icon: FireIcon,
     iconColor: "text-white",
     bgColor: "bg-red-500",
   },
   {
-    name: "Loved",
+    name: "Love it",
     value: "loved",
     icon: HeartIcon,
     iconColor: "text-white",
     bgColor: "bg-pink-400",
   },
   {
-    name: "Happy",
+    name: "Seems good",
     value: "happy",
     icon: FaceSmileIconMini,
     iconColor: "text-white",
     bgColor: "bg-green-400",
   },
   {
-    name: "Sad",
+    name: "Disappointing",
     value: "sad",
     icon: FaceFrownIcon,
     iconColor: "text-white",
     bgColor: "bg-yellow-400",
   },
-  {
-    name: "Thumbsy",
-    value: "thumbsy",
-    icon: HandThumbUpIcon,
-    iconColor: "text-white",
-    bgColor: "bg-blue-500",
-  },
+  // {
+  //   name: "Thumbsy",
+  //   value: "thumbsy",
+  //   icon: HandThumbUpIcon,
+  //   iconColor: "text-white",
+  //   bgColor: "bg-blue-500",
+  // },
   {
     name: "I feel nothing",
     value: null,
@@ -150,7 +153,7 @@ const ratings = [
   },
 ];
 
-const tripRating = ref(ratings[5]);
+const tripRating = ref(ratings[4]);
 
 </script>
 

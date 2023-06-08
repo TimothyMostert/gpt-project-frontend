@@ -16,7 +16,7 @@ export const useExploreStore = defineStore({
   }),
   getters: {
     displayedTrips() {
-      return this.trips.slice(this.currentDisplayIndex, this.currentDisplayIndex + 6);
+      return this.trips.slice(this.currentDisplayIndex, this.currentDisplayIndex + 12);
     },
   },
   actions: {
@@ -49,15 +49,15 @@ export const useExploreStore = defineStore({
           perPage: 112,
         });
       } else {
-        this.currentDisplayIndex += 6;
-        if(this.currentDisplayIndex + 6 > this.trips.length) {
+        this.currentDisplayIndex += 12;
+        if(this.currentDisplayIndex + 12 > this.trips.length) {
           this.endOfBatch = true;
         }
       }
     },
     backPage() {
-      if(this.currentDisplayIndex >= 6) {
-        this.currentDisplayIndex -= 6;
+      if(this.currentDisplayIndex >= 12) {
+        this.currentDisplayIndex -= 12;
       }
     },
   },

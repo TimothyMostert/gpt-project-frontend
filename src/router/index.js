@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import ExploreView from "../views/ExploreView.vue";
+import DashboardView from "../views/DashboardView.vue";
+import TripView from "../views/TripView.vue";
 import { useUserStore } from "@/stores/user.js";
 
 const router = createRouter({
@@ -10,8 +13,8 @@ const router = createRouter({
       name: "home",
       beforeEnter: (to, from, next) => {
         const store = useUserStore();
-        if(store.isLoggedIn) {
-          next({name: 'dashboard'});
+        if (store.isLoggedIn) {
+          next({ name: "dashboard" });
         } else {
           next();
         }
@@ -21,15 +24,13 @@ const router = createRouter({
     {
       path: "/dashboard",
       name: "dashboard",
-      component: () =>
-        import(/* webpackChunkName: "prompt" */ "../views/DashboardView.vue"),
+      component: DashboardView,
       meta: { requiresAuth: true },
     },
     {
       path: "/explore",
       name: "explore",
-      component: () =>
-        import(/* webpackChunkName: "prompt" */ "../views/ExploreView.vue"),
+      component: ExploreView,
     },
     {
       path: "/login",
@@ -54,18 +55,21 @@ const router = createRouter({
     {
       path: "/trip/:id",
       name: "trip",
-      component: () =>
-        import(/* webpackChunkName: "trip" */ "../views/TripView.vue"),
+      component: TripView,
     },
   ],
 });
 
 router.beforeEach((to, from, next) => {
   const store = useUserStore();
+
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (store.isLoggedIn) {
-      next();
-      return;
+    if (localStorage.getItem("token")) {
+      store.checkAuth();
+      if (store.isLoggedIn) {
+        next();
+        return;
+      }
     }
     next("/login");
   } else {

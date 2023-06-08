@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <div v-for="category in Object.keys(tags)" :key="category" class="my-4">
-      <h1 class="w-100 flex justify-between items-center">
-        <span class="" :class="showDetails === category ? 'text-[#ac6411]' : 'text-gray-700'">
+  <div class="">
+    <div v-for="category in Object.keys(tags)" :key="category" class="border-b py-4">
+      <h1 class="flex justify-between items-center">
+        <span class="md:text-lg" :class="showDetails === category ? 'text-[#ac6411]' : 'text-gray-700'">
           {{ formatTitle(category) }}
         </span>
         <img
@@ -18,7 +18,7 @@
           alt="circle icon"
         />
       </h1>
-      <div v-show="showDetails === category" class="py-4 grid grid-cols-3 md:grid-cols-4 gap-2">
+      <div v-show="showDetails === category" class="p-2 md:p-4 md:mr-6 grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-6">
         <PromptInterest
           v-for="interest in tags[category]"
           :key="interest.name"
@@ -46,6 +46,13 @@ const showDetails = ref(null);
 // if (createStore.usedExample) {
 //   showDetails.value = "ActivityType";
 // }
+
+// "PreferredClimate": [
+//     { "name": "Tropical", "selectedColor": "bg-cyan-400", "selectedTextColor": "text-cyan-900" },
+//     { "name": "Temperate", "selectedColor": "bg-amber-400", "selectedTextColor": "text-amber-900" },
+//     { "name": "Cold", "selectedColor": "bg-blue-400", "selectedTextColor": "text-blue-900" },
+//     { "name": "Dry", "selectedColor": "bg-orange-400", "selectedTextColor": "text-orange-900" }
+//   ]
 
 const formatTitle = (title) => {
   // break camel case and capitalize first letter lowercase rest
