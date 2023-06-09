@@ -196,11 +196,20 @@ const deleteTrip = () => {
   tripStore.delete_trip(tripStore.trip.id, 'explore');
 };
 
-const isFavorite = ref(tripStore.trip.favorited_by_users.length > 0);
+const isFavorite = ref(false);
 
-watch(() => tripStore.trip.favorited_by_users, (newVal, oldVal) => {
-  isFavorite.value = newVal.length > 0;
-}, { immediate: true });
+watch(
+  () => tripStore.trip.favorited_by_users,
+  (newVal) => {
+    if (!newVal || newVal.length === 0) {
+      isFavorite.value = false;
+      return;
+    }
+    let userFavorited = newVal.find((x) => x.pivot.user_id === userStore.user.id);
+    isFavorite.value = userFavorited ? true : false;
+  },
+  { immediate: true }
+);
 
 const toggleFavorite = () => {
   if (isFavorite.value) {

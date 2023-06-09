@@ -158,12 +158,12 @@ const deleteTrip = () => {
   tripStore.delete_trip(tripStore.trip.id, "explore");
 };
 
-const isFavorite = ref(tripStore.trip.favorited_by_users.length > 0);
+const isFavorite = ref(false);
 
 watch(
   () => tripStore.trip.favorited_by_users,
   (newVal) => {
-    if (newVal.length === 0) {
+    if (!newVal || newVal.length === 0) {
       isFavorite.value = false;
       return;
     }
