@@ -100,7 +100,7 @@ import {
   ListboxOption,
   ListboxOptions,
 } from "@headlessui/vue";
-import { ref, watch} from "vue";
+import { ref, watch } from "vue";
 import {
   FaceFrownIcon,
   FaceSmileIcon as FaceSmileIconMini,
@@ -111,8 +111,10 @@ import {
 } from "@heroicons/vue/20/solid";
 import Api from "@/services/Api.service.js";
 import { useTripStore } from "@/stores/trip";
+import { useUserStore } from "@/stores/user";
 
 const tripStore = useTripStore();
+const userStore = useUserStore();
 
 const ratings = [
   {
@@ -154,28 +156,32 @@ const ratings = [
 
 const tripRating = ref(ratings[4]);
 
-watch(() => tripStore.trip, (newTrip) => {
-  // console.log(newTrip.ratings[0]);
-  if (newTrip.ratings.length > 0) {
-    tripRating.value = ratings.find(
-      (rating) => rating.value === newTrip.ratings[0].value
-    );
-  } else {
-    tripRating.value = ratings[4];
-  }
-}, { immediate: true });
-
-
+// if current user has rated the trip, set the rating
 watch(
-  tripRating,
-  async (newVal, oldVal) => {
-    if (oldVal.value === null) {
-      await Api.rateTrip({ trip_id: tripStore.trip.id, value: newVal.value });
-    } else {
-      await Api.updateRating({ trip_id: tripStore.trip.id, value: newVal.value });
+  () => tripStore.trip.ratings,
+  (newVal) => {
+    // find the rating of the current user
+    if (newVal.length == 0) {
+      tripRating.value = ratings[4];
+      return;
     }
-  }
+    let userRating = newVal.find((x) => x.user_id === userStore.user.id);
+    if (userRating) {
+      tripRating.value =  ratings.find((x) => x.value === userRating.value);
+    } else {
+      tripRating.value = ratings[4];
+    }
+  },
+  { immediate: true }
 );
+
+watch(tripRating, async (newVal, oldVal) => {
+  if (oldVal.value === null) {
+    await Api.rateTrip({ trip_id: tripStore.trip.id, value: newVal.value });
+  } else {
+    await Api.updateRating({ trip_id: tripStore.trip.id, value: newVal.value });
+  }
+});
 </script>
 
 <style lang="scss" scoped></style>

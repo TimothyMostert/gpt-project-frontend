@@ -104,6 +104,7 @@ import {
 } from "@heroicons/vue/20/solid";
 import { useTripStore } from "@/stores/trip";
 import { useStateStore } from "@/stores/state";
+import { useUserStore } from "@/stores/user";
 import ShareMenu from "@/components/ui/ShareMenu.vue";
 import RatingDropdown from '@/components/ui/RatingDropdown.vue';
 import Api from "@/services/Api.service.js"
@@ -111,6 +112,7 @@ import { ref, watch } from "vue";
 
 const tripStore = useTripStore();
 const stateStore = useStateStore();
+const userStore = useUserStore();
 
 const deleteTrip = () => {
   const tripStore = useTripStore();
@@ -122,7 +124,12 @@ const isFavorite = ref(tripStore.trip.favorited_by_users.length > 0);
 watch(
   () => tripStore.trip.favorited_by_users,
   (newVal) => {
-    isFavorite.value = newVal.length > 0;
+    if (newVal.length === 0) {
+      isFavorite.value = false;
+      return;
+    }
+    let userFavorited = newVal.find((x) => x.pivot.user_id === userStore.user.id);
+    isFavorite.value = userFavorited ? true : false;
   }, { immediate: true }
 );
 
