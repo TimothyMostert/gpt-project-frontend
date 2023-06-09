@@ -100,7 +100,7 @@ import {
   ListboxOption,
   ListboxOptions,
 } from "@headlessui/vue";
-import { ref, watch } from "vue";
+import { ref, watch} from "vue";
 import {
   FaceFrownIcon,
   FaceSmileIcon as FaceSmileIconMini,
@@ -152,12 +152,18 @@ const ratings = [
   },
 ];
 
-// if tripStore.trip.ratings > 0 then set the rating to the last one else set it to ratings[4]
-const tripRating = ref(
-  tripStore.trip.ratings.length > 0
-    ? ratings.find((rating) => rating.value === tripStore.trip.ratings[0].value)
-    : ratings[4]
-);
+const tripRating = ref(ratings[4]);
+
+watch(() => tripStore.trip, (newTrip) => {
+  // console.log(newTrip.ratings[0]);
+  if (newTrip.ratings.length > 0) {
+    tripRating.value = ratings.find(
+      (rating) => rating.value === newTrip.ratings[0].value
+    );
+  } else {
+    tripRating.value = ratings[4];
+  }
+}, { immediate: true });
 
 
 watch(

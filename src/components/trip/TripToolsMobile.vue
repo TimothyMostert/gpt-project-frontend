@@ -144,7 +144,7 @@ import { useTripStore } from "@/stores/trip";
 import { useStateStore } from "@/stores/state";
 import ShareMenu from "@/components/ui/ShareMenu.vue";
 import Api from "@/services/Api.service.js"
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 const tripStore = useTripStore();
 
@@ -156,6 +156,10 @@ const deleteTrip = () => {
 };
 
 const isFavorite = ref(tripStore.trip.favorited_by_users.length > 0);
+
+watch(() => tripStore.trip.favorited_by_users, (newVal, oldVal) => {
+  isFavorite.value = newVal.length > 0;
+}, { immediate: true });
 
 const toggleFavorite = () => {
   if (isFavorite.value) {
