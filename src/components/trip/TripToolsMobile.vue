@@ -56,7 +56,8 @@
           <div class="py-1">
             <MenuItem v-slot="{ active }">
               <a
-                
+              @click="getMap"
+            v-if="!mapsLoading"
                 :class="[
                   active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                   'group flex items-center px-4 py-2 text-sm',
@@ -68,6 +69,31 @@
                 />
                 Open in maps
               </a>
+              <div
+            v-else
+            class="text-gray-700 group flex items-center px-4 md:px-2 lg:px-4 lg:pl-1 py-2 text-sm md:text-xs lg:text-sm whitespace-nowrap"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-500"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+                class="opacity-25"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          </div>
             </MenuItem>
           </div>
           <div class="py-1">
@@ -149,6 +175,21 @@ import { ref, watch } from "vue";
 const tripStore = useTripStore();
 
 const stateStore = useStateStore();
+
+const mapsLoading = ref(false);
+
+const getMap = async () => {
+  mapsLoading.value = true;
+  const result = await Api.getMap(tripStore.trip.id);
+  if (result.status === 200 && result.data.success) {
+    // load data.map in new tab
+    window.open(result.data.map);
+  } else {
+    // show error
+    alert("Something went wrong with map loading.");
+  }
+  mapsLoading.value = false;
+};
 
 const deleteTrip = () => {
   const tripStore = useTripStore();

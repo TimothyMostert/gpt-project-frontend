@@ -1,11 +1,8 @@
 <template>
   <div>
     <div class="relative inline-block text-left w-full mt-4">
-
-        <div
-          class="flex gap-2 z-10 w-full divide-x divide-gray-300 rounded-md"
-        >
-          <!-- <div class=" w-fit">
+      <div class="flex gap-2 z-10 w-full divide-x divide-gray-300 rounded-md">
+        <!-- <div class=" w-fit">
               <a
                 
                 :class="[
@@ -19,76 +16,104 @@
                 Edit
               </a>
           </div> -->
-          <div class="w-fit">
-              <a
-                
-                :class="[
-                  'text-gray-700 group flex items-center px-4 md:px-2 lg:px-4 lg:pl-1 py-2 text-sm md:text-xs lg:text-sm whitespace-nowrap',
-                ]"
-              >
-                <ArrowRightCircleIcon
-                  class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                  aria-hidden="true"
-                />
-                Open in maps
-              </a>
-          </div>
-          <div class="">
-              <a
-                @click="stateStore.ui.showShareMenu = true"
-                :class="[
-                  'text-gray-700 group flex items-center px-4 md:px-2 lg:px-4 py-2 text-sm md:text-xs lg:text-sm whitespace-nowrap',
-                ]"
-              >
-                <UserPlusIcon
-                  class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                  aria-hidden="true"
-                />
-                Share
-              </a>
-          </div>
-              <div class="">
-              <a
-                @click="toggleFavorite"
-                :class="[
-                  'text-gray-700 group flex items-center px-4 md:px-2 lg:px-4 py-2 text-sm md:text-xs lg:text-sm whitespace-nowrap',
-                ]"
-              >
-                <HeartIcon
-                  class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                  :class="{
-                    'text-red-500 group-hover:text-red-800': isFavorite,
-                  }"
-                  aria-hidden="true"
-                />
-                Add to favorites
-              </a>
-          </div>
-          <div class="">
-              <a
-                @click="deleteTrip"
-                :class="[
-                  'text-gray-700 group flex items-center px-4 md:px-2 lg:px-4 py-2 text-sm md:text-xs lg:text-sm whitespace-nowrap',
-                ]"
-              >
-                <TrashIcon
-                  class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                  aria-hidden="true"
-                />
-                Delete
-              </a>
-          </div>
-          <div class="">
-              <a
-                
-                :class="[
-                  'text-gray-700 group flex items-center px-4 md:px-2 lg:px-4 py-2 text-sm md:text-xs lg:text-sm whitespace-nowrap',
-                ]"
-              >
-                <RatingDropdown class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" aria-hidden="true"/>
-              </a>
+        <div class="w-fit">
+          <a
+            @click="getMap"
+            v-if="!mapsLoading"
+            :class="[
+              'text-gray-700 group flex items-center px-4 md:px-2 lg:px-4 lg:pl-1 py-2 text-sm md:text-xs lg:text-sm whitespace-nowrap',
+            ]"
+          >
+            <ArrowRightCircleIcon
+              class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+              aria-hidden="true"
+            />
+            Open in maps
+          </a>
+          <div
+            v-else
+            class="text-gray-700 group flex items-center px-4 md:px-2 lg:px-4 lg:pl-1 py-2 text-sm md:text-xs lg:text-sm whitespace-nowrap"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-500"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+                class="opacity-25"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
           </div>
         </div>
+        <div class="">
+          <a
+            @click="stateStore.ui.showShareMenu = true"
+            :class="[
+              'text-gray-700 group flex items-center px-4 md:px-2 lg:px-4 py-2 text-sm md:text-xs lg:text-sm whitespace-nowrap',
+            ]"
+          >
+            <UserPlusIcon
+              class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+              aria-hidden="true"
+            />
+            Share
+          </a>
+        </div>
+        <div class="">
+          <a
+            @click="toggleFavorite"
+            :class="[
+              'text-gray-700 group flex items-center px-4 md:px-2 lg:px-4 py-2 text-sm md:text-xs lg:text-sm whitespace-nowrap',
+            ]"
+          >
+            <HeartIcon
+              class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+              :class="{
+                'text-red-500 group-hover:text-red-800': isFavorite,
+              }"
+              aria-hidden="true"
+            />
+            Add to favorites
+          </a>
+        </div>
+        <div class="">
+          <a
+            @click="deleteTrip"
+            :class="[
+              'text-gray-700 group flex items-center px-4 md:px-2 lg:px-4 py-2 text-sm md:text-xs lg:text-sm whitespace-nowrap',
+            ]"
+          >
+            <TrashIcon
+              class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+              aria-hidden="true"
+            />
+            Delete
+          </a>
+        </div>
+        <div class="">
+          <a
+            :class="[
+              'text-gray-700 group flex items-center px-4 md:px-2 lg:px-4 py-2 text-sm md:text-xs lg:text-sm whitespace-nowrap',
+            ]"
+          >
+            <RatingDropdown
+              class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+              aria-hidden="true"
+            />
+          </a>
+        </div>
+      </div>
     </div>
     <ShareMenu v-if="stateStore.ui.showShareMenu" />
   </div>
@@ -106,17 +131,31 @@ import { useTripStore } from "@/stores/trip";
 import { useStateStore } from "@/stores/state";
 import { useUserStore } from "@/stores/user";
 import ShareMenu from "@/components/ui/ShareMenu.vue";
-import RatingDropdown from '@/components/ui/RatingDropdown.vue';
-import Api from "@/services/Api.service.js"
+import RatingDropdown from "@/components/ui/RatingDropdown.vue";
+import Api from "@/services/Api.service.js";
 import { ref, watch } from "vue";
 
 const tripStore = useTripStore();
 const stateStore = useStateStore();
 const userStore = useUserStore();
 
+const mapsLoading = ref(false);
+
+const getMap = async () => {
+  mapsLoading.value = true;
+  const result = await Api.getMap(tripStore.trip.id);
+  if (result.status === 200 && result.data.success) {
+    // load data.map in new tab
+    window.open(result.data.map);
+  } else {
+    alert("Something went wrong with map loading.");
+  }
+  mapsLoading.value = false;
+};
+
 const deleteTrip = () => {
   const tripStore = useTripStore();
-  tripStore.delete_trip(tripStore.trip.id, 'explore');
+  tripStore.delete_trip(tripStore.trip.id, "explore");
 };
 
 const isFavorite = ref(tripStore.trip.favorited_by_users.length > 0);
@@ -130,7 +169,8 @@ watch(
     }
     let userFavorited = newVal.find((x) => x.pivot.user_id === userStore.user.id);
     isFavorite.value = userFavorited ? true : false;
-  }, { immediate: true }
+  },
+  { immediate: true }
 );
 
 const toggleFavorite = () => {
