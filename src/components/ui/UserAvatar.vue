@@ -10,7 +10,7 @@
                 <img
                   v-else
                   class="inline-block h-9 w-9 rounded-full"
-                  src="@/assets/images/default-avatar.png"
+                  src="@/assets/images/default-avatar.webp"
                   alt=""
                 />
               </div>

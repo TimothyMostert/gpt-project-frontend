@@ -113,7 +113,7 @@ const subscribe = () => {
                 >
                   <div class="relative">
                     <img
-                      src="@/assets/images/hero/tropical-hammock.png"
+                      src="@/assets/images/hero/tropical-hammock.webp"
                       alt="tropical hommack on a beautiful beach"
                       class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                     />
@@ -125,7 +125,7 @@ const subscribe = () => {
                 <div class="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
                   <div class="relative">
                     <img
-                      src="@/assets/images/hero/culture-experience.png"
+                      src="@/assets/images/hero/culture-experience.webp"
                       alt="South east asia food market"
                       class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                     />
@@ -135,7 +135,7 @@ const subscribe = () => {
                   </div>
                   <div class="relative">
                     <img
-                      src="@/assets/images/hero/adventure-landscape.png"
+                      src="@/assets/images/hero/adventure-landscape.webp"
                       alt="Hot air balloon rises over the canyon"
                       class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                     />
@@ -147,7 +147,7 @@ const subscribe = () => {
                 <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
                   <div class="relative">
                     <img
-                      src="@/assets/images/hero/historic-centre.png"
+                      src="@/assets/images/hero/historic-centre.webp"
                       alt="Cobbled streets of a european city"
                       class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                     />
@@ -157,7 +157,7 @@ const subscribe = () => {
                   </div>
                   <div class="relative">
                     <img
-                      src="@/assets/images/hero/relaxing-spa.png"
+                      src="@/assets/images/hero/relaxing-spa.webp"
                       alt="Hottub overlooking the cold mountains"
                       class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                     />

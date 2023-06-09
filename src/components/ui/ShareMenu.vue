@@ -33,11 +33,12 @@
             >
               <div @click="stateStore.ui.showShareMenu = false" class="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
                 <button
+                @click="stateStore.ui.showShareMenu = false"
                   type="button"
                   class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primaryBlue focus:ring-offset-2"
                 >
                   <span class="sr-only">Close</span>
-                  <XMarkIcon class="h-6 w-6" aria-hidden="true" />
+                  <XMarkIcon @click="stateStore.ui.showShareMenu = false" class="h-6 w-6" aria-hidden="true" />
                 </button>
               </div>
 

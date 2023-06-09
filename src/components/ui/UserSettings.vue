@@ -46,7 +46,7 @@
                         <div class="relative h-40 sm:h-56">
                           <img
                             class="absolute h-full w-full object-cover"
-                            src="@/assets/images/profile-bg.png"
+                            src="@/assets/images/profile-bg.webp"
                             alt="magical travel experience, man walks with suitcases into the unknown"
                           />
                         </div>

@@ -15,10 +15,10 @@ module.exports = {
         secondaryBlack: "#4F4F4F",
       },
       backgroundImage: {
-        "palm-tree": "url('/src/assets/images/tiled-palm-trees.png')",
-        'location-1': "url('/src/assets/images/tiled-travel-vibes.png')",
-        'travel-1': "url('/src/assets/images/tiled-travel-lines.png')",
-        'create-trip': "url('/src/assets/images/tiled-create-trip.png')",
+        "palm-tree": "url('/src/assets/images/tiled-palm-trees.webp')",
+        'location-1': "url('/src/assets/images/tiled-travel-vibes.webp')",
+        'travel-1': "url('/src/assets/images/tiled-travel-lines.webp')",
+        'create-trip': "url('/src/assets/images/tiled-create-trip.webp')",
       }
     },
   },

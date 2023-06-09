@@ -14,7 +14,7 @@
           <span class="sr-only">Dreamtrip</span>
           <img
             class="h-8 w-auto"
-            src="@/assets/images/dreamtrip_logo_clear_tight.png"
+            src="@/assets/images/dreamtrip_logo_clear_tight.webp"
             alt="dream trip logo, a plane flies through the sunrise, orange and blue"
           />
         </a>
