@@ -49,13 +49,16 @@
           </div>
               <div class="">
               <a
-                
+                @click="toggleFavorite"
                 :class="[
                   'text-gray-700 group flex items-center px-4 md:px-2 lg:px-4 py-2 text-sm md:text-xs lg:text-sm whitespace-nowrap',
                 ]"
               >
                 <HeartIcon
                   class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                  :class="{
+                    'text-red-500 group-hover:text-red-800': isFavorite,
+                  }"
                   aria-hidden="true"
                 />
                 Add to favorites
@@ -63,7 +66,7 @@
           </div>
           <div class="">
               <a
-                
+                @click="deleteTrip"
                 :class="[
                   'text-gray-700 group flex items-center px-4 md:px-2 lg:px-4 py-2 text-sm md:text-xs lg:text-sm whitespace-nowrap',
                 ]"
@@ -103,8 +106,40 @@ import { useTripStore } from "@/stores/trip";
 import { useStateStore } from "@/stores/state";
 import ShareMenu from "@/components/ui/ShareMenu.vue";
 import RatingDropdown from '@/components/ui/RatingDropdown.vue';
-
+import Api from "@/services/Api.service.js"
+import { ref } from "vue";
 
 const tripStore = useTripStore();
 const stateStore = useStateStore();
+
+const deleteTrip = () => {
+  const tripStore = useTripStore();
+  tripStore.delete_trip(tripStore.trip.id, 'explore');
+};
+
+const isFavorite = ref(tripStore.trip.favorited_by_users.length > 0);
+
+const toggleFavorite = () => {
+  if (isFavorite.value) {
+    removeFavorite();
+  } else {
+    addFavorite();
+  }
+};
+
+const addFavorite = () => {
+  Api.add_favorite(tripStore.trip.id).then((res) => {
+    if (res.status === 200) {
+      isFavorite.value = true;
+    }
+  });
+};
+
+const removeFavorite = () => {
+  Api.remove_favorite(tripStore.trip.id).then((res) => {
+    if (res.status === 200) {
+      isFavorite.value = false;
+    }
+  });
+};
 </script>

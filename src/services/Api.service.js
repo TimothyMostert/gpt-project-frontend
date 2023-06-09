@@ -48,11 +48,16 @@ export default {
   // user
   user_trips: () => Api.get("api/user/trips"),
   delete_trip: (tripId) => Api.get(`api/trip/delete/${tripId}`),
+  add_favorite: (tripId) => Api.get(`api/trip/favorite/${tripId}`),
+  remove_favorite: (tripId) => Api.delete(`api/trip/unfavorite/${tripId}`),
   
   // trips
   createEventsTrip: (body) => Api.post("api/trip/create", body),
   getTripFromId: (tripId) => Api.get(`api/trip/${tripId}`),
   searchTrips: (body) => Api.post("api/trip/search", body),
+  rateTrip: (body) => Api.post("api/trip/rating", body),
+  updateRating: (body) => Api.patch("api/trip/rating", body),
+
 
   // events
   createEventDetails: (body) => Api.post("api/event/details", body),
