@@ -210,6 +210,10 @@
                 </div>
               </div>
 
+              <span v-if="errorMessage" class="my-4 text-red-500">
+                {{ errorMessage }}
+              </span>
+
               <div class="mt-10">
                 <div class="relative">
                   <div class="absolute inset-0 flex items-center" aria-hidden="true">
@@ -295,6 +299,7 @@ const email = ref("");
 const password = ref("");
 
 const isLogin = ref(true);
+const errorMessage = ref("");
 
 const user_register = async () => {
   isLoading.value = true;
@@ -303,7 +308,12 @@ const user_register = async () => {
     email: email.value,
     password: password.value,
   };
-  await userStore.user_register(data);
+  const result = await userStore.user_register(data);
+  if (result.error) {
+    isLoading.value = false;
+    errorMessage.value = result.error;
+    return;
+  }
   isLoading.value = false;
 };
 
@@ -313,13 +323,23 @@ const user_login = async () => {
     email: email.value,
     password: password.value,
   };
-  await userStore.user_login(data);
+  const result = await userStore.user_login(data);
+  if (result.error) {
+    isLoading.value = false;
+    errorMessage.value = result.error;
+    return;
+  }
   isLoading.value = false;
 };
 
 const google_login = async () => {
   isLoading.value = true;
-  await userStore.google_login();
+  const result = await userStore.google_login();
+  if (result.error) {
+    isLoading.value = false;
+    errorMessage.value = result.error;
+    return;
+  }
   isLoading.value = false;
 };
 </script>

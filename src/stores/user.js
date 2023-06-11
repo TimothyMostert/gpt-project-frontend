@@ -58,8 +58,11 @@ export const useUserStore = defineStore({
     },
     async user_register(registerData) {
       const result = await Api.user_register(registerData);
-      if (result.data.success) {
+      if (result.status == 200) {
         this.user_login(registerData);
+        return true;
+      } else {
+        return { error: result.response.data.message };
       }
     },
     async user_login(loginData) {
@@ -70,13 +73,20 @@ export const useUserStore = defineStore({
           token: result.headers["token"],
           user: result.data.user,
         });
+        return true;
       } else {
         this.logout();
+        return { error: result.response.data.message };
       }
     },
     async google_login() {
-      const response = await Api.google_login();
-      window.location.href = response.data;
+      const result = await Api.google_login();
+      if (result.status == 200) {
+        window.location.href = result.data;
+        return true;
+      } else {
+        return { error: result.response.data.message };
+      }
     },
     async google_callback(urlParams) {
       await Api.sanctum();
