@@ -55,7 +55,7 @@
                     :key="item.name"
                     :network="item.network"
                     :url="currentUrl"
-                    :title="'Check out this trip I made on dreamtrip.io! -' + tripStore.trip.title"
+                    :title="'Check out this trip I made on dreamtrip! -' + tripStore.trip.title"
                   >
                     Share on {{ item.name }}
                   </ShareNetwork>

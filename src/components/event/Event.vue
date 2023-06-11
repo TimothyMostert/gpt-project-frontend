@@ -2,22 +2,24 @@
   <article>
     <!-- mobile -->
     <EventContols
-        v-if="event.currentView != 'loading' && event.currentView != 'new'"
-        :current-view="event.currentView"
-        :event="props.event"
-        ref="stickyElement"
-        class=" md:hidden "
-      />
-    <div class="no-scrollbar relative rounded-lg rounded-tl-none shadow-xl bg-white md:hidden">
+      v-if="event.currentView != 'loading' && event.currentView != 'new'"
+      :current-view="event.currentView"
+      :event="props.event"
+      ref="stickyElement"
+      class="md:hidden"
+    />
+    <div
+      class="no-scrollbar relative rounded-lg rounded-tl-none shadow-xl bg-white md:hidden"
+    >
+      <Loading v-if="isLoading" :event="props.event" key="loading" />
       <Overview
-        v-if="event.currentView == 'overview'"
+        v-if="event.currentView == 'overview' && !isLoading"
         :event="props.event"
         key="overview"
       />
-      <Images v-if="event.currentView == 'images'" :event="props.event" key="images" />
-      <Edit v-if="event.currentView == 'edit'" :event="props.event" key="edit" />
-      <Loading v-if="event.currentView == 'loading'" :event="props.event" key="loading" />
-      <New v-if="event.currentView == 'new'" :event="props.event" key="new" />
+      <Images v-if="event.currentView == 'images' && !isLoading" :event="props.event" key="images" />
+      <Edit v-if="event.currentView == 'edit' && !isLoading" :event="props.event" key="edit" />
+      <New v-if="event.currentView == 'new' && !isLoading" :event="props.event" key="new" />
     </div>
     <!-- end mobile -->
 
@@ -34,7 +36,7 @@
 </template>
 
 <script setup>
-import { onMounted, onBeforeUnmount, ref, reactive } from "vue";
+import { ref, computed } from "vue";
 import EventContols from "./controls/EventControls.vue";
 import Loading from "./views/Loading.vue";
 import Overview from "./views/Overview.vue";
@@ -51,6 +53,16 @@ const userStore = useUserStore();
 
 const props = defineProps({
   event: Object,
+});
+
+const isLoading = computed(() => {
+  return (
+    props.event.currentView == "loading" ||
+    !props.event.description ||
+    !props.event.activities ||
+    !props.event.location ||
+    props.event.activities.length === 0
+  );
 });
 
 const stickyElement = ref(null);

@@ -161,7 +161,7 @@ watch(
   () => tripStore.trip.ratings,
   (newVal) => {
     // find the rating of the current user
-    if (newVal.length == 0) {
+    if (!newVal || newVal.length == 0) {
       tripRating.value = ratings[4];
       return;
     }

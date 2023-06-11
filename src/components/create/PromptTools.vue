@@ -1,10 +1,10 @@
 <template>
     <div class="w-100 flex justify-end gap-2">
-        <div v-if="!used" @click="usePlaceholder" class="text-xs text-gray-500 rounded font-semibold cursor-pointer whitespace-nowrap text-right -">
+        <div v-if="!used" @click="usePlaceholder" class="text-xs text-gray-500 bg-gray-200 px-3 py-1 rounded-full font-semibold cursor-pointer whitespace-nowrap text-right">
           Use Example
         </div>
         <!-- clear prompt -->
-        <div class="text-xs text-gray-500 rounded font-semibold cursor-pointer" v-if="createStore.promptText" @click="createStore.promptText = ''">
+        <div class="text-xs text-gray-500 bg-gray-200 px-3 py-1 rounded-full font-semibold cursor-pointer whitespace-nowrap text-right" v-if="createStore.promptText" @click="createStore.promptText = ''">
             Clear
         </div>
     </div>

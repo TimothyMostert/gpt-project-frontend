@@ -18,7 +18,7 @@
         <div class="pr-6">
           <h2 class="font-bold text-lg text-gray-700">{{ props.event.title }}</h2>
           <p class="text-sm text-gray-600">{{ props.event.location.name }}</p>
-          <DescriptionPlaceholderDesktop v-if="isLoading" class="mt-6 mb-4 flex"/>
+          <DescriptionPlaceholderDesktop v-if="isLoading || missingDescription" class="mt-6 mb-4 flex"/>
           <div class="py-4 px-2 flex items-center" v-else>
             <p class="text-base text-gray-600 italic font-serif">
               "{{ props.event.description }}"
@@ -28,7 +28,7 @@
       <div
         class="flex flex-col gap-4 text-left no-scrollbars overflow-y-auto flex-grow"
       >
-        <ActivitiesPlaceholderDesktop v-if="isLoading" />
+        <ActivitiesPlaceholderDesktop v-if="isLoading || missingActivities" />
         <div
           v-else
           class="text-gray-700 flex flex-col gap-2"
@@ -70,6 +70,14 @@ const gridStyleSecond = computed(() => {
 
 const isLoading = computed(() => {
   return props.event.currentView === "loading";
+});
+
+const missingDescription = computed(() => {
+  return !props.event.description;
+});
+
+const missingActivities = computed(() => {
+  return !props.event.activities || props.event.activities.length === 0;
 });
 
 const images = computed(() => {
