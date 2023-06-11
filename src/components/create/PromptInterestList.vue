@@ -2,21 +2,24 @@
   <div class="">
     <div v-for="category in Object.keys(tags)" :key="category" class="border-b py-4">
       <h1 class="flex justify-between items-center">
-        <span class="md:text-lg" :class="showDetails === category ? 'text-[#ac6411]' : 'text-gray-700'">
+        <div v-if="showDetails !== category" @click="showDetails = category" class="w-full flex justify-between items-center">
+          <span class="md:text-lg" :class="showDetails === category ? 'text-[#ac6411]' : 'text-gray-700'">
           {{ formatTitle(category) }}
         </span>
         <img
-          v-if="showDetails !== category"
-          @click="showDetails = category"
           src="@/assets/images/icons/Circle.png"
           alt="circle icon"
         />
+        </div>
+        <div v-else @click="showDetails = ''" class="w-full flex justify-between items-center">
+          <span class="md:text-lg" :class="showDetails === category ? 'text-[#ac6411]' : 'text-gray-700'">
+          {{ formatTitle(category) }}
+        </span>
         <img
-          v-else
-          @click="showDetails = ''"
           src="@/assets/images/icons/Close.png"
           alt="circle icon"
         />
+        </div>
       </h1>
       <div v-show="showDetails === category" class="p-2 md:p-4 md:mr-6 grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-6">
         <PromptInterest
