@@ -117,7 +117,7 @@
               </a>
             </MenuItem>
           </div>
-          <div class="py-1">
+          <div v-if="tripStore.isUserTrip"  class="py-1">
             <MenuItem v-slot="{ active }">
               <a
                 @click="deleteTrip"

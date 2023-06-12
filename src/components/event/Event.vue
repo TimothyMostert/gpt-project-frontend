@@ -17,19 +17,27 @@
         :event="props.event"
         key="overview"
       />
-      <Images v-if="event.currentView == 'images' && !isLoading" :event="props.event" key="images" />
-      <Edit v-if="event.currentView == 'edit' && !isLoading" :event="props.event" key="edit" />
-      <New v-if="event.currentView == 'new' && !isLoading" :event="props.event" key="new" />
+      <Images
+        v-if="event.currentView == 'images' && !isLoading"
+        :event="props.event"
+        key="images"
+      />
+      <Edit
+        v-if="event.currentView == 'edit' && !isLoading"
+        :event="props.event"
+        key="edit"
+      />
+      <New
+        v-if="event.currentView == 'new' && !isLoading"
+        :event="props.event"
+        key="new"
+      />
     </div>
     <!-- end mobile -->
 
     <!-- desktop -->
     <div class="hidden md:block rounded-lg shadow-xl bg-white">
-      <DesktopOverview
-        v-if="event.currentView == 'overview' || event.currentView == 'loading'"
-        :event="props.event"
-        key="desktop-overview"
-      />
+      <DesktopLayout :event="props.event" key="desktop-layout" />
     </div>
     <!-- end desktop -->
   </article>
@@ -38,18 +46,12 @@
 <script setup>
 import { ref, computed } from "vue";
 import EventContols from "./controls/EventControls.vue";
-import Loading from "./views/Loading.vue";
-import Overview from "./views/Overview.vue";
-import DesktopOverview from "./views/DesktopOverview.vue";
-import Edit from "./views/Edit.vue";
-import New from "./views/New.vue";
-import Images from "./views/Images.vue";
-
-import Api from "@/services/Api.service.js";
-import { useTripStore } from "@/stores/trip.js";
-import { useUserStore } from "@/stores/user.js";
-
-const userStore = useUserStore();
+import Loading from "./views/mobile/Loading.vue";
+import Overview from "./views/mobile/Overview.vue";
+import Edit from "./views/mobile/Edit.vue";
+import New from "./views/mobile/New.vue";
+import Images from "./views/mobile/Images.vue";
+import DesktopLayout from "./layouts/DesktopLayout.vue";
 
 const props = defineProps({
   event: Object,

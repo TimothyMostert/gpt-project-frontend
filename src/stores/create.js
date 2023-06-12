@@ -16,8 +16,8 @@ export const useCreateStore = defineStore({
     promptText: "",
     interests: [],
     usedExample: false,
-    placeholderArray: [intiPlaceholder],
-    placeholderIndex: 0,
+    placeholderArray: [...examplePrompts],
+    placeholderIndex: Math.floor(Math.random() * examplePrompts.length),
   }),
   getters: {
     getCurrentPlaceholderPrompt() {
@@ -66,6 +66,9 @@ export const useCreateStore = defineStore({
             createAndProcessEventDetails(event)
           );
           await Promise.allSettled(promises);
+        }  else if (result.status === 500) {
+          // retry the call if it fails (can test for specific errors later)
+          this.createTrip();
         } else {
           stateStore.isLoading = false;
           errorStore.addError("create_trip", result.data.message);
@@ -140,7 +143,14 @@ async function createEventDetails(uuid, tripId) {
       session_id: "1234",
       model: userStore.selectedModel,
     });
-    return result;
+    if (result.data && result.data.success) {
+      return result;
+    }  else if (result.status === 500) {
+      // retry the call if it fails (can test for specific errors later)
+      return createEventDetails(uuid, tripId);
+    } else {
+      errorStore.addError("event_details_error", result.data.message);
+    }
   } catch (error) {
     errorStore.addError("location_details_error", error);
   }

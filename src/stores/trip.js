@@ -12,7 +12,12 @@ export const useTripStore = defineStore({
     trip: undefined,
     title: "",
   }),
-  getters: {},
+  getters: {
+    isUserTrip() {
+      const userStore = useUserStore();
+      return this.trip && userStore.user && this.trip.user_id === userStore.user.id;
+    }
+  },
   actions: {
     setTripFromId(tripId) {
       const errorStore = useErrorStore();
@@ -110,6 +115,9 @@ export const useTripStore = defineStore({
           if (eventIndex > -1) {
             this.updateEvent(eventIndex, result.data.event);
           }
+        } else if (result.status === 500) {
+          // retry the call if it fails
+          this.editEvent(event_id);
         } else {
           stateStore.isLoading = false;
           errorStore.addError("edit_event", result.data);
@@ -135,6 +143,10 @@ export const useTripStore = defineStore({
       const currentEvent = this.trip.events[eventIndex];
 
       currentEvent.currentView = "loading";
+
+      if (currentEvent.editLocation == '') {
+        currentEvent.editLocation = 'you choose';
+      }
       
       const result = await Api.fillEvent({
         trip_id: this.trip.id,
@@ -150,6 +162,11 @@ export const useTripStore = defineStore({
         if (eventIndex > -1) {
           this.updateEvent(eventIndex, result.data.event);
         }
+      }  else if (result.status === 500) {
+        // retry the call if it fails
+        this.fillEvent(eventIndex);
+      } else {
+        errorStore.addError("fill_event", result.data);
       }
     },
     async delete_trip(tripId, navigateToRoute = null) {
@@ -159,6 +176,11 @@ export const useTripStore = defineStore({
           router.push({ name: navigateToRoute });
         }
         return true;
+      }  else if (result.status === 500) {
+        // retry the call if it fails
+        this.delete_trip(tripId, navigateToRoute);
+      } else {
+        errorStore.addError("delete_trip", result.data);
       }
     },
   },

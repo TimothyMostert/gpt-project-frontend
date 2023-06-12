@@ -62,14 +62,13 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const store = useUserStore();
-
+  if (localStorage.getItem("token")) {
+    store.checkAuth();
+  }
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (localStorage.getItem("token")) {
-      store.checkAuth();
-      if (store.isLoggedIn) {
-        next();
-        return;
-      }
+    if (store.isLoggedIn) {
+      next();
+      return;
     }
     next("/login");
   } else {

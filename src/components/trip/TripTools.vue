@@ -76,7 +76,7 @@
             Add to favorites
           </a>
         </div>
-        <div class="">
+        <div v-if="tripStore.isUserTrip" class="">
           <a
             @click="deleteTrip"
             :class="[

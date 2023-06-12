@@ -111,8 +111,6 @@ import { useCreateStore } from "@/stores/create";
 import { useStateStore } from "@/stores/state";
 import { useValidationStore } from "@/stores/validation";
 
-import examplePrompts from "@/assets/json/examplePrompts.json";
-
 const createStore = useCreateStore();
 const stateStore = useStateStore();
 const validationStore = useValidationStore();
@@ -136,15 +134,17 @@ const promptTextArea = {
   handleBlur: (event) => {},
 };
 
-const pushRandomPrompt = async () => {
+const updatePlaceholderIndex = async () => {
   if (createStore.usedExample) return;
-  const result = examplePrompts[Math.floor(Math.random() * examplePrompts.length)];
-  createStore.placeholderArray.push(result);
-  createStore.placeholderIndex = createStore.placeholderArray.length - 1;
+  if (createStore.placeholderIndex == createStore.placeholderArray.length - 1) {
+    createStore.placeholderIndex = 0;
+    return;
+  }
+  createStore.placeholderIndex = createStore.placeholderIndex + 1;
 };
 
 setInterval(async () => {
-  pushRandomPrompt();
+  updatePlaceholderIndex();
 }, 6000);
 
 const createTrip = () => {
