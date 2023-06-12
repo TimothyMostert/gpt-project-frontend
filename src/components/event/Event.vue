@@ -56,8 +56,13 @@ const props = defineProps({
 });
 
 const isLoading = computed(() => {
+  if (props.event.currentView == "loading") {
+    return true;
+  }
+  if (props.event.currentView == "new" || props.event.currentView == "edit") {
+    return false;
+  }
   return (
-    props.event.currentView == "loading" ||
     !props.event.description ||
     !props.event.activities ||
     !props.event.location ||
