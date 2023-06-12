@@ -58,12 +58,12 @@ export const useUserStore = defineStore({
     },
     async user_register(registerData) {
       const result = await Api.user_register(registerData);
-      if (result.status == 200) {
+      // if (result.status == 200) {
         this.user_login(registerData);
         return true;
-      } else {
-        return { error: result.response.data.message };
-      }
+      //} else {
+        //return { error: result.response.data.message };
+      //}
     },
     async user_login(loginData) {
       await Api.sanctum();
