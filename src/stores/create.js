@@ -11,15 +11,19 @@ import examplePrompts from "@/assets/json/examplePrompts.json";
 const intiPlaceholder = examplePrompts[Math.floor(Math.random() * examplePrompts.length)];
 
 export const useCreateStore = defineStore({
-  id: "Prompt",
+  id: "Create",
   state: () => ({
     promptText: "",
     interests: [],
     usedExample: false,
-    placeholder: intiPlaceholder.prompt,
-    placeholderTags: intiPlaceholder.tags,
+    placeholderArray: [intiPlaceholder],
+    placeholderIndex: 0,
   }),
-  getters: {},
+  getters: {
+    getCurrentPlaceholderPrompt() {
+      return this.placeholderArray[this.placeholderIndex].prompt;
+    }
+  },
   actions: {
     async createTrip() {
       const tripStore = useTripStore();

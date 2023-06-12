@@ -1,19 +1,6 @@
 <template>
   <div class="outer-grid-container gap-4">
-    <div class="grid-container" :style="gridStyleFirst">
-      <div
-        v-for="(image, index) in images.slice(0, 6)"
-        :key="'image-' + event.id + '-' + index"
-        :class="'grid-item grid-item-' + index"
-      >
-        <UnsplashImage
-          :image="image"
-          size="w-full h-full absolute"
-          quality="regular"
-          style="object-fit: cover"
-        ></UnsplashImage>
-      </div>
-    </div>
+    <DynamicImageGrid :images="images" :eventId="props.event.id" :style="gridStyleFirst"/>
     <div class="flex flex-col min-h-[550px] p-6" :style="gridStyleSecond">
         <div class="pr-6">
           <h2 class="font-bold text-lg text-gray-700">{{ props.event.title }}</h2>
@@ -52,9 +39,9 @@
 
 <script setup>
 import { computed } from "vue";
-import UnsplashImage from "@/components/ui/UnsplashImage.vue";
 import ActivitiesPlaceholderDesktop from "@/components/event/placeholders/ActivitiesPlaceholderDesktop.vue";
 import DescriptionPlaceholderDesktop from "@/components/event/placeholders/DescriptionPlaceholderDesktop.vue";
+import DynamicImageGrid from "@/components/ui/DynamicImageGrid.vue";
 
 const props = defineProps({
   event: Object,
@@ -99,55 +86,5 @@ const images = computed(() => {
   grid-template-columns: 1fr 1fr;
   grid-template-areas: "a b";
   grid-gap: 4px;
-}
-
-.grid-container {
-  display: grid;
-  grid-template-areas:
-    "a a a b b b"
-    "a a a b b b"
-    "a a a d d d"
-    "e e c c c c"
-    "e e c c c c"
-    "e e f f f f";
-  grid-gap: 4px;
-}
-
-.grid-item {
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-/* use CSS classes to assign grid areas to items */
-
-.grid-item-0 {
-  grid-area: a;
-}
-.grid-item-1 {
-  grid-area: b;
-}
-.grid-item-2 {
-  grid-area: c;
-}
-.grid-item-3 {
-  grid-area: d;
-}
-.grid-item-4 {
-  grid-area: e;
-}
-.grid-item-5 {
-  grid-area: f;
-}
-.grid-item-6 {
-  grid-area: g;
-}
-.grid-item-7 {
-  grid-area: h;
-}
-.grid-item-8 {
-  grid-area: i;
-}
-.grid-item-9 {
-  grid-area: j;
 }
 </style>

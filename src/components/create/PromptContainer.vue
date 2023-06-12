@@ -12,7 +12,7 @@
               <BaseTextArea
                 v-model="createStore.promptText"
                 id="main-prompt-textarea"
-                :placeholder="'eg: ' + createStore.placeholder"
+                :placeholder="currentPlaceholder"
                 @input="promptTextArea.handleInput"
                 @focus="promptTextArea.handleFocus"
                 @blur="promptTextArea.handleBlur"
@@ -20,7 +20,7 @@
                 :customClass="{'border border-red-500 ring-red-500 focus:ring-red-500': validationStore.promptTextError}"
                 type="main-prommpt"
               />
-              <PromptTools class="-mt-12 mr-2" />
+              <PromptTools class="-mt-14 mr-2 z-10" />
               <!-- if promtTextError -->
               <div class="w-full mt-8 pt-4 pb-0 flex justify-end items-center">
                 <BaseButton
@@ -63,7 +63,7 @@
               <BaseTextArea
                 v-model="createStore.promptText"
                 id="main-prompt-textarea"
-                :placeholder="'eg: ' + createStore.placeholder"
+                :placeholder="currentPlaceholder"
                 @input="promptTextArea.handleInput"
                 @focus="promptTextArea.handleFocus"
                 @blur="promptTextArea.handleBlur"
@@ -71,7 +71,7 @@
                 :customClass="{'border border-red-500 ring-red-500 focus:ring-red-500': validationStore.promptTextError}"
                 type="main-prommpt"
               />
-              <PromptTools class="-mt-12 mr-2" />
+              <PromptTools class="-mt-14 mr-2" />
               <p class="absolute mt-6 text-sm text-red-600 dark:text-red-500" v-if="validationStore.promptTextError">
                 {{ validationStore.promptTextErrorText }}
               </p>
@@ -104,12 +104,12 @@ import BaseTextArea from "@/components/base/BaseTextArea.vue";
 import PromptInterestList from "@/components/create/PromptInterestList.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 import PromptTools from "@/components/create/PromptTools.vue";
-// import Breadcrumbs from "@/components/ui/Breadcrumbs.vue";
+
+import { computed } from "vue";
 
 import { useCreateStore } from "@/stores/create";
 import { useStateStore } from "@/stores/state";
 import { useValidationStore } from "@/stores/validation";
-import { ref } from "vue";
 
 import examplePrompts from "@/assets/json/examplePrompts.json";
 
@@ -117,13 +117,15 @@ const createStore = useCreateStore();
 const stateStore = useStateStore();
 const validationStore = useValidationStore();
 
-const used = ref(false);
-
 const promptHeading = "Create Your Dream Journey";
 const promptSubHeading =
   "Locations, activities, themes. Write as much or as little as you want, or try our example prompts";
 const tagHeading = "Tag your trip";
 const tagSubHeading = "Select up to 6 from the categories below";
+
+const currentPlaceholder = computed(() => {
+  return 'Eg: ' + createStore.getCurrentPlaceholderPrompt;
+});
 
 const promptTextArea = {
   Label: "Let your dreams run wild!",
@@ -134,18 +136,15 @@ const promptTextArea = {
   handleBlur: (event) => {},
 };
 
-const getRandomPrompt = async () => {
-  if (used.value) return;
-  // random prompt
+const pushRandomPrompt = async () => {
+  if (createStore.usedExample) return;
   const result = examplePrompts[Math.floor(Math.random() * examplePrompts.length)];
-  if (result) {
-    createStore.placeholder = result.prompt;
-    createStore.placeholderTags = result.tags;
-  }
+  createStore.placeholderArray.push(result);
+  createStore.placeholderIndex = createStore.placeholderArray.length - 1;
 };
 
 setInterval(async () => {
-  getRandomPrompt();
+  pushRandomPrompt();
 }, 6000);
 
 const createTrip = () => {
