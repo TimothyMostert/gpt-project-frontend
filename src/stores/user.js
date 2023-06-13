@@ -75,8 +75,7 @@ export const useUserStore = defineStore({
         });
         return true;
       } else {
-        this.logout();
-        return { error: result.response.data.message };
+        return { error: result.response.data.error };
       }
     },
     async google_login() {

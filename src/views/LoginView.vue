@@ -227,11 +227,11 @@
                 <div class="mt-6 grid grid-cols-1 gap-4">
                   <a
                     @click="google_login()"
-                    :disabled="isLoading"
+                    :disabled="googleIsLoading"
                     class="flex w-full items-center justify-center gap-3 rounded-md bg-[#4285F4] px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4285F4]"
                   >
                     <svg
-                      v-if="!isLoading"
+                      v-if="!googleIsLoading"
                       style="color: white"
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -299,6 +299,7 @@ const email = ref("");
 const password = ref("");
 
 const isLogin = ref(true);
+const googleIsLoading = ref(false);
 const errorMessage = ref("");
 
 const user_register = async () => {
@@ -333,14 +334,14 @@ const user_login = async () => {
 };
 
 const google_login = async () => {
-  isLoading.value = true;
+  googleIsLoading.value = true;
   const result = await userStore.google_login();
   if (result.error) {
-    isLoading.value = false;
+    googleIsLoading.value = false;
     errorMessage.value = result.error;
     return;
   }
-  isLoading.value = false;
+  googleIsLoading.value = false;
 };
 </script>
 
