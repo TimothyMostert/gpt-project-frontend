@@ -17,7 +17,7 @@
                 @focus="promptTextArea.handleFocus"
                 @blur="promptTextArea.handleBlur"
                 class="my-4"
-                :customClass="{'border border-red-500 ring-red-500 focus:ring-red-500': validationStore.promptTextError}"
+                :customClass="{'border border-red-500 ring-red-500 focus:ring-red-500 rounded-lg': validationStore.promptTextError}"
                 type="main-prommpt"
               />
               <PromptTools class="-mt-14 mr-2 z-10" />

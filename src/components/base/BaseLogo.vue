@@ -1,6 +1,6 @@
 <template>
     <div class="flex lg:flex-1">
-          <a @click="goRoute('home')" class="-m-1.5 p-1.5 flex gap-4 items-center">
+          <a @click="goRoute('explore')" class="-m-1.5 p-1.5 flex gap-4 items-center cursor-pointer">
             <span class="sr-only">Dreamtrip</span>
             <img
               class="h-16 w-auto"

@@ -20,7 +20,7 @@
     </div>
     <!-- unsplash credit -->
     <div class="absolute bottom-0 right-0 p-2 text-[8px] text-white">
-      <a :href="image.profile_url">{{ image.name }}</a> on
+      <a :href="image.portfolio_url">{{ image.name }}</a> on
       <a href="https://unsplash.com/?utm_source=dreamtrip&utm_medium=referral"
         >Unsplash</a
       >

@@ -56,10 +56,10 @@
             </svg>
           </div>
         </div> -->
-        <div class="">
+        <div class=" cursor-pointer">
           <ShareButton />
         </div>
-        <div class="">
+        <div class="cursor-pointer">
           <a
             @click="toggleFavorite"
             :class="[
@@ -76,7 +76,7 @@
             Add to favorites
           </a>
         </div>
-        <div v-if="tripStore.isUserTrip" class="">
+        <div v-if="tripStore.isUserTrip" class="cursor-pointer">
           <a
             @click="deleteTrip"
             :class="[
@@ -90,7 +90,7 @@
             Delete
           </a>
         </div>
-        <div class="">
+        <div class="cursor-pointer">
           <a
             :class="[
               'text-gray-700 group flex items-center px-4 md:px-2 lg:px-4 py-2 text-sm md:text-xs lg:text-sm whitespace-nowrap',

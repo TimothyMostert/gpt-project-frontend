@@ -1,5 +1,5 @@
 <template>
-  <article @click="setTrip" class="flex  flex-wrap justify-start gap-x-6 gap-y-2 border rounded-lg h-fit min-h-full">
+  <article @click="setTrip" class="flex  flex-wrap justify-start gap-x-6 gap-y-2 border rounded-lg h-fit min-h-full cursor-pointer">
     <UnsplashImage
       :image="props.trip.main_photo"
       size="w-full h-40"

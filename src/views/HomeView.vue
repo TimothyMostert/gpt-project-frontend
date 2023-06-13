@@ -93,15 +93,15 @@ const subscribe = () => {
                   into your next adventure.
                 </p>
                 <div class="mt-10 flex items-center gap-x-6">
-                  <BaseButton
-                    @click="goRoute('create')"
-                    class="bg-primaryOrange text-white rounded-lg px-4 py-2 cursor-pointer"
-                    >Create new trip</BaseButton
+                  <div
+                    @click="goRoute('explore')"
+                    class="text-white text-sm px-4 py-2 cursor-pointer rounded-lg flex items-center justify-center bg-gradient-to-bl border border-primaryOrange from-primaryOrange to-secondaryOrange hover:bg-primaryOrange/20 transition-all"
+                    >Explore trips</div
                   >
                   <a
-                    @click="goRoute('explore')"
+                    @click="goRoute('create')"
                     class="text-sm font-semibold leading-6 text-gray-900 cursor-pointer"
-                    >Explore trips <span aria-hidden="true">→</span></a
+                    >Create new <span aria-hidden="true">→</span></a
                   >
                 </div>
               </div>

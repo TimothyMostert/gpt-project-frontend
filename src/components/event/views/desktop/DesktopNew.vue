@@ -37,10 +37,10 @@
           aria-describedby="email-optional"
         />
       </div>
-      <div class="w-full flex justify-end mt-auto">
+      <div class="w-full flex gap-4 justify-end mt-auto">
         <BaseButton
-          @click="fillEvent"
-          class="rounded font-bold text-black w-fit flex gap-2 items-center border border-black border-dashed bg-white transition-all"
+          @click="deleteEvent"
+          class="rounded font-bold text-red-500 w-fit flex gap-2 items-center border border-red-500 bg-red-200 hover:bg-red-400 transition-all"
           >Delete</BaseButton
         >
         <BaseButton
@@ -67,7 +67,11 @@ const props = defineProps({
 const tripStore = useTripStore();
 
 // set the default editLocation to the event with the previous order
-props.event.editLocation = tripStore.trip.events[props.event.order - 1].location.name;
+props.event.editLocation = ""
+
+const deleteEvent = () => {
+  tripStore.deleteEvent(props.event.order);
+};
 
 const fillEvent = () => {
   tripStore.fillEvent(props.event.order);

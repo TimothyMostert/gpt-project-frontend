@@ -3,7 +3,7 @@
     <div class="w-100 flex justify-center">
       <div class="flex min-h-full flex-1 mt-36 lg:max-w-7xl justify-center">
         <div
-          class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24"
+          class="flex flex-1 flex-col justify-center px-6 md:pb-24 md:pt-6 sm:px-6 lg:flex-none lg:px-20 xl:px-24"
         >
           <div class="mx-auto w-full max-w-sm lg:w-96">
             <div>
@@ -91,11 +91,11 @@
                       @click="user_login()"
                       :disabled="isLoading"
                       type="submit"
-                      class="flex w-full justify-center rounded-md bg-primaryOrange px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      class="flex gap-4 w-full justify-center rounded-md bg-primaryOrange px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
-                      <span v-if="!isLoading"> Sign in </span>
+                      <span> Sign in </span>
                       <svg
-                        v-else
+                        v-if="isLoading"
                         xmlns="http://www.w3.org/2000/svg"
                         class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
                         viewBox="0 0 24 24"
@@ -181,11 +181,11 @@
                       @click="user_register()"
                       :disabled="isLoading"
                       type="submit"
-                      class="flex w-full justify-center rounded-md bg-primaryOrange px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      class="flex gap-4 w-full justify-center rounded-md bg-primaryOrange px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
-                      <span v-if="!isLoading"> Register </span>
+                      <span> Register </span>
                       <svg
-                        v-else
+                        v-if="isLoading"
                         xmlns="http://www.w3.org/2000/svg"
                         class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
                         viewBox="0 0 24 24"
@@ -228,10 +228,9 @@
                   <a
                     @click="google_login()"
                     :disabled="googleIsLoading"
-                    class="flex w-full items-center justify-center gap-3 rounded-md bg-[#4285F4] px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4285F4]"
+                    class="flex w-full items-center justify-center gap-4 rounded-md bg-[#4285F4] px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4285F4]"
                   >
                     <svg
-                      v-if="!googleIsLoading"
                       style="color: white"
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -246,7 +245,7 @@
                       ></path>
                     </svg>
                     <svg
-                      v-else
+                    v-if="googleIsLoading"
                       xmlns="http://www.w3.org/2000/svg"
                       class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
                       viewBox="0 0 24 24"

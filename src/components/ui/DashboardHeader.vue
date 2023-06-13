@@ -13,19 +13,22 @@
 
         <!-- desktop -->
         <div class="hidden lg:ml-4 lg:flex lg:items-center lg:pr-0.5">
-          <HeaderMenu />
+          <HeaderMenu v-if="userStore.isLoggedIn" />
+          <LoginMenu v-else color="text-white" />
         </div>
         <!-- end desktop -->
 
         <!-- mobile -->
         <div class="absolute right-0 flex-shrink-0 lg:hidden">
           <PopoverButton
+            v-if="userStore.isLoggedIn"
             class="inline-flex items-center justify-center rounded-md bg-transparent p-2 text-indigo-200 hover:bg-white hover:bg-opacity-10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
           >
             <span class="sr-only">Open main menu</span>
             <Bars3Icon v-if="!open" class="block h-6 w-6" aria-hidden="true" />
             <XMarkIcon v-else class="block h-6 w-6" aria-hidden="true" />
           </PopoverButton>
+          <LoginMenu v-else color="text-white" />
         </div>
         <!-- end mobile -->
       </div>
@@ -46,12 +49,15 @@ import { Popover, PopoverButton } from "@headlessui/vue";
 import { Bars3Icon, XMarkIcon } from "@heroicons/vue/24/outline";
 import BaseLogo from "@/components/base/BaseLogo.vue";
 import { useStateStore } from "@/stores/state";
+import { useUserStore } from "@/stores/user";
 import UserSettings from "@/components/ui/UserSettings.vue";
 import HeaderMenu from "@/components/ui/HeaderMenu.vue";
+import LoginMenu from "@/components/ui/LoginMenu.vue";
 import HeaderMenuMobile from "@/components/ui/HeaderMenu_Mobile.vue";
 import NavigationLinks from "@/components/ui/NavigationLinks.vue";
 
 const stateStore = useStateStore();
+const userStore = useUserStore();
 </script>
 
 <style lang="scss" scoped></style>

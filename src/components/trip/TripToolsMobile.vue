@@ -151,12 +151,13 @@ import {
   TrashIcon,
 } from "@heroicons/vue/20/solid";
 import { useTripStore } from "@/stores/trip";
+import { useUserStore } from "@/stores/user";
 import ShareButton from "@/components/ui/ShareButton.vue";
 import Api from "@/services/Api.service.js";
 import { ref, watch } from "vue";
 
 const tripStore = useTripStore();
-
+const userStore = useUserStore();
 
 const mapsLoading = ref(false);
 

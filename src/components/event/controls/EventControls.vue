@@ -43,6 +43,7 @@
           stroke-width="1.5"
           stroke="currentColor"
           class="w-6 h-6"
+          :class="{ 'text-primaryBlue': control.name === currentView, 'pulse': justLoaded }"
         >
           <path
             stroke-linecap="round"
@@ -51,7 +52,7 @@
           />
         </svg>
         <svg
-          v-if="control.name == 'edit' && userStore.isLoggedIn && tripStore.isUserTrip"
+          v-if="control.name == 'edit'"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -80,6 +81,12 @@ const tripStore = useTripStore();
 
 const rootElement = ref(null);
 
+// just loaded
+const justLoaded = ref(true);
+setTimeout(() => {
+  justLoaded.value = false;
+}, 10000);
+
 const props = defineProps({
   currentView: {
     type: String,
@@ -93,16 +100,43 @@ const controls = computed(() => {
   return [
     { name: "overview", label: "Overview", isAvailable: true },
     { name: "images", label: "Images", isAvailable: true },
-    { name: "edit", label: "Edit", isAvailable: userStore.isLoggedI && tripStore.isUserTrip },
+    { name: "edit", label: "Edit", isAvailable: userStore.isLoggedIn && tripStore.isUserTrip },
   ];
 });
 
 const changeView = (view) => {
+  if (view === props.currentView) return;
+  if (view === 'images') {
+    justLoaded.value = false;
+  }
   const event = tripStore.findEventById(props.event.id);
-
   // update the current view of the event
   if (event) {
     event.currentView = view;
   }
 };
 </script>
+
+<style scoped>
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    color: rgb(75, 85, 99);
+    filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0));
+  }
+  70% {
+    transform: scale(1.05);
+    color: #0D518C;
+    filter: drop-shadow(0px 0px 10px rgba(13, 81, 140, 0.5));
+  }
+  100% {
+    transform: scale(1);
+    color: rgb(75, 85, 99);
+    filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0));
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+</style>

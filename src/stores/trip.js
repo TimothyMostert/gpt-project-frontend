@@ -16,6 +16,9 @@ export const useTripStore = defineStore({
     isUserTrip() {
       const userStore = useUserStore();
       return this.trip && userStore.user && this.trip.user_id === userStore.user.id;
+    },
+    hasEventSpace() {
+      return this.trip && this.trip.events.length < 10;
     }
   },
   actions: {
@@ -137,6 +140,15 @@ export const useTripStore = defineStore({
         this.trip.events[i].order += 1;
       }
     },
+    async deleteEvent(order) {
+      // remove the event from the trip
+      this.trip.events.splice(order, 1);
+      console.log('delete event', order);
+      // update the order of all subsequent events
+      for (let i = 0; i < this.trip.events.length; i++) {
+        this.trip.events[i].order = i;
+      }
+    },
     async fillEvent(eventIndex) {
       const userStore = useUserStore();
       // Get the current event
@@ -166,6 +178,7 @@ export const useTripStore = defineStore({
         // retry the call if it fails
         this.fillEvent(eventIndex);
       } else {
+        const errorStore = useErrorStore();
         errorStore.addError("fill_event", result.data);
       }
     },
@@ -180,6 +193,7 @@ export const useTripStore = defineStore({
         // retry the call if it fails
         this.delete_trip(tripId, navigateToRoute);
       } else {
+        const errorStore = useErrorStore();
         errorStore.addError("delete_trip", result.data);
       }
     },
