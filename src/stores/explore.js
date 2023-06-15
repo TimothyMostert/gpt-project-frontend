@@ -157,7 +157,8 @@ export const useExploreStore = defineStore({
         this.filters.tags[key].forEach((tag) => (tag.checked = false));
       }
       this.filters.search = "";
-      this.filters.sort = "newest";
+      this.filters.sort = "created_at";
+      this.applyFilter();
     },
   },
 });

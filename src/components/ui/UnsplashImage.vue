@@ -20,7 +20,7 @@
     </div>
     <!-- unsplash credit -->
     <div class="absolute bottom-0 right-0 p-2 text-[8px] text-white">
-      <a :href="image.portfolio_url">{{ image.name }}</a> on
+      <a :href="portfolioLink">{{ image.name }}</a> on
       <a href="https://unsplash.com/?utm_source=dreamtrip&utm_medium=referral"
         >Unsplash</a
       >
@@ -66,6 +66,10 @@ const props = defineProps({
     type: String,
     default: "small",
   },
+});
+
+const portfolioLink = computed(() => {
+  return props.image.portfolio_url + "?utm_source=dreamtrip&utm_medium=referral";
 });
 
 const ImageSrc = computed(() => {
