@@ -119,7 +119,9 @@ const promptHeading = "Create Your Dream Journey";
 const promptSubHeading =
   "Locations, activities, themes. Write as much or as little as you want, or try our example prompts";
 const tagHeading = "Tag your trip";
-const tagSubHeading = "Select up to 6 from the categories below";
+const tagSubHeading = computed(() => {
+  return "Tag your trip from the categories below.";
+});
 
 const currentPlaceholder = computed(() => {
   return 'Eg: ' + createStore.getCurrentPlaceholderPrompt;

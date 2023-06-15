@@ -10,8 +10,8 @@
             <div class="w-full">
               <section aria-labelledby="section-1-title">
                 <h2 class="sr-only" id="section-1-title">Explore Trips</h2>
-                <div class="flex justify-between items-center mb-6 md:mb-8">
-                  <h1 class="text-base font-semibold leading-6 text-gray-900">
+                <div class="flex justify-between items-center mb-2 md:mb-4 sm:px-6 lg:px-6">
+                  <h1 class="text-base md:text-lg font-semibold leading-6 text-gray-900">
                     Explore trips
                   </h1>
                   <div
@@ -21,6 +21,7 @@
                     Create new trip
                   </div>
                 </div>
+                <Filters class="mb-6 md:mb-8" />
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <ExploreTripCard
                     v-for="trip in exploreStore.displayedTrips"
@@ -54,6 +55,7 @@
 <script setup>
 import DashboardLayout from "@/components/layouts/DashboardLayout.vue";
 import ExploreTripCard from "@/components/ui/ExploreTripCard.vue";
+import Filters from "@/components/ui/Filters.vue";
 import { useRouter } from "vue-router";
 import { onMounted } from "vue";
 

@@ -1,41 +1,34 @@
 {
-    "ActivityType": [
-      { "name": "Adventure", "selectedColor": "bg-lime-300", "selectedTextColor": "text-lime-900" },
-      { "name": "Beach", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
-      { "name": "City", "selectedColor": "bg-gray-300", "selectedTextColor": "text-gray-900" },
-      { "name": "Culture", "selectedColor": "bg-yellow-300", "selectedTextColor": "text-yellow-900" },
-      { "name": "Food", "selectedColor": "bg-orange-300", "selectedTextColor": "text-orange-900" },
-      { "name": "Hiking", "selectedColor": "bg-green-400", "selectedTextColor": "text-green-900" },
-      { "name": "History", "selectedColor": "bg-indigo-300", "selectedTextColor": "text-indigo-900" },
-      { "name": "Nature", "selectedColor": "bg-teal-300", "selectedTextColor": "text-teal-900" },
-      { "name": "Nightlife", "selectedColor": "bg-purple-300", "selectedTextColor": "text-purple-900" },
-      { "name": "Relaxation", "selectedColor": "bg-pink-300", "selectedTextColor": "text-pink-900" },
-      { "name": "Romance", "selectedColor": "bg-rose-300", "selectedTextColor": "text-rose-900" },
-      { "name": "Shopping", "selectedColor": "bg-fuchsia-300", "selectedTextColor": "text-fuchsia-900" },
-      { "name": "Sightseeing", "selectedColor": "bg-amber-300", "selectedTextColor": "text-amber-900" },
-      { "name": "Spa", "selectedColor": "bg-lime-300", "selectedTextColor": "text-lime-900" },
-      { "name": "Sports", "selectedColor": "bg-emerald-300", "selectedTextColor": "text-emerald-900" },
-      { "name": "Theme Park", "selectedColor": "bg-cyan-300", "selectedTextColor": "text-cyan-900" },
-      { "name": "Wildlife", "selectedColor": "bg-blue-400", "selectedTextColor": "text-blue-900" }
-    ],
-    "TravelStyle": [
-      { "name": "Solo", "selectedColor": "bg-gray-500", "selectedTextColor": "text-gray-900" },
-      { "name": "Couple", "selectedColor": "bg-rose-400", "selectedTextColor": "text-rose-900" },
-      { "name": "Family", "selectedColor": "bg-green-300", "selectedTextColor": "text-green-900" },
-      { "name": "Group", "selectedColor": "bg-indigo-400", "selectedTextColor": "text-indigo-900" }
-    ],
-    "Budget": [
-      { "name": "Low-budget", "selectedColor": "bg-blue-400", "selectedTextColor": "text-blue-900" },
-      { "name": "Mid-budget", "selectedColor": "bg-orange-400", "selectedTextColor": "text-orange-900" },
-      { "name": "High-budget", "selectedColor": "bg-lime-400", "selectedTextColor": "text-lime-900" },
-      { "name": "Luxury", "selectedColor": "bg-amber-400", "selectedTextColor": "text-amber-900" }
-    ],
-    "TravelDuration": [
-      { "name": "Weekend", "selectedColor": "bg-lime-500", "selectedTextColor": "text-lime-900" },
-      { "name": "One week", "selectedColor": "bg-amber-500", "selectedTextColor": "text-amber-900" },
-      { "name": "Two weeks", "selectedColor": "bg-emerald-500", "selectedTextColor": "text-emerald-900" },
-      { "name": "One month", "selectedColor": "bg-blue-500", "selectedTextColor": "text-blue-900" },
-      { "name": "Long term", "selectedColor": "bg-gray-500", "selectedTextColor": "text-gray-900" }
-    ]
-  }
-  
+  "ActivityType": [
+    { "name": "Adventure", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "Beach", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "City", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "Culture", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "Food", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "Hiking", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "History", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "Nature", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "Nightlife", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "Relaxation", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "Romance", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "Shopping", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "Sightseeing", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "Spa", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "Sports", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "Theme Park", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "Wildlife", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" }
+  ],
+  "TravelStyle": [
+    { "name": "Road trip", "selectedColor": "bg-orange-300", "selectedTextColor": "text-orange-900" },
+    { "name": "Day trip", "selectedColor": "bg-orange-300", "selectedTextColor": "text-orange-900" },
+    { "name": "Weekend getaway", "selectedColor": "bg-orange-300", "selectedTextColor": "text-orange-900" },
+    { "name": "Nomad destination", "selectedColor": "bg-orange-300", "selectedTextColor": "text-orange-900" },
+    { "name": "Classic holiday", "selectedColor": "bg-orange-300", "selectedTextColor": "text-orange-900" }
+  ],
+  "Budget": [
+    { "name": "Low-budget", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "Mid-budget", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "High-budget", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" },
+    { "name": "Luxury", "selectedColor": "bg-blue-300", "selectedTextColor": "text-blue-900" }
+  ]
+}

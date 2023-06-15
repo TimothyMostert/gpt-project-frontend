@@ -7,12 +7,7 @@
       :style="gridStyleFirst"
     />
     <div v-else :style="gridStyleFirst">
-        <UnsplashImage
-        :image="tripStore.trip.main_photo"
-          size="w-full h-full absolute rounded-lg"
-          quality="full"
-          style="object-fit: cover"
-        ></UnsplashImage>
+        <img src="@/assets/images/x-marks.webp" class="w-full h-full absolute rounded-lg object-cover opacity-70" alt="New trip incoming" srcset="">
     </div>
     <div :style="gridStyleSecond">
         <DesktopOverview v-if="event.currentView == 'overview' && !isLoading" :event="props.event"  />
